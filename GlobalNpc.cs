@@ -38,6 +38,10 @@ namespace Supernova
 					Item.NewItem(npc.getRect(), mod.ItemType("Rime"));
 			}
 
+			/* Npc Drops */
+			if (npc.netID == NPCID.WallofFlesh) Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PieceOfFlesh"), Main.rand.Next(25, 48));
+			if ((npc.netID == NPCID.ArmoredSkeleton || npc.netID == NPCID.ArmoredViking || npc.netID == NPCID.RedDevil) && Main.rand.Next(100) < 2) Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BattleAxe"));
+
 			/* Event Drops */
 			if (Main.bloodMoon == true)
 				NPCBloodMoonLoot(npc);

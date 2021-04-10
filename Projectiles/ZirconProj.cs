@@ -81,6 +81,23 @@ namespace Supernova.Projectiles
             for (int k = 0; k < 5; k++)
             {
                 int dust = Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, mod.DustType("ZirconDust"), projectile.oldVelocity.X * 0.7f, projectile.oldVelocity.Y * 0.7f);
+
+                // Testing new toy
+                Screen.SpawnParticles(projectile.position,new Vector2(projectile.width, projectile.height), Vector2.Zero, 2, new int[,]
+                    {
+                        { 0, 0, 1, 1, 0, 0 },
+                        { 0, 0, 1, 1, 0, 0 },
+                        { 0, 0, 1, 1, 0, 0 },
+                        { 0, 0, 1, 1, 0, 0 },
+                        { 0, 0, 1, 1, 0, 0 },
+                        { 1, 1, 1, 1, 1, 1 },
+                        { 1, 1, 1, 1, 1, 1 },
+                        { 0, 0, 1, 1, 0, 0 },
+                        { 0, 0, 1, 1, 0, 0 },
+                    }, new System.Collections.Generic.Dictionary<int, int>
+                    {
+                        { 1,  Dust.lavaBubbles }
+                    });
             }
         }
     }

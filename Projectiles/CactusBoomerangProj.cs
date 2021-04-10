@@ -12,7 +12,6 @@ namespace Supernova.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cactus Boomerang");
-
         }
         public override void SetDefaults()
         {

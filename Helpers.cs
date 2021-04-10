@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria.Localization;
 using Terraria;
 using Terraria.ModLoader;
+using System.Collections.Generic;
 
 namespace Supernova
 {
@@ -47,6 +48,13 @@ namespace Supernova
             }
             return (Vector2[])posArray;
         }
+        public static Vector2 RandomSpread(float speedX, float speedY, float angle)
+		{
+            float baseSpeed = (float)System.Math.Sqrt(speedX * speedX + speedY * speedY);
+            double baseAngle = System.Math.Atan2(speedX, speedY);
+            double randomAngle = baseAngle + (Main.rand.NextFloat() - 0.5f) * angle;
+            return new Vector2(baseSpeed * (float)System.Math.Sin(randomAngle), baseSpeed * (float)System.Math.Cos(randomAngle));
+        }
 
         public static Vector2 VelocityFPTP(Vector2 pos1, Vector2 pos2, float speed)
         {
@@ -67,6 +75,27 @@ namespace Supernova
             {
                 NetworkText text = NetworkText.FromKey(message);
                 NetMessage.BroadcastChatMessage(text, color);
+            }
+        }
+        public static void SpawnParticles(Vector2 start, Vector2 size, Vector2 speed, float scale, int[,] particleMatrix, Dictionary<int, int> numberToId)
+		{
+            Screen.Write($"--- {particleMatrix.GetLength(0)}:{particleMatrix.GetLength(1)} ---", Color.Red);
+            int sizeMulti = (int)(size.X + size.Y) * 10;
+            for (int y = 0; y < particleMatrix.GetLength(0); y++)
+			{
+                for (int x = 0; x < particleMatrix.GetLength(1); x++)
+                {
+                    int num = particleMatrix[y, x];
+                    Screen.Write($"{y}:{x} {num}", Color.YellowGreen);
+                    if (num == 0) continue;
+                    int dustID = numberToId[num];
+                    Vector2 pos = start;
+                    pos.X = (pos.X + (x * sizeMulti)) - pos.X;
+                    pos.Y += (pos.Y + (y * sizeMulti)) + pos.Y;
+                    Screen.Write($"{pos.X}:{pos.Y}", Color.Blue);
+                    int dust = Dust.NewDust(start, 1, 1, dustID, speed.X, speed.Y, Scale: scale);  //this is the dust that this projectile will spawn
+                    Main.dust[dust].velocity = Vector2.Zero;
+                }
             }
         }
     }
