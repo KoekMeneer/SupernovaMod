@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using Supernova.UI;
 
 namespace Supernova
 {
@@ -32,7 +33,7 @@ namespace Supernova
 			if(aBagOfFungus && Main.rand.Next(2) == 0)
 				for (int e = 0; e < 5; e++)
 				{
-					int i = Projectile.NewProjectile(player.Center.X, player.Center.Y, 1 - Main.rand.Next(-20, 20), 0, ProjectileID.Mushroom, Main.rand.Next(5, 15), 0f, player.whoAmI, 3f, 3f);
+					int i = Projectile.NewProjectile(player.Center.X, player.Center.Y, 1 - Main.rand.Next(-player.width, player.width) / 2, Main.rand.Next(-player.height, player.height) / 2, ProjectileID.Mushroom, Main.rand.Next(5, 15), 0f, player.whoAmI, 3f, 3f);
 					Main.projectile[i].hostile = false;
 					Main.projectile[i].friendly = true;
 				}
@@ -60,13 +61,14 @@ namespace Supernova
 		/* Equip Events */
 		public override void PostUpdateEquips()
 		{
-			ModItem item = player.inventory[9].modItem;
+			ModItem item = player.GetModPlayer<RingSlotPlayer>().EquipSlot.Item.modItem;
+
 			// Check if item is a ring
 			if (item != null && item.GetType().IsSubclassOf(typeof(RingBase)))
 			{
 				RingBase ring = (RingBase)item;
 				// Check if we can activate the ring
-				if (ring != null && ring.RingCanActivate() && !player.HasBuff(mod.BuffType("RingCooldown")) && Supernova.ringAbilityButton.JustPressed)
+				if (ring != null && ring.RingCanActivate(player) && !player.HasBuff(mod.BuffType("RingCooldown")) && Supernova.ringAbilityButton.JustPressed)
 				{
 					// Call on ring activate event
 					ring?.OnRingActivate(player);
