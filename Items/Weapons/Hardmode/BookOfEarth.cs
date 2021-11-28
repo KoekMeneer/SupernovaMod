@@ -14,8 +14,13 @@ namespace Supernova.Items.Weapons.Hardmode
 
         public override void SetDefaults()
         {
-            item.damage = 47;  //The damage stat for the Weapon.
-            item.crit = 8;
+            item.crit = 7;
+            item.damage = 52;  //The damage stat for the Weapon.
+            item.useTime = 28;
+            item.useAnimation = 28;
+            item.mana = 9; //How mutch mana this weapon use
+            item.shootSpeed = 12;
+            item.knockBack = 6;
             item.noMelee = true;  //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damge
             item.noUseGraphic = false;
             item.magic = true;    //This defines if it does magic damage and if its effected by magic increasing Armor/Accessories.
@@ -30,57 +35,12 @@ namespace Supernova.Items.Weapons.Hardmode
             item.value = Item.sellPrice(0, 30, 80, 64);//	How much the item is worth, in copper coins, when you sell it to a merchant. It costs 1/5th of this to buy it back from them. An easy way to remember the value is platinum, gold, silver, copper or PPGGSSCC (so this item price is 3gold)
         }
 
-        public override bool AltFunctionUse(Player player)
-        {
-            return true;
-        }
-        bool fire;
-        public override bool CanUseItem(Player player)
-        {
-            if (player.altFunctionUse == 2) // Right Click function
-            {
-                item.crit = 13;
-                item.damage = 42;  //The damage stat for the Weapon.
-                item.useTime = 10;
-                item.useAnimation = 10;
-                item.mana = 3; //How mutch mana this weapon use
-                item.shootSpeed = 5;
-                //item.shoot = mod.ProjectileType("BoEarthPro2");
-                if (!fire)
-                {
-                    item.shoot = mod.ProjectileType("FrostFlame");
-                    fire = true;
-                }
-                else
-                {
-                    item.shoot = 85;
-                    fire = false;
-                }
-                item.knockBack = 2.5f;
-            }
-            else // Default Left Click
-            {
-                item.crit = 16;
-                item.damage = 67;  //The damage stat for the Weapon.
-                item.useTime = 32;
-                item.useAnimation = 32;
-                item.mana = 9; //How mutch mana this weapon use
-                item.shootSpeed = 12;
-                item.shoot = mod.ProjectileType("BookEarthProj");
-                item.knockBack = 12;
-            }
-            return base.CanUseItem(player);
-        }
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.SpellTome);
             recipe.AddIngredient(mod.GetItem("TomeOfIceAndFire"));
             recipe.AddIngredient(mod.GetItem("GraniteStorm"));
-            recipe.AddIngredient(ItemID.SpellTome);
-            recipe.AddIngredient(mod.GetItem("VerglasBar"), 20);
-            recipe.AddIngredient(ItemID.HellstoneBar, 20);
-            recipe.AddIngredient(mod.GetItem("ZirconiumBar"), 20);
             recipe.AddIngredient(ItemID.SoulofNight, 9);
             recipe.AddIngredient(ItemID.SoulofLight, 9);
             recipe.AddTile(TileID.MythrilAnvil);

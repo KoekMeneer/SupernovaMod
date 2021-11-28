@@ -65,7 +65,6 @@ namespace Supernova
 			Mod bossChecklist = ModLoader.GetMod("BossChecklist");
 			if (bossChecklist != null)
 			{
-				//bossChecklist.Call("AddBossWithInfo", "Harbinger of Annihilation", 1.8f, (Func<bool>)(() => SupernovaWorld.downedHarbingerOfAnnihilation), "Kill a cosmic anomaly (spawns in the sky)");
 				bossChecklist.Call("AddBoss", 1.8f,
 					new List<int> { ModContent.NPCType<Npcs.Bosses.HarbingerOfAnnihilation.HarbingerOfAnnihilation>() },
 					this,
@@ -86,7 +85,6 @@ namespace Supernova
 					},
 					"Kill a Cosmic Anomaly in Space"
 				);
-				//bossChecklist.Call("AddBossWithInfo", "Flying Terror", 3.7f, (Func<bool>)(() => SupernovaWorld.downedFlyingTerror), "Use a [i:" + ItemType("HorridChunk") + "] at night");
 				bossChecklist.Call("AddBoss", 3.7f,
 					new List<int> { ModContent.NPCType<Npcs.Bosses.FlyingTerror.FlyingTerror>() },
 					this,
@@ -108,8 +106,6 @@ namespace Supernova
 					},
 					"Use a [i:" + ItemType("HorridChunk") + "] at night"
 				);
-
-				//bossChecklist.Call("AddBossWithInfo", "Stone MantaRay", 5.4f, (Func<bool>)(() => SupernovaWorld.downedStoneManta), "Use a [i:" + ItemType("MantaFood") + "] in the Underground stone layer");
 				bossChecklist.Call("AddBoss", 5.4f,
 					new List<int> { ModContent.NPCType<Npcs.Bosses.StoneMantaRay.StoneMantaRay>() },
 					this,
@@ -128,15 +124,29 @@ namespace Supernova
 					},
 					"Use a [i:" + ItemType("MantaFood") + "] Underground"
 				);
-				//bossChecklist.Call("AddToBossLoot", "ZephyrMod", "OculusOfCthulhu", new List<int> { ModContent.ItemType<Items.TreasureBags.OculusOfCthulhuTreasureBag>() });
-				//bossChecklist.Call("AddToBossSpawnItems", "ZephyrMod", "OculusOfCthulhu", new List<int> { ModContent.ItemType<Items.SummoningItems.EvilishLookingEye>() });
-
-				/*bossChecklist.Call("AddBossWithInfo", "Cosmic Collective", 6.9f, (Func<bool>)(() => SupernovaWorld.downedCosmicCollective), "Use a [i:" + ItemType("CosmicEgg") + "]");
-				bossChecklist.Call("AddBossWithInfo", "Helios the Infernal Overlord", 8.4f, (Func<bool>)(() => SupernovaWorld.downedHelios), "Use a [i:" + ItemType("infernalRitualStone") + "] in hell");
+				bossChecklist.Call("AddBoss", 6.9f,
+					new List<int> { ModContent.NPCType<Npcs.Bosses.CosmicCollective.CosmicCollective>() },
+					this,
+					"Cosmic Collective",
+					(Func<bool>)(() => SupernovaWorld.downedCosmicCollective),
+					ItemType("CosmicEgg"),
+					new List<int> {
+						ModContent.ItemType<Npcs.Bosses.CosmicCollective.Cosmalice>(),
+						ModContent.ItemType<Npcs.Bosses.CosmicCollective.Cosmolash>(),
+						ModContent.ItemType<Npcs.Bosses.CosmicCollective.Cosmorang>(),
+						ModContent.ItemType<Npcs.Bosses.CosmicCollective.CosmofleshCutter>(),
+					},
+					new List<int> {
+						ModContent.ItemType<Npcs.Bosses.CosmicCollective.Cosmalice>(),
+						ModContent.ItemType<Npcs.Bosses.CosmicCollective.Cosmolash>(),
+						ModContent.ItemType<Npcs.Bosses.CosmicCollective.Cosmorang>(),
+						ModContent.ItemType<Npcs.Bosses.CosmicCollective.CosmofleshCutter>(),
+					},
+					"Use a [i:" + ItemType("CosmicEgg") + "] in the sky"
+				);
+				/*bossChecklist.Call("AddBossWithInfo", "Helios the Infernal Overlord", 8.4f, (Func<bool>)(() => SupernovaWorld.downedHelios), "Use a [i:" + ItemType("infernalRitualStone") + "] in hell");
 				bossChecklist.Call("AddBossWithInfo", "Cocytus", 10.9f, (Func<bool>)(() => SupernovaWorld.downedCocytus), "Use a [i:" + ItemType("FrozenSkull") + "] at night in the snow biome");
-				bossChecklist.Call("AddBossWithInfo", "Shimmering Light Metatron", 12.7f, (Func<bool>)(() => SupernovaWorld.downedShimmeringLightMetatron), "Use a [i:" + ItemType("UnholyPact") + "] at daytime in the hallowed biome");
-
-				bossChecklist.Call("AddBossWithInfo", "Deathbringer", 15f, (Func<bool>)(() => SupernovaWorld.downedDeathbringer), "Use a [i:" + ItemType("HiTechBeacon") + "]");*/
+				bossChecklist.Call("AddBossWithInfo", "Shimmering Light Metatron", 12.7f, (Func<bool>)(() => SupernovaWorld.downedShimmeringLightMetatron), "Use a [i:" + ItemType("UnholyPact") + "] at daytime in the hallowed biome");*/
 			}
 		}
 

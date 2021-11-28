@@ -19,12 +19,12 @@ namespace Supernova.Projectiles
             projectile.width = 16;
             projectile.height = 16;
             projectile.friendly = true;
-            projectile.penetrate = 1;                       //this is the projectile penetration
+            projectile.penetrate = 7;       //this is the projectile penetration
             projectile.hostile = false;
-            projectile.magic = true;                        //this make the projectile do magic damage
-            projectile.tileCollide = true;                 //this make that the projectile does not go thru walls
+            projectile.magic = true;        //this make the projectile do magic damage
+            projectile.tileCollide = true;  //this make that the projectile does not go thru walls
             projectile.ignoreWater = true;
-            projectile.timeLeft = 164; //The amount of time the projectile is alive for
+            projectile.timeLeft = 164;      //The amount of time the projectile is alive for
         }
 
         public override void AI()
@@ -36,31 +36,40 @@ namespace Supernova.Projectiles
             projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
             projectile.localAI[0] += 1f;
             projectile.alpha = (int)projectile.localAI[0] * 2;
+        }
 
-            if (projectile.localAI[0] > 130f) //projectile time left before disappears
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+            Explode();
+            base.OnHitNPC(target, damage, knockback, crit);
+            projectile.timeLeft = 5;
+		}
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+            Explode();
+            projectile.timeLeft = 5;
+            return false;
+		}
+
+		public void Explode()
+		{
+            if (projectile.owner == Main.myPlayer)
             {
-                projectile.Kill();
+                projectile.tileCollide = false;
+                // Set to transparent. This projectile technically lives as  transparent for about 3 frames
+                projectile.alpha = 255;
+                // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
+                projectile.position = projectile.Center;
+                //projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
+                //projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
+                projectile.width = 165;
+                projectile.height = 165;
+                projectile.Center = projectile.position;
+                //projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
+                //projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
             }
-        }
-        public override bool PreDraw(SpriteBatch sb, Color lightColor) //this is where the animation happens
-        {
-            projectile.frameCounter++; //increase the frameCounter by one
-            if (projectile.frameCounter >= 10) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
-            {
-                projectile.frame++; //go to the next frame
-                projectile.frameCounter = 0; //reset the counter
-                if (projectile.frame > 3) //if past the last frame
-                    projectile.frame = 0; //go back to the first frame
-            }
-            return true;
-        }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(BuffID.Frostburn, 180);
-            target.AddBuff(BuffID.Poisoned, 120);
-        }
-
+		}
 		public override void Kill(int timeLeft)
         {
             Vector2 position = projectile.Center;
@@ -70,7 +79,7 @@ namespace Supernova.Projectiles
             for (int i = 0; i < 50; i++)
             {
 
-                int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 0f, 0f, 100, default(Color), 2f);
+                int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width / 2, projectile.height / 2, 31, 0f, 0f, 100, default(Color), 2f);
 
                 Main.dust[dustIndex].velocity *= 1.4f;
 
@@ -81,13 +90,13 @@ namespace Supernova.Projectiles
             for (int i = 0; i < 80; i++)
             {
 
-                int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 3f);
+                int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width / 2, projectile.height / 2, 6, 0f, 0f, 100, default(Color), 3f);
 
                 Main.dust[dustIndex].noGravity = true;
 
                 Main.dust[dustIndex].velocity *= 5f;
 
-                dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 2f);
+                dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width / 2, projectile.height / 2, 6, 0f, 0f, 100, default(Color), 2f);
 
                 Main.dust[dustIndex].velocity *= 3f;
 

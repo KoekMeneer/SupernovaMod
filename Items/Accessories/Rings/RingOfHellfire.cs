@@ -30,7 +30,7 @@ namespace Supernova.Items.Accessories.Rings
         }
         public override void OnRingCooldown(int curentCooldown, Player player)
 		{
-            if (curentCooldown >= (cooldown - 1200))
+            if (curentCooldown >= ((buffCooldown * SupernovaPlayer.ringCooldownDecrease) - 1200))
 			{
                 player.statLifeMax2 += 50;
                 player.rangedDamage += 0.35f;

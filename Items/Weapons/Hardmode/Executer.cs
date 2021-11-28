@@ -20,7 +20,7 @@ namespace Supernova.Items.Weapons.Hardmode
 
         public override void SetDefaults()
         {
-            item.damage = 32;
+            item.damage = 33;
             item.ranged = true;
             item.width = 40;
             item.crit = 4;
@@ -35,17 +35,17 @@ namespace Supernova.Items.Weapons.Hardmode
             item.rare = 2;
             item.UseSound = SoundID.Item38;
             item.shoot = 10;
-            item.shootSpeed = 14f;
+            item.shootSpeed = 5;
             item.useAmmo = AmmoID.Bullet;
-            item.scale *= 0.7f;
+            item.scale *= .7f;
             item.ranged = true; // For Ranged Weapon
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            Vector2[] speeds = Calc.RandomSpread(speedX, speedY, 8, .015f, 6);
-            for (int i = 0; i < 6; ++i)
-                Projectile.NewProjectile(position.X, position.Y, speeds[i].X, speeds[i].Y, type, damage, knockBack, player.whoAmI);
+            Vector2[] speeds = Calc.RandomSpread(speedX, speedY, 8, .014f, 6);
+            for (int i = 0; i < 5; ++i)
+                Projectile.NewProjectile(position.X, position.Y, speeds[i].X - Main.rand.NextFloat(-.25f, .5f), speeds[i].Y - Main.rand.NextFloat(-.25f, .5f), type, damage, knockBack, player.whoAmI);
             return false;
         }
 

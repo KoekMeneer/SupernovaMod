@@ -41,22 +41,13 @@ namespace Supernova
         public static bool downedFlyingTerror = false;
         public static bool downedStoneManta = false;
         // Hardmode
-        /*public static bool downedCosmicCollective = false;
-        public static bool downedHelios = false;
-        public static bool downedCocytus = false;
-        public static bool downedShimmeringLightMetatron = false;
-        // PostMoonlord
-        public static bool downedDeathbringer = false;*/
+        public static bool downedCosmicCollective = false;
         public override void Initialize()
         {
             downedHarbingerOfAnnihilation = false;
             downedFlyingTerror = false;
             downedStoneManta = false;
-            /*downedCosmicCollective = false;
-            downedHelios = false;
-            downedCocytus = false;
-            downedShimmeringLightMetatron = false;
-            downedDeathbringer = false;*/
+            downedCosmicCollective = false;
         }
         public override TagCompound Save()
         {
@@ -64,11 +55,7 @@ namespace Supernova
             if (downedHarbingerOfAnnihilation) downed.Add("Harbinger of Annihilation");
             if (downedFlyingTerror) downed.Add("FlyingTerror");
             if (downedStoneManta) downed.Add("Stone MantaRay");
-            /*if (downedCosmicCollective) downed.Add("Cosmic Collective");
-            if (downedHelios) downed.Add("Helios the Infernal Overlord");
-            if (downedCocytus) downed.Add("Cocytus");
-            if (downedShimmeringLightMetatron) downed.Add("Shimmering Light Metatron");
-            if (downedDeathbringer) downed.Add("Deathbringer");*/
+            if (downedCosmicCollective) downed.Add("Cosmic Collective");
             return new TagCompound
             {
                 {"downed", downed }
@@ -81,11 +68,7 @@ namespace Supernova
             downedHarbingerOfAnnihilation = downed.Contains("Harbinger of Annihilation");
             downedFlyingTerror = downed.Contains("FlyingTerror");
             downedStoneManta = downed.Contains("Stone MantaRay");
-            /*downedCosmicCollective = downed.Contains("Cosmic Collective");
-            downedHelios = downed.Contains("Helios the Infernal Overlord");
-            downedCocytus = downed.Contains("Cocytus");
-            downedShimmeringLightMetatron = downed.Contains("Shimmering Light Metatron");
-            downedDeathbringer = downed.Contains("Deathbringer");*/
+            downedCosmicCollective = downed.Contains("Cosmic Collective");
         }
 
         public override void LoadLegacy(BinaryReader reader)
@@ -97,11 +80,7 @@ namespace Supernova
                 downedHarbingerOfAnnihilation = flags[0];
                 downedFlyingTerror = flags[0];
                 downedStoneManta = flags[0];
-                /*downedCosmicCollective = flags[0];
-                downedHelios = flags[0];
-                downedCocytus = flags[0];
-                downedShimmeringLightMetatron = flags[0];
-                downedDeathbringer = flags[0];*/
+                downedCosmicCollective = flags[0];
             }
         }
 
@@ -111,11 +90,7 @@ namespace Supernova
             flags[0] = downedHarbingerOfAnnihilation;
             flags[0] = downedFlyingTerror;
             flags[0] = downedStoneManta;
-            /*flags[0] = downedCosmicCollective;
-            flags[0] = downedHelios;
-            flags[0] = downedCocytus;
-            flags[0] = downedShimmeringLightMetatron;
-            flags[0] = downedDeathbringer;*/
+            flags[0] = downedCosmicCollective;
             writer.Write(flags);
         }
 
@@ -125,11 +100,7 @@ namespace Supernova
             downedHarbingerOfAnnihilation = flags[0];
             downedFlyingTerror = flags[0];
             downedStoneManta = flags[0];
-            /*downedCosmicCollective = flags[0];
-            downedHelios = flags[0];
-            downedCocytus = flags[0];
-            downedShimmeringLightMetatron = flags[0];
-            downedDeathbringer = flags[0];*/
+            downedCosmicCollective = flags[0];
         }
     }
 }

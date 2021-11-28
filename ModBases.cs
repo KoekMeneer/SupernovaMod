@@ -8,7 +8,7 @@ namespace Supernova
 {
 	public abstract class Boss : ModNPC
 	{
-		protected Player targetPlayer;
+		public Player targetPlayer;
 
 		public int attackPointer = 0;
 		public string[] attacks;
