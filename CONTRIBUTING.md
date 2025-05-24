@@ -35,7 +35,8 @@ Feature requests are generally filed on [GitHub Issues](https://github.com/php/p
 
 ## Technical resources
 
- * [tModLoader guide for developers](https://github.com/tModLoader/tModLoader/wiki/tModLoader-guide-for-developers)
+* [tModLoader guide for developers](https://github.com/tModLoader/tModLoader/wiki/tModLoader-guide-for-developers)
+* [Git Flow](https://www.gitkraken.com/learn/git/git-flow) (We make use of the Git Flow Branch Strategy)
  TBA
 
 ## Getting help
@@ -67,7 +68,7 @@ detailed [information on Git](https://git-scm.com/).
 
 2. Test your changes before committing them.
 
-3. Work in a separate branch and create a pull request to [development] for it be accepted.
+3. Work in a separate (feature) branch and create a pull request to `development` for it be accepted.
 
 TBA
 
