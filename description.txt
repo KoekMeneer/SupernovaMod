@@ -1,0 +1,12 @@
+The Supernova mod is yet another content mod that adds a few new bosses, over a hundred new items, and new NPCs with more content planned in the future.
+
+The mod also adds a new Ring system, where you can add a ring to the so-called ring slot and use a hotkey to activate the rings ability.
+After that the ring will need to cool down before it can be used again.
+
+A detailed list of currently added content:
+- 4 Bosses
+- 148+ items
+- 40+ weapons
+- 7 rings
+- 1 ore
+- 16 npcs

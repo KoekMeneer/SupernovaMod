@@ -1,0 +1,1223 @@
+Mods: {
+	SupernovaMod: {
+		Ring: Ring
+		SocialRing: Social Ring
+		SlotLocation_Header: Slot Location Options
+		SlotLocation_Label: Slot location
+		ShowCustomLocationPanel_Tooltip: Show the draggable panel for a custom location
+		ShowCustomLocationPanel_Label: Show custom location panel
+		ResetCustomSlotLocation_Tooltip: Reset custom panel location if it disappears from the screen
+		ResetCustomSlotLocation_Label: Reset custom location
+		"Keybinds.Ring Ability.DisplayName": Ring Ability
+
+		Configs: {
+			CommonConfig: {
+				DisplayName: Common Configurations
+
+				Headers: {
+					Effects: Effects
+					UI: User Interface
+				}
+
+				allowScreenShake: {
+					Label: Screenshake
+					Tooltip: Enable or disable screenshake.
+				}
+
+				enableRingSlot: {
+					Label: Ring Slot
+					Tooltip: Enable or disable the ring slot.
+				}
+
+				maxParticles: {
+					Label: Max Particles
+					Tooltip: The maximum amount of particles that can spawn.
+				}
+			}
+		}
+
+		GameTips: {
+		}
+
+		Status.Progression.StartDroppingRime: Rime started forming in the ice biome...
+
+		Prefixes: {
+			Angry.DisplayName: Angry
+			Chilly.DisplayName: Chilly
+			Cooled.DisplayName: Cooled
+			Fiery.DisplayName: Fiery
+			Frigid.DisplayName: Frigid
+			Heated.DisplayName: Heated
+			Menacing.DisplayName: Menacing
+			Scorching.DisplayName: Scorching
+			Spiked.DisplayName: Spiked
+		}
+
+		Tiles: {
+			RingForge.MapEntry: Ring Forge
+			StarfireForgeTile.MapEntry: Starfire Forge Tile
+			ZirconiumOreTile.MapEntry: Zirconium Ore Tile
+		}
+
+		NPCs: {
+			// ======================[ Town NPCs ]======================
+			Ronin: {
+				DisplayName: Ronin
+
+				TownNPCMood: {
+					Content: I feel pretty fine right now.
+					NoHome: I would appreciate having a home.
+					LoveSpace: More than enough space to practice!
+					FarFromHome: Could you please get me back to my house?
+					DislikeCrowded: There is no peace here, to many people.
+					HateCrowded: I can't think with so many people around!
+					LikeBiome: "{BiomeName} is a very nice place to practice."
+					LoveBiome: I love {BiomeName}.
+					DislikeBiome: It's way too cold in {BiomeName}, I'm freezing!
+					HateBiome: Its kind of hard to think while being attacked by monsters in {BiomeName}.
+					LikeNPC: I can respect {NPCName} as a fellow guide and educator!
+					LoveNPC: Do you think {NPCName} notices me?
+					DislikeNPC: '''"{NPCName} keeps rambling on about "payed mods"... Wish I could convince him how terrible of an idea that is."'''
+					HateNPC: I hate all the loud noises caused by {NPCName} and his explosives! I just want peace and quiet.
+					LikeNPC_Princess: I like {NPCName}.
+					Princess_LovesNPC: I like {NPCName}.
+				}
+			}
+
+			// ======================[ Bosses & Boss Servents ]======================
+			
+			HarbingerOfAnnihilation: {
+				DisplayName: Harbinger of Annihilation
+				BossChecklistIntegration.SpawnInfo: Kill a Cosmic Anomaly or use a [i:SupernovaMod/EerieCrystal] in space
+			}
+
+			FlyingTerror: {
+				DisplayName: Flying Terror
+				BossChecklistIntegration.SpawnInfo: Use a [i:SupernovaMod/BugOnAStick] at night
+			}
+
+			TerrorSpirit.DisplayName: Terror Spirit
+
+			Bloodweaver: {
+				DisplayName: Bloodweaver
+				BossChecklistIntegration.SpawnInfo: Spawns during Bloodmoon
+			}
+
+			CosmicCollective: {
+				DisplayName: Cosmic Collective
+				BossChecklistIntegration.SpawnInfo: Use a [i:SupernovaMod/CosmicEgg]
+			}
+
+			CosmicCollectiveEye.DisplayName: Cosmic Collective Eye
+			Cosmoling.DisplayName: Cosmoling
+
+			Fallen: {
+				DisplayName: Fallen,
+				BossChecklistIntegration.SpawnInfo: Use a [i:SupernovaMod/BugOnAStick] in hell (TODO: Make spawn item)
+			}
+
+			AshBall.DisplayName: Ash Ball
+			// ======================[ Enemy NPCs ]======================
+			Gazer.DisplayName: Gazer
+			CosmicAnomaly.DisplayName: Cosmic Anomaly
+			FrostFlayer.DisplayName: Frost Flayer
+			Geist.DisplayName: Geist
+			LeafCrab.DisplayName: Leaf Crab
+			TerrorBat.DisplayName: Terror Bat
+			Mechromite.DisplayName: Mechromite
+			Balancer.DisplayName: Balancer
+		}
+
+		Buffs: {
+			ColdArmorCooldown: {
+				DisplayName: Cold Armor Cooldown
+				Description: Waiting for the Verglas armor to freeze solid again
+			}
+
+			ReloadDebuff: {
+				DisplayName: Reload Debuff
+				Description: Waiting for the weapon to be reload
+			}
+
+			RingCooldown: {
+				DisplayName: Ring Cooldown
+				Description: Waiting for the power of your ring to come back
+			}
+
+			QuarionBuff: {
+				DisplayName: Quarion Buff
+				Description: Greatly increased damage and speed but halved health
+			}
+
+			HellfireRingBuff: {
+				DisplayName: Hellfire Ring Buff
+				Description: Attacks now have a chance to cause an fiery explosion
+			}
+
+			VerglasIcicleDebuff: {
+				DisplayName: Verglas Icicle Debuff
+				Description: Mods.SupernovaMod.Buffs.VerglasIcicleDebuff.Description
+			}
+
+			GazerMinionBuff: {
+				DisplayName: Gazer Minion Buff
+				Description: A Gazer that will fight for you
+			}
+
+			HarbingersArmBuff: {
+				DisplayName: Harbingers Arm
+				Description: A arm ripped from the Harbinger that will fight for you
+			}
+
+			VerglasFlakeBuff: {
+				DisplayName: Verglas Flake Buff
+				Description: A verglas flake that will fight for you
+			}
+
+			TerrorState: {
+				DisplayName: Terror State
+				Description: Using the Terror in a Bottle will take life
+			}
+
+			RedDevilBuff: {
+				DisplayName: Red Devil Buff
+				Description: Mods.SupernovaMod.Buffs.RedDevilBuff.Description
+			}
+
+			BlackFlames: {
+				DisplayName: Black Flames
+				Description: Mods.SupernovaMod.Buffs.BlackFlames.Description
+			}
+
+			ArcaneMight: {
+				DisplayName: Arcane Might
+				Description: Mods.SupernovaMod.Buffs.ArcaneMight.Description
+			}
+
+			CosmolingMinionBuff: {
+				DisplayName: Cosmoling Minion Buff
+				Description: Mods.SupernovaMod.Buffs.CosmolingMinionBuff.Description
+			}
+
+			ThornedRingBuff: {
+				DisplayName: Thorned Ring Buff
+				Description: Mods.SupernovaMod.Buffs.ThornedRingBuff.Description
+			}
+		}
+
+		Items: {
+			BagOfFungus: {
+				DisplayName: Bag of Fungus
+				Tooltip:
+					'''
+					A bag filled with Glowing Fungus.
+					Has a chance to release Glowing Mushrooms when damaged
+					'''
+			}
+
+			CoolingElement: {
+				DisplayName: Cooling Element
+				Tooltip:
+					'''
+					8% decreased ring cooldown time.
+					10% increased movement speed when your ring is cooling down.
+					'''
+			}
+
+			DemonHorns: {
+				DisplayName: Demon Horns
+				Tooltip:
+					'''
+					Reduces damage taken by 8%
+					Immumity to OnFire
+					'''
+			}
+
+			DesertEmblem: {
+				DisplayName: Desert Emblem
+				Tooltip: 8% increased movement speed. (16% when in a sandstorm)
+			}
+
+			HarbingersCrest: {
+				DisplayName: Harbingers Crest
+				Tooltip: Summons an Arm of the Harbinger to fight for you
+			}
+
+			HeartOfTheJungle: {
+				DisplayName: Heart of The Jungle
+				Tooltip:
+					'''
+					Stores up to 60 life energy with an increase of 1 per second
+					Getting hit consumes life energy and heals you for the amount of energy you have / 2
+					'''
+			}
+
+			HellFireBoots: {
+				DisplayName: Hell Fire Boots
+				Tooltip:
+					'''
+					Provides the ability to walk on water and lava
+					Grants immunity to fire blocks and 7 seconds of immunity to lava
+					Inflicts fire damage on attack
+					Reduces damage from touching lava
+					'''
+			}
+
+			InfernalEmblem: {
+				DisplayName: Emblem of inferno
+				Tooltip: Spawns fire when you get hit
+			}
+
+			LensOfGreed: {
+				DisplayName: Lens of Greed
+				Tooltip: Provides spelunker to the user
+			}
+
+			MagnifyingGlass: {
+				DisplayName: Magnifying Glass
+				Tooltip: Increases critical strike chance by 5%
+			}
+
+			MeteorBoots: {
+				DisplayName: Meteor Boots
+				Tooltip: When you double tap the down direction in the air you will become a meteor!
+			}
+
+			RubyBallBearings: {
+				DisplayName: Ruby Ball Bearings
+				Tooltip: Increases yoyo speed by 50% and damage by 5%.
+			}
+
+			SacrificialTalisman: {
+				DisplayName: Sacrificial Talisman
+				Tooltip: When under 15 mana the talisman will take some of your life in exchange for mana
+			}
+
+			SharpeningTool: {
+				DisplayName: Sharpening Tool
+				Tooltip: Increases melee damage by 5%
+			}
+
+			WoodenTarget: {
+				DisplayName: Wooden Target
+				Tooltip: Increases ranged damage by 4%
+			}
+
+			MoltenBullet: {
+				DisplayName: Molten Bullet
+				Tooltip: ""
+			}
+
+			WoodenBullet: {
+				DisplayName: Wooden Bullet
+				Tooltip: Burns up when going to fast
+			}
+
+			CarnageBoots: {
+				DisplayName: Carnage Boots
+				Tooltip: Increases speed by 3%
+			}
+
+			CarnageBreastplate: {
+				DisplayName: Carnage Breastplate
+				Tooltip: 5% increased damage reduction
+			}
+
+			CarnageHelm: {
+				DisplayName: Carnage Helm
+				Tooltip: 7% increased melee damage and speed
+			}
+
+			VerglasBoots: {
+				DisplayName: Verglas Boots
+				Tooltip: 7% increased critical strike chance
+			}
+
+			VerglasBreastplate: {
+				DisplayName: Verglas Breastplate
+				Tooltip: +5% increased damage
+			}
+
+			VerglasHelm: {
+				DisplayName: Verglas Helm
+				Tooltip: 10% increased melee damage and speed
+			}
+
+			VerglasVeil: {
+				DisplayName: Verglas Veil
+				Tooltip: 15% increased magic and minion damage, 5% decreased mana cost, +30 max mana, +2 max minion number
+			}
+
+			VerglasVisage: {
+				DisplayName: Verglas Visage
+				Tooltip: 10% increased ranged damage, 20% chance not to consume ammo
+			}
+
+			ZirconiumBoots: {
+				DisplayName: Zirconium Leggings
+				Tooltip: ""
+			}
+
+			ZirconiumBreastplate: {
+				DisplayName: Zirconium Breastplate
+				Tooltip: ""
+			}
+
+			ZirconiumCasque: {
+				DisplayName: Zirconium Casque
+				Tooltip: 5% increased ranged damage
+			}
+
+			ZirconiumHeadguard: {
+				DisplayName: Zirconium Headguard
+				Tooltip: 5% increased magic and summon damage
+			}
+
+			ZirconiumHelmet: {
+				DisplayName: Zirconium Helmet
+				Tooltip: 5% increased melee damage
+			}
+
+			FlyingTerrorBossBag: {
+				DisplayName: Flying Terror Boss Bag
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			QuarionPotion: {
+				DisplayName: Quarion Potion
+				Tooltip: Grealy increases damage and speed, but halves your health
+			}
+
+			BloodShards: {
+				DisplayName: Blood Shards
+				Tooltip: Shards of blood dropped by bloodmoon enemies
+			}
+
+			BoneFragment: {
+				DisplayName: Bone Fragment
+				Tooltip: ""
+			}
+
+			FirearmManual: {
+				DisplayName: Firearm Manual
+				Tooltip: A guide to making firearms
+			}
+
+			GoldenRingMold: {
+				DisplayName: Golden Ring Mold
+				Tooltip: A mold used for crafting rings
+			}
+
+			QuarionShard: {
+				DisplayName: Quarion Shard
+				Tooltip: ""
+			}
+
+			Rime: {
+				DisplayName: Rime
+				Tooltip: Dropped by certain creatures in the snow biome
+			}
+
+			VerglasBar: {
+				DisplayName: Verglas Bar
+				Tooltip: A cold bar of metal
+			}
+
+			ZirconiumBar: {
+				DisplayName: Zirconium Bar
+				Tooltip: A bar of pink metal said to have magical properties
+			}
+
+			CosmicClock: {
+				DisplayName: Cosmic Clock
+				Tooltip: A item that can change the time
+			}
+
+			EyeOfDeath: {
+				DisplayName: Eye of Death
+				Tooltip: Stare into the Eye of Death and go back to where you died
+			}
+
+			BloodweaversRing: {
+				DisplayName: Bloodweaver's Ring
+				Tooltip:
+					'''
+					When the 'Ring Ability button' is pressed
+					You will drain life from the 10 nearest enemies
+					'''
+			}
+
+			GemRing: {
+				DisplayName: Gem Ring
+				Tooltip: When the 'Ring Ability button' is pressed, shoots gem projectiles to the direction you are looking at
+			}
+
+			ProspectorsRing: {
+				DisplayName: Prospectors Ring
+				Tooltip: Gives spelunker effect and faster mining speed for 12 seconds when the 'Ring Ability button' is pressed.
+			}
+
+			RingOfHellfire: {
+				DisplayName: Ring of Hellfire
+				Tooltip:
+					'''
+					When the 'Ring Ability button' is pressed
+					You will gain the inferno and Hellfire Ring buff
+					The Hellfire Ring buff gives every attack a chance to spawn a fiery explosion near the target
+					'''
+			}
+
+			RingOfProtection: {
+				DisplayName: Ring of Protection
+				Tooltip:
+					'''
+					When the 'Ring Ability button' is pressed you will dodge the next attack
+					+2 defense when equiped
+					'''
+			}
+
+			RingForge: {
+				DisplayName: Ring Forge
+				Tooltip: A forge where rings of power can be forged
+			}
+
+			ZirconiumOre: {
+				DisplayName: Zirconium Ore
+				Tooltip: A shiny pink ore chunk
+			}
+
+			VerglasHamaxe: {
+				DisplayName: Verglas Hamaxe
+				Tooltip: ""
+			}
+
+			VerglasPick: {
+				DisplayName: Verglas Pick
+				Tooltip: ""
+			}
+
+			ZirconiumAxe: {
+				DisplayName: Zirconium Axe
+				Tooltip: ""
+			}
+
+			ZirconiumPickaxe: {
+				DisplayName: Zirconium Pickaxe
+				Tooltip: ""
+			}
+
+			BlazeBolt: {
+				DisplayName: Blaze Bolt
+				Tooltip: Shoots fire to burn your enemies
+			}
+
+			CarnageScepter: {
+				DisplayName: Carnage Scepter
+				Tooltip: Shoots an explosive blood bolt
+			}
+
+			GlowGun: {
+				DisplayName: Glow Gun
+				Tooltip: ""
+			}
+
+			GraniteStorm: {
+				DisplayName: Granite Storm
+				Tooltip: ""
+			}
+
+			IceBolt: {
+				DisplayName: Ice Bolt
+				Tooltip: Shoots frostburn to burn your enemies with -196º(77kelvin)
+			}
+
+			MagicStarBlade: {
+				DisplayName: Magic Star Blade
+				Tooltip: Shoots a random star projectile when used
+			}
+
+			ShockSurge: {
+				DisplayName: Shock Surge
+				Tooltip: Shoots a bolt of chain lighting. The damage of this chain lightning projectile decreases 15% with every hit
+			}
+
+			StaffOfThorns: {
+				DisplayName: Staff of Thorns
+				Tooltip: Shoots a barrage of armor piercing thorns
+			}
+
+			TerrorTome: {
+				DisplayName: Terror Tome
+				Tooltip: Casts small homing terror bats
+			}
+
+			Tessen: {
+				DisplayName: Tessen
+				Tooltip: ""
+			}
+
+			TomeOfIceAndFire: {
+				DisplayName: Tome of Ice And Fire
+				Tooltip: ""
+			}
+
+			VerglasScepter: {
+				DisplayName: Verglas Scepter
+				Tooltip: Rapidly shoots ice shards
+			}
+
+			ZirconiumWand: {
+				DisplayName: Zirconium Wand
+				Tooltip: ""
+			}
+
+			BlazingFire: {
+				DisplayName: Blazing Fire
+				Tooltip: Creates a fire aura around you
+			}
+
+			BoneCrusher: {
+				DisplayName: Bone Crusher
+				Tooltip: Throws your enemies a bone
+			}
+
+			CarnageSword: {
+				DisplayName: Carnage Sword
+				Tooltip: Landing crits on enemies will heal the player by 6 hp
+			}
+
+			HarbingersSlicer: {
+				DisplayName: Harbingers Slicer
+				Tooltip: Generates an orbiting bolt of energy when swinging. When you stop swinging the bolt will be released
+			}
+
+			HarpoonSword: {
+				DisplayName: Harpoon Blade
+				Tooltip: Right click to shoot a harpoon at your enemies
+			}
+
+			Kama: {
+				DisplayName: Kama
+				Tooltip: The kama is a traditional Japanese farming implement similar to a sickle used for reaping crops and also employed as a weapon
+			}
+
+			PoisonousYoYo: {
+				DisplayName: Poisonous Yo Yo
+				Tooltip: ""
+			}
+
+			StormBrand: {
+				DisplayName: Storm Brand
+				Tooltip: ""
+			}
+
+			TerrorCleaver: {
+				DisplayName: Terror Sickle
+				Tooltip: Shoots scythes of terror
+			}
+
+			VerglasSword: {
+				DisplayName: Verglas Splitter
+				Tooltip: ""
+			}
+
+			ZirconiumSword: {
+				DisplayName: Zirconium Sword
+				Tooltip:
+					'''
+					Release a blast of Zirconium Sparks every 4 hits
+					Zirconium Sparks linger for a short while
+					'''
+			}
+
+			CarnageRifle: {
+				DisplayName: Carnage Rifle
+				Tooltip: ""
+			}
+
+			DesertDuster: {
+				DisplayName: Desert Duster
+				Tooltip: Uses sand to shoot
+			}
+
+			Gallant: {
+				DisplayName: Gallant
+				Tooltip:
+					'''
+					Can shoot 6 bullets before having to reload
+					Right-click to manualy reload
+					'''
+			}
+
+			HellfireRifle: {
+				DisplayName: Hellfire Rifle
+				Tooltip:
+					'''
+					18% chance not to consume ammo
+					Turns Wooden bullets into Molten Bullets
+					'''
+			}
+
+			MarbleMagnum: {
+				DisplayName: Marble Magnum
+				Tooltip: Fires a dense spread of bullets
+			}
+
+			Odzutsu: {
+				DisplayName: Odzutsu
+				Tooltip: A handheld artillery cannon
+			}
+
+			StarNight: {
+				DisplayName: Starry Night
+				Tooltip:
+					'''
+					This weapon charges up when you shoot
+					When fully charged it will shoot 4 deadly stars at your enemies
+					'''
+			}
+
+			TerrorRecurve: {
+				DisplayName: Terror Recurve
+				Tooltip: Converts wooden arrows into Terror wing arrows that go faster over time
+			}
+
+			VerglasBow: {
+				DisplayName: Verglas Bow
+				Tooltip:
+					'''
+					Shoots 2 icicles that stick to the target and inflict the FrozenArmor and Frostburn debuffs
+					The FrozenArmor debuff decreases the targets defense by 1 per icicle sticking to the target, with a maximum of 6
+					'''
+			}
+
+			WoodenRifle: {
+				DisplayName: Wooden Rifle
+				Tooltip: 12% chance not to consume ammo
+			}
+
+			WoodGun: {
+				DisplayName: Wood Handgun
+				Tooltip: ""
+			}
+
+			ZirconiumBow: {
+				DisplayName: Zirconium Bow
+				Tooltip:
+					'''
+					Wooden arrows turn into Zirconium Arrows
+					Zirconium Arrows explode on impact
+					'''
+			}
+
+			GazerStaff: {
+				DisplayName: Gazer Staff
+				Tooltip: Summons a Gazer to fight for you
+			}
+
+			HarbingersKnell: {
+				DisplayName: Harbingers scepter
+				Tooltip: Fires crystaline projectiles
+			}
+
+			VerglasStaff: {
+				DisplayName: Verglas Staff
+				Tooltip: Summons a verglas flake to fight for you
+			}
+
+			CactusBoomerang: {
+				DisplayName: Cactus Boomerang
+				Tooltip: Cactus Boomerang
+			}
+
+			CarnageTrowingKnive: {
+				DisplayName: Carnage Trowing Knive
+				Tooltip: ""
+			}
+
+			DiscOfTheDesert: {
+				DisplayName: Disc of the Desert
+				Tooltip: ""
+			}
+
+			Kunai: {
+				DisplayName: Kunai
+				Tooltip: May throw 2 or 3 Kunai's for the price of 1
+			}
+
+			SnowGlove: {
+				DisplayName: Snow Glove
+				Tooltip: ""
+			}
+
+			TrowingStone: {
+				DisplayName: Trowing Stone
+				Tooltip: ""
+			}
+
+			VerglasThrowingAxe: {
+				DisplayName: Verglas Throwing Axe
+				Tooltip: ""
+			}
+
+			ZirconiumKnife: {
+				DisplayName: Zirconium Knife
+				Tooltip: ""
+			}
+
+			ConquerorsBladeStaff: {
+				DisplayName: Conquerors Blade Staff
+				Tooltip: ""
+			}
+
+			TerrorTuft: {
+				DisplayName: Terror Tuft
+				Tooltip: ""
+			}
+
+			TerrorInABottle: {
+				DisplayName: Terror In A Bottle
+				Tooltip:
+					'''
+					Allows the player to dash when a direction is double tabbed
+					Causes terror state
+					While in terror state the player loses health when dashing
+					'''
+			}
+
+			HarbingersPickaxe: {
+				DisplayName: Harbingers Pickaxe
+				Tooltip: ""
+			}
+
+			BugOnAStick: {
+				DisplayName: Bug on a Stick
+				Tooltip: Summons the Flying Terror
+			}
+
+			EerieCrystal: {
+				DisplayName: Eerie Crystal
+				Tooltip: Summons the Harbinger of Annihilation when used in space
+			}
+
+			ForbiddenDisc: {
+				DisplayName: Forbidden Disc
+				Tooltip: ""
+			}
+
+			HarpyMothersFeather: {
+				DisplayName: Harpy Mothers Feather
+				Tooltip: Shoots a feather that splits into smaller homing feathers
+			}
+
+			HelixStone: {
+				DisplayName: Helix Stone
+				Tooltip: Remains of a Balancer
+			}
+
+			HiTechFirearmManual: {
+				DisplayName: Hi Tech Firearm Manual
+				Tooltip: A guide to making advanced hi-tech weaponry
+			}
+
+			MechroDrive: {
+				DisplayName: Mechro Drive
+				Tooltip: "'Dropped from Mechro enemies'"
+			}
+
+			TitaniumRingMold: {
+				DisplayName: Titanium Ring Mold
+				Tooltip: A mold used for crafting rings
+			}
+
+			HarbingerOfAnnihilationRelic: {
+				DisplayName: Harbinger of Annihilation Relic
+				Tooltip: ""
+			}
+
+			FlyingTerrorRelic: {
+				DisplayName: Flying Terror Relic
+				Tooltip: ""
+			}
+
+			BloodweaverRelic: {
+				Tooltip: ""
+				DisplayName: Bloodweaver Relic
+			}
+
+			HarbingerOfAnnihilationTrophy: {
+				Tooltip: ""
+				DisplayName: Harbinger Of Annihilation Trophy
+			}
+
+			FlyingTerrorTrophy: {
+				Tooltip: ""
+				DisplayName: Flying Terror Trophy
+			}
+
+			BloodweaverTrophy: {
+				Tooltip: ""
+				DisplayName: Bloodweaver Trophy
+			}
+
+			HeartOfPower: {
+				DisplayName: Heart of Power
+				Tooltip:
+					'''
+					The more health you have left the more damage you deal
+					Deals a max of 20% extra damage when at 500 health
+					'''
+			}
+
+			ManaCore: {
+				DisplayName: Mana Core
+				Tooltip:
+					'''
+					The more health you have left the less mana your weapons will use
+					Reduces a max of 30% mana cost when at 500 health
+					'''
+			}
+
+			SoulOfSwiftness: {
+				DisplayName: Soul of Swiftness
+				Tooltip:
+					'''
+					The less health you have left the faster you will be
+					Increases movement speed by a max of 20% at 100 health
+					'''
+			}
+
+			IronSkull: {
+				DisplayName: Skull of Protection
+				Tooltip:
+					'''
+					The less health you have left the less damage you take
+					Increases defense by a max of 10 at 100 health
+					'''
+			}
+
+			SigilOfBalance: {
+				DisplayName: Sigil of Balance
+				Tooltip:
+					'''
+					The more health you have left the more damage you deal, and the less mana your weapons will use
+					Deals a max of 20% extra damage when at 500 health
+					Reduces a max of 30% mana cost when at 500 health
+
+					The less health you have left the faster you will be, and less damage you take
+					Increases movement speed by a max of 20% at 100 health
+					Increases defense by a max of 10 at 100 health
+					'''
+			}
+
+			Cosmolash: {
+				DisplayName: Cosmolash
+				Tooltip: ""
+			}
+
+			CosmofleshCutter: {
+				DisplayName: Cosmoflesh Cutter
+				Tooltip: Summons a tentacle on hit
+			}
+
+			MoonSplitterYatagarasu: {
+				DisplayName: Moon Splitter Yatagarasu
+				Tooltip: ""
+			}
+
+			BrokenSwordShards: {
+				DisplayName: Broken Sword Shards
+				Tooltip: Sold by the Ronin during a bloodmoon or eclipse
+			}
+
+			DriveSaber: {
+				DisplayName: Drive Saber
+				Tooltip: Shoots balls of plasma
+			}
+
+			BloodLens: {
+				DisplayName: Blood Lens
+				Tooltip:
+					'''
+					Allows you to see nearby danger sources
+					Shows the location of enemies
+					Shows the location of treasure and ore
+					Improves vision and provides light when used
+					'The darkness holds no secrets for you'
+					'''
+			}
+
+			MechroRailgun: {
+				DisplayName: Mechro Railgun
+				Tooltip:
+					'''
+					Converts normal bullets into Charged Shells
+					Fires a very fast bolt of electricity
+					'''
+			}
+
+			DriveSpinner: {
+				DisplayName: Drive Spinner
+				Tooltip: When hitting an enemy, releases small Magnet Spheres.
+			}
+
+			StarcoreStaff: {
+				DisplayName: Starcore Staff
+				Tooltip: A powerfull staff that fires exploding bolts of celestial energy
+			}
+
+			Starcore: {
+				DisplayName: Starcore
+				Tooltip: Holds the power of a star
+			}
+
+			RingOfQuake: {
+				DisplayName: Ring of Quake
+				Tooltip: When the 'Ring Ability button' is pressed a powerfull earthquake will strike your enemies
+			}
+
+			RingOfQuake_Adamantite: {
+				DisplayName: Ring of Quake
+				Tooltip: When the 'Ring Ability button' is pressed a powerfull earthquake will strike your enemies
+			}
+
+			Kusanagi: {
+				DisplayName: Kusanagi
+				Tooltip: ""
+			}
+
+			BattleAxe: {
+				DisplayName: Battle Axe
+				Tooltip: To war!
+			}
+
+			Magnitrix: {
+				DisplayName: Magnitrix
+				Tooltip: ""
+			}
+
+			RagnaMagnitrix: {
+				DisplayName: Ragna Magnitrix
+				Tooltip: ""
+			}
+
+			SealOfSamael: {
+				DisplayName: Seal Of Samael
+				Tooltip: Summons a Red Devil to fight for you
+			}
+
+			Demonomicon: {
+				DisplayName: Demonomicon
+				Tooltip:
+					'''
+					Reduces damage taken by 8%
+					Immumity to OnFire
+					Summons 2 Red Devils to fight for you
+					Increases demonic minion damage by 10%
+					'''
+			}
+
+			BookOfEarth: {
+				DisplayName: Book Of Terra
+				Tooltip: Fires high knockback rocks
+			}
+
+			OverchargedBattery: {
+				DisplayName: Overcharged Battery
+				Tooltip: All attacks inflict electified based on luck
+			}
+
+			RapierOfLight: {
+				DisplayName: Rapier of Light
+				Tooltip: Shoots a bolt of light from it's tip
+			}
+
+			Cosmalice: {
+				DisplayName: Cosmalice
+				Tooltip: Fires tentacle bolts
+			}
+
+			BloodweaverBossMask: {
+				DisplayName: Bloodweaver Boss Mask
+				Tooltip: ""
+			}
+
+			HarbingerOfAnnihilationBossMask: {
+				DisplayName: Harbinger Of Annihilation Boss Mask
+				Tooltip: ""
+			}
+
+			ThornedRing: {
+				DisplayName: Thorned Ring
+				Tooltip: When the 'Ring Ability button' is pressed, casts a ring of thorns around the player
+			}
+
+			FlyingTerrorBossMask: {
+				DisplayName: Flying Terror Boss Mask
+				Tooltip: ""
+			}
+
+			EyeOfTheOccult: {
+				DisplayName: Eye Of The Occult
+				Tooltip:
+					'''
+					5% increased damage
+					Killing an enemy spawns a Shadow Wisp minion, with a max of 10 at a time
+					'''
+			}
+
+			EldritchEssence: {
+				DisplayName: Eldritch Essence
+				Tooltip: The essence of an eldritch being
+			}
+
+			MightyStarBow: {
+				DisplayName: Mighty Star Bow
+				Tooltip: Fires a volley of stars
+			}
+
+			WizardsRing: {
+				DisplayName: Wizards Ring
+				Tooltip:
+					'''
+					When the 'Ring Ability button' is pressed
+					You will gain the Arcane Might buff
+					The Arcane Might buff prevents mana usage
+					'''
+			}
+
+			CrystalineDye: {
+				DisplayName: Crystaline Dye
+				Tooltip: ""
+			}
+
+			Cosmolith: {
+				DisplayName: Cosmolith
+				Tooltip: Summons a Cosmoling to fight for you
+			}
+
+			EyeOfTheCosmos: {
+				DisplayName: Eye of the Cosmos
+				Tooltip:
+					'''
+					8% reduced mana usage
+					Increases maximum mana by 20
+					Automatically use mana potions when needed
+					When your mana is less then 15
+					you will lose 50 health but gain 50 mana
+					Increases pickup range for mana stars
+					Restores mana when damaged
+					'''
+			}
+
+			CosmicEgg: {
+				DisplayName: Cosmic Egg
+				Tooltip: Summons the Cosmic Collective
+			}
+		}
+
+		Projectiles: {
+			FlyingTerrorFlameBreath.DisplayName: Flame Breath
+			TerrorFlame.DisplayName: Terror Flame
+			HarbingerOfAnnihilation_Arm.DisplayName: Harbinger of Annihilation Arm
+			HarbingerMissile.DisplayName: Harbinger Missile
+			HarbingerOrb.DisplayName: Harbinger Orb
+			HoaBlackHole.DisplayName: Black Hole
+			ChainLightningHostile.DisplayName: Lightning
+			LightningOrb.DisplayName: Lightning Orb
+			LightningSpawner.DisplayName: Lightning Spawner
+			StormBolt.DisplayName: Storm Bolt
+			StormCloud.DisplayName: Storm Cloud
+			TerrorBlast.DisplayName: Terror Blast
+			BloodBoltHostile.DisplayName: Blood Bolt Hostile
+			LightningHostile.DisplayName: Lightning Hostile
+			CarnageScepterProj.DisplayName: Carnage Scepter
+			CarnageScepterProj2.DisplayName: Carnage Scepter
+			FrostFlame.DisplayName: Frost Flame
+			GlowGunProj.DisplayName: Glow bolt
+			GraniteProj.DisplayName: Granite Chunk
+			ShockSurgeProj.DisplayName: Shock Surge
+			TerrorProjFirendly.DisplayName: Terror Bat
+			VerglasScepterProj.DisplayName: Verglas Scepter
+			ZicroniumExplosion.DisplayName: Zicronium Explosion
+			ZirconProj.DisplayName: Zircon Bolt
+			BlazingFireball.DisplayName: Blazing Fireball
+			CarnageJavalinProj.DisplayName: Carnage Javalin
+			BlazingFireProj.DisplayName: Blazing Fire
+			HarbingersSlicerProj.DisplayName: Harbingers Slicer
+			TerrorScythe.DisplayName: Terror Scythe
+			VerglasSlash.DisplayName: Verglas Slash
+			VerglasSlash2.DisplayName: Verglas Slash
+			PoisonousYoYo.DisplayName: Poisonous Yo Yo
+			ZicroniumSpark.DisplayName: Zicronium Spark
+			ZirconiumArrow.DisplayName: Zirconium Arrow
+			CrimsandBullet.DisplayName: Crimsand Bullet
+			EbonsandBullet.DisplayName: Ebonsand Bullet
+			MoltenBullet.DisplayName: Molten Bullet
+			PearlsandBullet.DisplayName: Pearlsand Bullet
+			SandBullet.DisplayName: Sand Bullet
+			WoodenBullet.DisplayName: Wooden Bullet
+			VerglasIcicle.DisplayName: Verglas Icicle
+			CarnageOrb.DisplayName: Carnage Orb
+			GazerMinion.DisplayName: Gazer
+			HarbingersArmSummon.DisplayName: Harbingers Arm
+			OmenMinion.DisplayName: Omen
+			VerglasFlakeMinion.DisplayName: Verglas Flake
+			CactusBoomerangProj.DisplayName: Cactus Boomerang
+			CarnageTrowingKniveProj.DisplayName: Carnage Trowing Knive
+			DiscOfTheDesertProj.DisplayName: Disc of The Desert
+			KunaiProj.DisplayName: Kunai
+			StoneProj.DisplayName: Stone
+			VerglasThrowingAxe.DisplayName: Verglas Throwing Axe
+			ZirconiumKnifeProj.DisplayName: Zirconium Knife
+			BlazeBoltFlames.DisplayName: Blaze Bolt Flames
+			ConquerorsBladeStaffProj.DisplayName: Conquerors Blade Staff
+			NebualShot.DisplayName: Nebual Shot
+			TerrorWingArrow.DisplayName: Terror Wing Arrow
+			CelestialCystal.DisplayName: Celestial Cystal
+			CelestialCystalShard.DisplayName: Celestial Cystal Shard
+			ForbiddenDiscProj.DisplayName: Forbidden Disc
+			HarpyFeatherProj.DisplayName: Harpy Feather
+			CosmolashGun.DisplayName: Cosmolash Gun
+			ShadestarReaverSlash.DisplayName: Shadestar Reaver
+			ShadestarReaverProj.DisplayName: Shadestar Reaver
+			RailgunBolt.DisplayName: Railgun Bolt
+			DriveSpinnerProjectile.DisplayName: Drive Spinner Projectile
+			BalancedOrb.DisplayName: Balanced Orb
+			RagnaBow.DisplayName: Ragna Bow
+			RedDevil.DisplayName: Red Devil
+			HarpyMothersFeather.DisplayName: Harpy Mothers Feather
+			RagnaArrow.DisplayName: Ragna Arrow
+			EarthProj.DisplayName: Terra Rock
+			BlackStar.DisplayName: Black Star
+
+			Boss: {
+				FallenBeamStart.DisplayName: Brimstone Beam
+				BrimstoneBeam.DisplayName: Brimstone Beam
+			}
+
+			RapierOfLightProjectile.DisplayName: Rapier Of Light
+			BoltOfLight.DisplayName: Bolt of Light
+			ShadowOrbMinion.DisplayName: Shadow Orb
+			EldrichBolt.DisplayName: Eldrich Bolt
+			EldrichTentacle.DisplayName: Eldrich Tentacle
+			BrimstoneBeam.DisplayName: Brimstone Beam
+			BrimstoneBeamHoldout.DisplayName: Brimstone Beam
+			GateSwordProj.DisplayName: Gate Sword
+			ShadowWisp.DisplayName: Shadow Wisp
+			MagmaBlast.DisplayName: Magma Blast
+			StarcoreBolt.DisplayName: Starcore Bolt
+			DimensionalRift.DisplayName: Dimensional Rift
+			CosmorangProj.DisplayName: Cosmorang
+			CosmicEyeProjectile.DisplayName: Cosmic Eye
+			MicroMagnetSphere.DisplayName: Micro Magnet Sphere
+			Shockwave.DisplayName: Shockwave
+			Kusanagi_Proj.DisplayName: Kusanagi
+			MoonSplitterYatagarasu_Proj.DisplayName: Moon Splitter Yatagarasu
+			Plasmaball.DisplayName: Plasmaball
+			CosmolingMinion.DisplayName: Cosmoling Minion
+			ThornedRing.DisplayName: Thorned Ring
+			ThornedRingProj.DisplayName: Ring of Thorns
+		}
+	}
+}
