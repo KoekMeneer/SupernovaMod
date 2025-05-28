@@ -1018,7 +1018,7 @@ Mods: {
 			}
 
 			BookOfEarth: {
-				DisplayName: Book Of Terra
+				DisplayName: Book of Terra
 				Tooltip: Fires high knockback rocks
 			}
 
