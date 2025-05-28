@@ -25,10 +25,10 @@ namespace SupernovaMod.Common.Systems.Generation
 			// Give it a '1/5' (20%) spawn rate.
 			chestLoot.Add(ChestFrameType.GoldChest, new ChestLootRule(ModContent.ItemType<Content.Items.Consumables.EerieCrystal>(), 5, ChestLootInjectRule.AddItem));
 
-			//ModifyMeteorChestLoot(chestLoot);
+            //ModifyMeteorChestLoot(chestLoot);
+            ModifyJungleChestLoot(chestLoot);
 
-
-		}
+        }
 
         internal void ModifyJungleChestLoot(ChestLootManager chestLoot)
         {
