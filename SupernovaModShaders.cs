@@ -8,7 +8,6 @@ namespace SupernovaMod
 {
 	public static class SupernovaModShaders
 	{
-        // public static Filter ExampleShader => Filters.Scene["SupernovaMod:ExampleShader"];
         public static Filter ShockwaveShader => Filters.Scene["SupernovaMod:shockwave"];
 
         public static void LoadEffects()
@@ -20,8 +19,12 @@ namespace SupernovaMod
 			LoadScreenShaders(assets);
             LoadArmorShaders(assets);
         }
+        public static void UnloadEffects()
+        {
 
-		public static void LoadScreenShaders(AssetRepository assets)
+        }
+
+		private static void LoadScreenShaders(AssetRepository assets)
 		{
             // Shockwave shader
             //
@@ -30,7 +33,7 @@ namespace SupernovaMod
             Filters.Scene["SupernovaMod:shockwave"].Load();
         }
 
-		public static void LoadArmorShaders(AssetRepository assets)
+        private static void LoadArmorShaders(AssetRepository assets)
 		{
             // See: https://github.com/tModLoader/tModLoader/wiki/Expert-Shader-Guide#using-your-shader
 

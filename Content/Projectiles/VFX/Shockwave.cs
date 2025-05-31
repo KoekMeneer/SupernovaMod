@@ -43,21 +43,21 @@ namespace SupernovaMod.Content.Projectiles.VFX
 
             if (Projectile.ai[2] > 150 && Main.netMode != NetmodeID.Server)
             {
-                if (Filters.Scene["Shockwave"].IsActive())
+                if (SupernovaModShaders.ShockwaveShader.IsActive())
                 {
                     float progress = (180 - Projectile.ai[2]) / 40;
-                    Filters.Scene["Shockwave"].GetShader().UseProgress(progress).UseOpacity(distortStrength * (1 - progress / 3f));
+                    SupernovaModShaders.ShockwaveShader.GetShader().UseProgress(progress).UseOpacity(distortStrength * (1 - progress / 3f));
                 }
                 else
                 {
-                    Filters.Scene.Activate("Shockwave", Projectile.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(Projectile.Center);
+                    Filters.Scene.Activate("SupernovaMod:shockwave", Projectile.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(Projectile.Center);
                 }
             }
             if (Projectile.ai[2] > 180)
             {
-                if (Main.netMode != NetmodeID.Server && Filters.Scene["Shockwave"].IsActive())
+                if (Main.netMode != NetmodeID.Server && SupernovaModShaders.ShockwaveShader.IsActive())
                 {
-                    Filters.Scene["Shockwave"].Deactivate();
+                    SupernovaModShaders.ShockwaveShader.Deactivate();
                 }
                 Projectile.Kill();
             }

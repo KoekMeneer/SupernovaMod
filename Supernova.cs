@@ -16,9 +16,6 @@ namespace SupernovaMod
 	{
 		public static Supernova Instance { get ; private set; }
 
-		[Obsolete("Use SupernovaModShaders.Shockwave instead")]
-		public static Effect ShaderShockwave { get; private set; }
-
 		public static ILog Log { get; private set; }
 
 		public static bool DebugMode => false;//ModContent.GetInstance<Common.Configs.SupernovaModConfig>().debugMode;
@@ -81,9 +78,6 @@ namespace SupernovaMod
 				SupernovaModShaders.LoadEffects();
 				SupernovaModTextures.LoadTextures();
                 ParticleSystem.Load();
-
-				// Deprecated
-                LoadShaders();
 			}
 		}
 
@@ -97,19 +91,9 @@ namespace SupernovaMod
 			bossChecklist = null;
 			wikithis = null;
 
-			UnloadShaders();
+            // Unload systems
+            SupernovaModShaders.UnloadEffects();
 			ParticleSystem.Unload();
-		}
-
-		private void LoadShaders()
-		{
-			ShaderShockwave = ModContent.Request<Effect>(GetEffectPath("ScreenFilters/Shockwave"), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-			Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(new Ref<Effect>(ShaderShockwave), "Shockwave"), EffectPriority.VeryHigh);
-			Filters.Scene["Shockwave"].Load();
-		}
-		private void UnloadShaders()
-		{
-			ShaderShockwave = null;
 		}
 
 		/// <summary>
