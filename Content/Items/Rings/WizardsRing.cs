@@ -31,10 +31,10 @@ namespace SupernovaMod.Content.Items.Rings
 
         public override void RingActivate(Player player, float ringPowerMulti)
         {
-            player.AddBuff(ModContent.BuffType<ArcaneMight>(), 600, true, false);
+            player.AddBuff(ModContent.BuffType<ArcaneMight>(), (int)(600 * ringPowerMulti), true, false);
             for (int i = 0; i < 15; i++)
             {
-                int dust = Dust.NewDust(player.position, player.width, player.height, 45, 0f, 0f, 0, default(Color), 1f);
+                int dust = Dust.NewDust(player.position, player.width, player.height, DustID.ManaRegeneration, 0f, 0f, 0, default(Color), 1f);
                 Main.dust[dust].scale = 1.5f;
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 1.5f;

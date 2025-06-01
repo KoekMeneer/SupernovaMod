@@ -39,7 +39,7 @@ namespace SupernovaMod.Content.Items.Rings
                 NPC target = Main.npc[i];
                 if (target.CanBeChasedBy())
                 {
-                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.position, Vector2.Zero, 476, damage, 24f, Main.myPlayer, 0f, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.position, Vector2.Zero, 476, (int)(damage * ringPowerMulti), 24f, Main.myPlayer, 0f, 0f, 0f);
                 }
             }
             for (int i = 0; i < 15; i++)

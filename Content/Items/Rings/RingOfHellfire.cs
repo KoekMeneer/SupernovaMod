@@ -32,9 +32,8 @@ namespace SupernovaMod.Content.Items.Rings
         public override void RingActivate(Player player, float ringPowerMulti)
         {
             int buffTime = 60 * 30;
-            buffTime = (int)(buffTime * ringPowerMulti);
             player.AddBuff(BuffID.Inferno, buffTime);
-            player.AddBuff(ModContent.BuffType<Buffs.Rings.HellfireRingBuff>(), buffTime);
+            player.AddBuff(ModContent.BuffType<Buffs.Rings.HellfireRingBuff>(), (int)(buffTime * ringPowerMulti));
 
             // Add dust effect
             for (int i = 0; i < 15; i++)
