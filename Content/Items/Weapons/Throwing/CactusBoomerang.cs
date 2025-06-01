@@ -1,5 +1,3 @@
-using System;
-using Microsoft.Xna.Framework;
 using SupernovaMod.Common.Systems;
 using Terraria;
 using Terraria.GameContent.Creative;
@@ -13,13 +11,10 @@ namespace SupernovaMod.Content.Items.Weapons.Throwing
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Cactus Boomerang");
         }
         public override void SetDefaults()
         {
             Item.damage = 14;
-            Item.crit = 4;
             Item.noMelee = true;
             Item.maxStack = 1;
             Item.width = 30;
@@ -52,7 +47,7 @@ namespace SupernovaMod.Content.Items.Weapons.Throwing
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Cactus, 27);
+            recipe.AddIngredient(ItemID.Cactus, 10);
             recipe.AddIngredient(ItemID.AntlionMandible, 2);
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();

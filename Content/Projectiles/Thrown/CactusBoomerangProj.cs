@@ -1,26 +1,25 @@
 ﻿using SupernovaMod.Common.Systems;
+using SupernovaMod.Content.Projectiles.BaseProjectiles;
 using Terraria;
-using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace SupernovaMod.Content.Projectiles.Thrown
 {
-    public class CactusBoomerangProj : ModProjectile
+    public class CactusBoomerangProj : BoomerangProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Cactus Boomerang");
-
-        }
         public override void SetDefaults()
         {
-            Projectile.width = 30;
-            Projectile.height = 30;
-            Projectile.aiStyle = 3;
-            Projectile.friendly = true;
-            Projectile.penetrate = -1;
-            Projectile.timeLeft = 780;
-            Projectile.extraUpdates = 1;
-            Projectile.DamageType = GlobalModifiers.DamageClass_ThrowingMelee;
+            base.SetDefaults();
+            Projectile.width = 24;
+            Projectile.height = 38;
+        }
+        public override void AI()
+        {
+            int dustID = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.t_Cactus, Projectile.velocity.X, Projectile.velocity.Y, Scale: Main.rand.NextFloat(.7f, 1));
+            Main.dust[dustID].noGravity = true;
+
+            // Handle boomerang AI
+            base.AI();
         }
     }
 }
