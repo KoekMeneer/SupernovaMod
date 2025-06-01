@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using SupernovaMod.Api.Effects;
 using SupernovaMod.Api;
 using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using SupernovaMod.Core.Effects;
 
 namespace SupernovaMod.Content.Projectiles.Melee
 {
@@ -39,34 +39,6 @@ namespace SupernovaMod.Content.Projectiles.Melee
             // Decrease velocity
             //
             Projectile.velocity *= .9875f;
-
-            // Collision loop
-            //
-            //foreach (var proj in Main.projectile)
-            //{
-            //    // Ignore other types first
-            //    //
-            //    if (proj.type != Type)
-            //    {
-            //        continue;
-            //    }
-
-            //    // Ignore self
-            //    //
-            //    if (Projectile.whoAmI == proj.whoAmI)
-            //    {
-            //        continue;
-            //    }
-
-            //    // Check if the projectile has collided with this projectile
-            //    //
-            //    if (Projectile.Colliding(Projectile.getRect(), proj.getRect()))
-            //    {
-            //        Main.NewText("!!!COLLISION!!!");
-            //        OnHitProjectile(proj);
-            //        break; // Stop looping
-            //    }
-            //}
 
             // Dust effects
             //

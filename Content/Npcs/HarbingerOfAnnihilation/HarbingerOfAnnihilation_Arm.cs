@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using SupernovaMod.Content.Npcs.HarbingerOfAnnihilation.Projectiles;
-using SupernovaMod.Api.Effects;
 using SupernovaMod.Api.Helpers;
 using SupernovaMod.Api;
 using System.IO;
+using SupernovaMod.Core.Effects;
 
 namespace SupernovaMod.Content.Npcs.HarbingerOfAnnihilation
 {

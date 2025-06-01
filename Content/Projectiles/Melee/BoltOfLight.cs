@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using SupernovaMod.Api.Effects;
 using SupernovaMod.Content.Effects.Particles;
+using SupernovaMod.Core.Effects;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

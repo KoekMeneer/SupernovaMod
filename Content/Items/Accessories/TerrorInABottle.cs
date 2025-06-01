@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using SupernovaMod.Api.Effects;
-using SupernovaMod.Common;
 using SupernovaMod.Core;
 using System;
 using Terraria;

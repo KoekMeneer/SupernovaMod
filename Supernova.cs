@@ -6,9 +6,9 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using SupernovaMod.Common.Systems;
-using SupernovaMod.Api.Effects;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using SupernovaMod.Core.Effects;
 
 namespace SupernovaMod
 {

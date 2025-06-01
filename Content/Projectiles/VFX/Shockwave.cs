@@ -17,6 +17,7 @@ namespace SupernovaMod.Content.Projectiles.VFX
 
         public override void SetStaticDefaults()
         {
+            // Always draw this projectile even if its "center" is far offscreen
             ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = short.MaxValue;
         }
 

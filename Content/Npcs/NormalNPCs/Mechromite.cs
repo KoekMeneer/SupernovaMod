@@ -6,9 +6,9 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ModLoader.Utilities;
 using SupernovaMod.Api;
 using Microsoft.Xna.Framework;
-using SupernovaMod.Api.Effects;
 using Terraria.Audio;
 using SupernovaMod.Core;
+using SupernovaMod.Core.Effects;
 
 namespace SupernovaMod.Content.Npcs.NormalNPCs
 {

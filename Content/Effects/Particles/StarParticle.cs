@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using SupernovaMod.Api.Effects;
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using System;
+using SupernovaMod.Core.Effects;
 
 namespace SupernovaMod.Content.Effects.Particles
 {

@@ -1,11 +1,10 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
-using SupernovaMod.Api.Effects;
 using System.Collections.Generic;
 using Terraria.Audio;
+using SupernovaMod.Core.Effects;
 
 namespace SupernovaMod.Content.Projectiles.Magic
 {

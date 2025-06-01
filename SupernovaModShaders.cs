@@ -44,5 +44,20 @@ namespace SupernovaMod
                 .UseColor(78, 4, 57)
                 .UseSecondaryColor(139, 18, 97);
         }
+
+        #region Helper Methods
+
+        /// <summary>
+        /// Gets the effect with the specified name from the `Assets/Effects` folder.
+        /// </summary>
+        /// <param name="effectName"></param>
+        /// <returns></returns>
+        public static Effect GetEffect(string effectName)
+        {
+            string path = "SupernovaMod/Assets/Effects/" + effectName;
+            return ModContent.Request<Effect>(path, AssetRequestMode.ImmediateLoad).Value;
+        }
+
+        #endregion
     }
 }
