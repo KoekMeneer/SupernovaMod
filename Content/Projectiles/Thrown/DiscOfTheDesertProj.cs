@@ -1,5 +1,6 @@
 ﻿using SupernovaMod.Common.Systems;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -28,6 +29,14 @@ namespace SupernovaMod.Content.Projectiles.Thrown
         {
             int dustID = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.SandstormInABottle, Projectile.velocity.X, Projectile.velocity.Y);
             Main.dust[dustID].noGravity = true;
+
+            // Play the "boomerang" sound every so often
+            //
+            if (Projectile.soundDelay == 0)
+            {
+                Projectile.soundDelay = 8;
+                SoundEngine.PlaySound(SoundID.Item7, Projectile.position);
+            }
 
             base.AI();
         }

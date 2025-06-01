@@ -727,7 +727,7 @@ Mods: {
 
 			CactusBoomerang: {
 				DisplayName: Cactus Boomerang
-				Tooltip: Cactus Boomerang
+				Tooltip: ""
 			}
 
 			CarnageTrowingKnive: {
