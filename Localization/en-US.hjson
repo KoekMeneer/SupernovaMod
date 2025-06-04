@@ -181,7 +181,7 @@ Mods: {
 
 			RedDevilBuff: {
 				DisplayName: Red Devil Buff
-				Description: Mods.SupernovaMod.Buffs.RedDevilBuff.Description
+				Description: A Red Devil that will fight for you
 			}
 
 			BlackFlames: {
@@ -191,17 +191,17 @@ Mods: {
 
 			ArcaneMight: {
 				DisplayName: Arcane Might
-				Description: Mods.SupernovaMod.Buffs.ArcaneMight.Description
+				Description: ""
 			}
 
 			CosmolingMinionBuff: {
 				DisplayName: Cosmoling Minion Buff
-				Description: Mods.SupernovaMod.Buffs.CosmolingMinionBuff.Description
+				Description: A Cosmiling that will fight for you
 			}
 
 			ThornedRingBuff: {
 				DisplayName: Thorned Ring Buff
-				Description: Mods.SupernovaMod.Buffs.ThornedRingBuff.Description
+				Description: ""
 			}
 		}
 

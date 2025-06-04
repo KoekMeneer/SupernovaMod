@@ -41,12 +41,11 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<WoodGun>());
             recipe.AddIngredient(ItemID.IronBar, 7);
             //recipe.anyIronBar = true;
-            recipe.acceptedGroups = new() { RecipeGroupID.IronBar };
+            recipe.acceptedGroups = new() { RecipeGroupID.IronBar, RecipeGroupID.Wood };
             recipe.AddIngredient(ModContent.ItemType<Materials.FirearmManual>());
-            recipe.AddIngredient(ItemID.Wood, 20);
+            recipe.AddIngredient(ItemID.Wood, 10);
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
         }
