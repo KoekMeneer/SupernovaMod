@@ -23,8 +23,8 @@ namespace SupernovaMod.Content.Items.Rings
         public override void SetDefaults()
         {
             base.SetDefaults();
-            base.Item.width = 16;
-            base.Item.height = 16;
+            base.Item.width = 30;
+            base.Item.height = 22;
             base.Item.rare = ItemRarityID.LightPurple;
             base.Item.value = BuyPrice.RarityLightPurple;
         }
