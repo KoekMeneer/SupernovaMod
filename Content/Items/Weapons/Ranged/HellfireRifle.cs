@@ -23,12 +23,11 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
             Item.width = 70;
             Item.height = 30;
 
-            Item.damage = 17;
-            Item.crit = 1;
+            Item.damage = 23;
             Item.useTime = 18;
             Item.useAnimation = 18;
             Item.noMelee = true; //so the item's animation doesn't do damage
-            Item.knockBack = 2.4f;
+            Item.knockBack = 2;
             Item.value = Item.buyPrice(0, 15, 50, 0);
             Item.autoReuse = true;
             Item.rare = ItemRarityID.Orange;
@@ -39,7 +38,7 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
 
             Item.scale = .8f;
 
-            Gun.spread = 5;
+            Gun.spread = 1.25f;
             Gun.recoil = .3f;
         }
         public override void AddRecipes()
@@ -59,16 +58,6 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
             {
                 base.OnConsumeAmmo(ammo, player);
             }
-        }
-
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            // Convert wooden bullets to molten bullets
-            if (type == ModContent.ProjectileType<Projectiles.Ranged.Bullets.WoodenBullet>())
-            {
-                type = ModContent.ProjectileType<Projectiles.Ranged.Bullets.MoltenBullet>();
-            }
-            base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
         }
     }
 }

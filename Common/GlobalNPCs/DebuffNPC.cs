@@ -8,6 +8,9 @@ namespace SupernovaMod.Common.GlobalNPCs
 	public class DebuffNPC : GlobalNPC
 	{
 		public int electrified;
+		public int cursed;
+
+		private int? _preCursedDamage;
 
 		public override bool InstancePerEntity => true;
 
@@ -25,7 +28,15 @@ namespace SupernovaMod.Common.GlobalNPCs
 				int baseElectrifiedDoTValue = (int)((double)(5 * ((npc.velocity.X == 0f) ? 1 : 4)) * GetElectrifiedMod(npc));
 				ApplyDamageOverTime(baseElectrifiedDoTValue, baseElectrifiedDoTValue / 5, ref npc.lifeRegen, ref damage);
 			}
-		}
+			if (cursed > 0)
+			{
+				if (!_preCursedDamage.HasValue)
+				{
+					_preCursedDamage = npc.damage;
+                }
+                npc.damage = _preCursedDamage.Value / 2;
+            }
+        }
 		private float GetElectrifiedMod(NPC npc)
 		{
 			bool increasedElectricityDamage = npc.wet || npc.honeyWet || npc.lavaWet || npc.dripping;
@@ -38,6 +49,17 @@ namespace SupernovaMod.Common.GlobalNPCs
 			{
 				electrified--;
 			}
+			if (cursed > 0)
+			{
+				cursed--;
+				if (cursed == 0)
+				{
+#pragma warning disable CS8629 // Can not be null here
+                    npc.damage = _preCursedDamage.Value;
+#pragma warning restore CS8629 
+                    _preCursedDamage = null;
+				}
+            }
 		}
 
 		public void ApplyDamageOverTime(int lifeRegenVal, int damageVal, ref int lifeRegen, ref int damage)
