@@ -203,6 +203,11 @@ Mods: {
 				DisplayName: Thorned Ring Buff
 				Description: ""
 			}
+
+			CursedDebuff: {
+				DisplayName: Cursed Debuff
+				Description: Reduces physical damage 100%
+			}
 		}
 
 		Items: {
@@ -577,8 +582,12 @@ Mods: {
 			}
 
 			BoneCrusher: {
-				DisplayName: Bone Crusher
-				Tooltip: Throws your enemies a bone
+				DisplayName: Cursed Bone Sword
+				Tooltip:
+					'''
+					Enemies hit with the weapon are cursed for some time, reducing thier physical damage by 50%.
+					Deals extra damage to the undead.
+					'''
 			}
 
 			CarnageSword: {
@@ -651,11 +660,7 @@ Mods: {
 
 			HellfireRifle: {
 				DisplayName: Hellfire Rifle
-				Tooltip:
-					'''
-					18% chance not to consume ammo
-					Turns Wooden bullets into Molten Bullets
-					'''
+				Tooltip: 18% chance not to consume ammo
 			}
 
 			MarbleMagnum: {
