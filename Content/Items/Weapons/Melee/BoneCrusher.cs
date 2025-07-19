@@ -36,7 +36,6 @@ namespace SupernovaMod.Content.Items.Weapons.Melee
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
 
-            //Item.shoot = ModContent.ProjectileType<Projectiles.Melee.CursedBoneSwordSlash>();
             Item.useStyle = ItemUseStyleID.Swing;
             Item.DamageType = DamageClass.Melee;
         }

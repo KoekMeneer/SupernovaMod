@@ -1223,6 +1223,8 @@ Mods: {
 			CosmolingMinion.DisplayName: Cosmoling Minion
 			ThornedRing.DisplayName: Thorned Ring
 			ThornedRingProj.DisplayName: Ring of Thorns
+			DynamicTrail.DisplayName: Dynamic Trail
+			CursedBoneSwordSlash.DisplayName: Cursed Bone Sword Slash
 		}
 	}
 }
