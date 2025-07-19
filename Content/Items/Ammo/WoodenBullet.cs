@@ -16,9 +16,10 @@ namespace SupernovaMod.Content.Items.Ammo
 
         public override void SetDefaults()
         {
+            Item.width = 12;
+            Item.height = 16;
+
             Item.damage = 4;
-            Item.width = 8;
-            Item.height = 8;
             Item.maxStack = 9999;
             Item.consumable = true;
             Item.knockBack = 1.5f;

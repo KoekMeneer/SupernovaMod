@@ -1,6 +1,4 @@
-﻿using System;
-using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 
@@ -18,14 +16,6 @@ namespace SupernovaMod.Content.Projectiles.Ranged.Bullets
             if (Main.rand.NextBool(2))
             {
                 int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), (int)(Projectile.width * .1f), (int)(Projectile.height * .1f), DustID.Pearlsand, Projectile.velocity.X * .1f, Projectile.velocity.Y * .1f);
-            }
-        }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            if (Main.rand.NextBool(2))
-            {
-                target.AddBuff(BuffID.ShadowFlame, 60);
             }
         }
 

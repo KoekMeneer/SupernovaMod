@@ -1,6 +1,4 @@
-﻿using System;
-using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 
@@ -23,9 +21,9 @@ namespace SupernovaMod.Content.Projectiles.Ranged.Bullets
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Main.rand.NextBool(2))
+            if (Main.rand.NextBool(4))
             {
-                target.AddBuff(BuffID.Ichor, 60);
+                target.AddBuff(BuffID.Ichor, 80);
             }
         }
 
