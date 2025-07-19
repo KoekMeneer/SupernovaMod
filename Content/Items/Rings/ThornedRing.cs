@@ -10,8 +10,8 @@ namespace SupernovaMod.Content.Items.Rings
 {
     public class ThornedRing : SupernovaRingItem
     {
-        public override int MaxAnimationFrames => 60;
-        public override int BaseCooldown => 1800;
+        public override int MaxAnimationFrames => 40;
+        public override int BaseCooldown => 2220;
 
         public override void SetDefaults()
         {
@@ -28,7 +28,7 @@ namespace SupernovaMod.Content.Items.Rings
         {
             for (int i = 0; i < 7; i++)
             {
-                int dust = Dust.NewDust(player.position, player.width, player.height, 40, 0f, 0f, 0, default(Color), 1f);
+                int dust = Dust.NewDust(player.position, player.width, player.height, DustID.JunglePlants, 0f, 0f, 0, default(Color), 1f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 1.5f;
                 Main.dust[dust].velocity *= 1.5f;
@@ -36,7 +36,7 @@ namespace SupernovaMod.Content.Items.Rings
             int projectileDamage = (int)((float)damage * ringPowerMulti);
             //ProjectileHelper.ShootCrossPattern(player.GetSource_Accessory(base.Item, null), player.Center, 4, 3f, 484, ShootDamage, 0.4f, player.whoAmI, 0f, 0f, 0f);
             //ProjectileHelper.ShootPlusPattern(player.GetSource_Accessory(base.Item, null), player.Center, 4, 3f, 484, ShootDamage, 0.4f, player.whoAmI, 0f, 0f, 0f);
-            player.AddBuff(Projectiles.Typeless.ThornedRingProj.BuffType, 60 * 10);
+            player.AddBuff(Projectiles.Typeless.ThornedRingProj.BuffType, 60 * 20);
             Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Typeless.ThornedRingProj>(), projectileDamage, 3, player.whoAmI);
         }
 

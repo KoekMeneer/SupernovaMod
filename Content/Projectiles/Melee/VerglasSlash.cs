@@ -1,8 +1,8 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
-using SupernovaMod.Api.Effects;
 using SupernovaMod.Content.Effects.Particles;
 using SupernovaMod.Content.Projectiles.BaseProjectiles;
+using SupernovaMod.Core.Effects;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

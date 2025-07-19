@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SupernovaMod.Api.Effects;
+using SupernovaMod.Core.Effects;
 using System;
 using Terraria;
 
@@ -11,8 +11,6 @@ namespace SupernovaMod.Content.Effects.Particles
 		private Vector2 _scaleMod;
 		private int _timeLeft;
 
-		//		public ImpactLine(Vector2 position, Vector2 velocity, Color color, Vector2 scale, int timeLeft, Entity attatchedEntity = null)
-
 		public ImpactSpark(Vector2 position, Vector2 velocity, Color color, Vector2 scale, int timeLeft, Entity attatchedEntity = null)
 		{
 			this.position = position;
@@ -21,8 +19,17 @@ namespace SupernovaMod.Content.Effects.Particles
 			_scaleMod = scale;
 			_timeLeft = timeLeft;
 		}
+		public ImpactSpark(Vector2 position, Vector2 velocity, Color color, float scale, int timeLeft)
+		{
+            this.position = position;
+            this.velocity = velocity;
+            this.color = color;
+            _scaleMod = new Vector2(scale, scale);
+            _timeLeft = timeLeft;
+        }
 
-		public override void Update()
+
+        public override void Update()
 		{
 			float opacity = (float)Math.Sin((lifeTime / (float)_timeLeft) * MathHelper.Pi);
 			color = color * opacity;

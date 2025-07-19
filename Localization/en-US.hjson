@@ -181,7 +181,7 @@ Mods: {
 
 			RedDevilBuff: {
 				DisplayName: Red Devil Buff
-				Description: Mods.SupernovaMod.Buffs.RedDevilBuff.Description
+				Description: A Red Devil that will fight for you
 			}
 
 			BlackFlames: {
@@ -191,17 +191,22 @@ Mods: {
 
 			ArcaneMight: {
 				DisplayName: Arcane Might
-				Description: Mods.SupernovaMod.Buffs.ArcaneMight.Description
+				Description: ""
 			}
 
 			CosmolingMinionBuff: {
 				DisplayName: Cosmoling Minion Buff
-				Description: Mods.SupernovaMod.Buffs.CosmolingMinionBuff.Description
+				Description: A Cosmiling that will fight for you
 			}
 
 			ThornedRingBuff: {
 				DisplayName: Thorned Ring Buff
-				Description: Mods.SupernovaMod.Buffs.ThornedRingBuff.Description
+				Description: ""
+			}
+
+			CursedDebuff: {
+				DisplayName: Cursed Debuff
+				Description: Reduces physical damage 100%
 			}
 		}
 
@@ -577,8 +582,12 @@ Mods: {
 			}
 
 			BoneCrusher: {
-				DisplayName: Bone Crusher
-				Tooltip: Throws your enemies a bone
+				DisplayName: Cursed Bone Sword
+				Tooltip:
+					'''
+					Enemies hit with the weapon are cursed for some time, reducing thier physical damage by 50%.
+					Deals extra damage to the undead.
+					'''
 			}
 
 			CarnageSword: {
@@ -651,11 +660,7 @@ Mods: {
 
 			HellfireRifle: {
 				DisplayName: Hellfire Rifle
-				Tooltip:
-					'''
-					18% chance not to consume ammo
-					Turns Wooden bullets into Molten Bullets
-					'''
+				Tooltip: 18% chance not to consume ammo
 			}
 
 			MarbleMagnum: {
@@ -727,7 +732,7 @@ Mods: {
 
 			CactusBoomerang: {
 				DisplayName: Cactus Boomerang
-				Tooltip: Cactus Boomerang
+				Tooltip: ""
 			}
 
 			CarnageTrowingKnive: {
@@ -1018,7 +1023,7 @@ Mods: {
 			}
 
 			BookOfEarth: {
-				DisplayName: Book Of Terra
+				DisplayName: Book of Terra
 				Tooltip: Fires high knockback rocks
 			}
 
@@ -1218,6 +1223,8 @@ Mods: {
 			CosmolingMinion.DisplayName: Cosmoling Minion
 			ThornedRing.DisplayName: Thorned Ring
 			ThornedRingProj.DisplayName: Ring of Thorns
+			DynamicTrail.DisplayName: Dynamic Trail
+			CursedBoneSwordSlash.DisplayName: Cursed Bone Sword Slash
 		}
 	}
 }

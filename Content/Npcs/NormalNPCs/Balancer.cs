@@ -7,7 +7,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.ModLoader.Utilities;
-using SupernovaMod.Api.Effects;
+using SupernovaMod.Core.Effects;
 
 namespace SupernovaMod.Content.Npcs.NormalNPCs
 {

@@ -506,7 +506,7 @@ namespace SupernovaMod.Content.Npcs.HarbingerOfAnnihilation
 				ForeachArm(arm => arm.Projectile.Kill());
 				NPC.dontTakeDamage = true;
 				NPC.ai[3]++; // increase our death timer.
-								 //npc.velocity = Vector2.UnitY * npc.velocity.Length();
+							 //npc.velocity = Vector2.UnitY * npc.velocity.Length();
 				/*NPC.velocity.X *= 0.95f; // lose inertia
 				if (NPC.velocity.Y < 0.5f)
 				{
@@ -519,14 +519,14 @@ namespace SupernovaMod.Content.Npcs.HarbingerOfAnnihilation
 
 				if (NPC.ai[3] > 150 && Main.netMode != NetmodeID.Server)
 				{
-					if (Filters.Scene["Shockwave"].IsActive())
+					if (Filters.Scene["SupernovaMod:shockwave"].IsActive())
 					{
 						float progress = (180 - NPC.ai[3]) / 40;
-						Filters.Scene["Shockwave"].GetShader().UseProgress(progress).UseOpacity(distortStrength * (1 - progress / 3f));
+						Filters.Scene["SupernovaMod:shockwave"].GetShader().UseProgress(progress).UseOpacity(distortStrength * (1 - progress / 3f));
 					}
 					else
 					{
-						Filters.Scene.Activate("Shockwave", NPC.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(NPC.Center);
+						Filters.Scene.Activate("SupernovaMod:shockwave", NPC.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(NPC.Center);
 					}
 				}
 
@@ -557,9 +557,9 @@ namespace SupernovaMod.Content.Npcs.HarbingerOfAnnihilation
 				}
 				if (NPC.ai[3] >= 180)
 				{
-					if (Main.netMode != NetmodeID.Server && Filters.Scene["Shockwave"].IsActive())
+					if (Main.netMode != NetmodeID.Server && Filters.Scene["SupernovaMod:shockwave"].IsActive())
 					{
-						Filters.Scene["Shockwave"].Deactivate();
+						Filters.Scene["SupernovaMod:shockwave"].Deactivate();
 					}
 
 					SoundEngine.PlaySound(SoundID.Item14);

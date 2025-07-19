@@ -6,18 +6,15 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using SupernovaMod.Common.Systems;
-using SupernovaMod.Api.Effects;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using SupernovaMod.Core.Effects;
 
 namespace SupernovaMod
 {
     public sealed partial class Supernova : Mod
 	{
 		public static Supernova Instance { get ; private set; }
-
-		[Obsolete("Use SupernovaModShaders.Shockwave instead")]
-		public static Effect ShaderShockwave { get; private set; }
 
 		public static ILog Log { get; private set; }
 
@@ -81,9 +78,6 @@ namespace SupernovaMod
 				SupernovaModShaders.LoadEffects();
 				SupernovaModTextures.LoadTextures();
                 ParticleSystem.Load();
-
-				// Deprecated
-                LoadShaders();
 			}
 		}
 
@@ -97,19 +91,9 @@ namespace SupernovaMod
 			bossChecklist = null;
 			wikithis = null;
 
-			UnloadShaders();
+            // Unload systems
+            SupernovaModShaders.UnloadEffects();
 			ParticleSystem.Unload();
-		}
-
-		private void LoadShaders()
-		{
-			ShaderShockwave = ModContent.Request<Effect>(GetEffectPath("ScreenFilters/Shockwave"), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-			Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(new Ref<Effect>(ShaderShockwave), "Shockwave"), EffectPriority.VeryHigh);
-			Filters.Scene["Shockwave"].Load();
-		}
-		private void UnloadShaders()
-		{
-			ShaderShockwave = null;
 		}
 
 		/// <summary>

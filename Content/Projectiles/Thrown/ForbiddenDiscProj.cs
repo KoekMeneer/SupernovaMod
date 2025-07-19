@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,14 +21,25 @@ namespace SupernovaMod.Content.Projectiles.Thrown
 
         public override void AI()
         {
-            int dust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.Sandnado, Projectile.velocity.X, Projectile.velocity.Y, Scale: 1.25f);
+            // Add dust effect
+            //
+            int dust = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, DustID.Sandnado, Projectile.velocity.X, Projectile.velocity.Y, Scale: 1.25f);
             Main.dust[dust].noGravity = true;
 
             if (Main.rand.NextBool(6))
             {
-                dust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.YellowStarDust, Projectile.velocity.X, Projectile.velocity.Y, Scale: Main.rand.NextFloat(.7f, 2));
+                dust = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, DustID.YellowStarDust, Projectile.velocity.X, Projectile.velocity.Y, Scale: Main.rand.NextFloat(.7f, 2));
                 Main.dust[dust].noGravity = true;
             }
+
+            // Play the "boomerang" sound every so often
+            //
+            if (Projectile.soundDelay == 0)
+            {
+                Projectile.soundDelay = 8;
+                SoundEngine.PlaySound(SoundID.Item7, Projectile.position);
+            }
+
             base.AI();
         }
 
@@ -38,7 +50,7 @@ namespace SupernovaMod.Content.Projectiles.Thrown
             int dust;
 			for (int x = 0; x < 8; x++)
 			{
-				dust = Dust.NewDust(Projectile.Center, 25, 25, DustID.Sandnado, 7 * hit.HitDirection, Main.rand.Next(-3, 3), 0, default, Main.rand.NextFloat(.75f, 1));
+				dust = Dust.NewDust(Projectile.Center, 25, 25, DustID.Sandnado, 6 * hit.HitDirection, Main.rand.Next(-3, 3), 0, default, Main.rand.NextFloat(.75f, 1));
 				Main.dust[dust].noGravity = false;
 				Main.dust[dust].velocity *= Main.rand.NextFloat(.5f, 1.5f);
 			}

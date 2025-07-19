@@ -75,7 +75,7 @@ namespace SupernovaMod.Core.Effects
 			{
 				(float sin, float cos) = MathF.SinCos(MathHelper.ToRadians(i * 360 / dustCount));
 
-				float amplitudeX = cos * size.X / 2f;
+				float amplitudeX = cos * size.X;
 				float amplitudeY = sin * size.Y;
 
 				Dust dust = Dust.NewDustPerfect(position + new Vector2(amplitudeX, amplitudeY), dustType, -velocity, Scale: dustScale);

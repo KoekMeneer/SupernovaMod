@@ -4,11 +4,11 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using SupernovaMod.Api;
-using SupernovaMod.Api.Effects;
 using SupernovaMod.Common.Players;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using System;
+using SupernovaMod.Core.Effects;
 
 namespace SupernovaMod.Content.Projectiles.Magic
 {

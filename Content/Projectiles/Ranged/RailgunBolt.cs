@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using SupernovaMod.Api.Effects;
+using SupernovaMod.Core.Effects;
 using SupernovaMod.Api;
 
 namespace SupernovaMod.Content.Projectiles.Ranged
@@ -46,7 +46,7 @@ namespace SupernovaMod.Content.Projectiles.Ranged
 			{
 				target.AddBuff(BuffID.Electrified, 120);
 			}
-		}
+        }
 
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{

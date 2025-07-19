@@ -8,21 +8,14 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
 {
     public class DesertDuster : SupernovaGunItem
     {
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Desert Duster");
-            // Tooltip.SetDefault("Uses sand to shoot.");
-		}
-
         public override void SetDefaults()
         {
             base.SetDefaults();
 
             Item.damage = 24;
-            Item.width = 58;
+            Item.width = 60;
             Item.crit = 1;
-            Item.height = 22;
+            Item.height = 28;
             Item.useTime = 19;
             Item.useAnimation = 19;
             Item.knockBack = 1.5f;
@@ -32,6 +25,8 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
             Item.UseSound = SoundID.Item11;
             Item.shootSpeed = 10;
             Item.useAmmo = AmmoID.Sand;
+
+            Gun.muzzleFlash = false;
         }
 
         public override void AddRecipes()

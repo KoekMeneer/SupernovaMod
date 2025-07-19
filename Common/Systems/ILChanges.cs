@@ -1,4 +1,4 @@
-﻿using SupernovaMod.Api.Effects;
+﻿using SupernovaMod.Core.Effects;
 using Terraria;
 using Terraria.ModLoader;
 

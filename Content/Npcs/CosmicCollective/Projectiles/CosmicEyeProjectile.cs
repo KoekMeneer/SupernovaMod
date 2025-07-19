@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using SupernovaMod.Api.Helpers;
+using SupernovaMod.Core.Helpers;
 
 namespace SupernovaMod.Content.Npcs.CosmicCollective.Projectiles
 {
@@ -43,7 +44,10 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective.Projectiles
                 const int type = ProjectileID.EyeLaser;
                 const int damage = 32;
 
-                Vector2 velocity = Mathf.VelocityFPTP(Projectile.Center, new Vector2(target.Center.X, target.Center.Y), 7.5f).RotatedByRandom(.25f);
+                Vector2 targetCenter = target.Center;
+                Vector2 velocity = Mathf.VelocityFPTP(Projectile.Center, targetCenter, 12);
+                targetCenter = ProjectileHelper.CalculateBasicTargetPrediction(Projectile.Center, targetCenter, velocity);
+                velocity = Mathf.VelocityFPTP(Projectile.Center, targetCenter, 12).RotatedByRandom(.01f);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, velocity, type, Projectile.damage, 0f, 0);
 
                 for (int x = 0; x < 5; x++)

@@ -1,4 +1,4 @@
-﻿using Terraria.ModLoader;
+using Terraria.ModLoader;
 
 namespace SupernovaMod.Common.Systems
 {
@@ -19,7 +19,7 @@ namespace SupernovaMod.Common.Systems
 		public static void SetStaticDefaults()
 		{
 			DamageClass_ThrowingRanged = DamageClass.Ranged;
-			DamageClass_ThrowingMelee = DamageClass.Melee;
+			DamageClass_ThrowingMelee = DamageClass.MeleeNoSpeed;
 		}
 	}
 }
