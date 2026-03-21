@@ -1,22 +1,41 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.IO;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
 
 namespace SupernovaMod.Content.Npcs.CosmicCollective
 {
 	public class Cosmoling : ModNPC
 	{
-		private float _speed = 12.35f;
-		private Player player;
+		private float _speed = 8;
+		private Player _player = null!;
 
-		public override void SetStaticDefaults()
+		private Vector2 _dashDirection;
+
+        public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				new FlavorTextBestiaryInfoElement(
+					"Fragments of cosmic flesh given form by the Cosmic Collective. " +
+					"They swarm intruders relentlessly, darting in short bursts before regrouping."
+				)
+			});
+        }
+
 		public override void SetDefaults()
 		{
 			NPC.lifeMax = 60;
@@ -32,16 +51,30 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 			NPC.noTileCollide = true; // Can not collide with tiles
 			NPC.scale = .8f;
         }
+
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = (int)((float)NPC.lifeMax * 0.87f * balance);
         }
 
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+			writer.WriteVector2(_dashDirection);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            _dashDirection = reader.ReadVector2();
+        }
+
 		public override void FindFrame(int frameHeight)
 		{
 			NPC.frameCounter += 2; // Determines the animation speed. Higher value = faster animation. 
-			NPC.frameCounter %= 20;//Main.npcFrameCount[NPC.type]; // TODO: Find out why 20 works here but the standardly used value not...
-			int frame = (int)(NPC.frameCounter / 10.0);
+            NPC.frameCounter++;
+            if (NPC.frameCounter >= 20)
+                NPC.frameCounter = 0;
+
+            int frame = (int)(NPC.frameCounter / 10);
             if (frame >= Main.npcFrameCount[NPC.type]) frame = 0;
 			NPC.frame.Y = (int)(frame * frameHeight);
 
@@ -56,15 +89,56 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 			DespawnHandler(); // Handles if the NPC should despawn.
 
 
-			// set the dust of the trail
-			//
-			int dust = Dust.NewDust(NPC.Center, NPC.width, NPC.height, DustID.CrimsonPlants, NPC.velocity.X, NPC.velocity.Y, 15, default(Color), 1f);
-			Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-			Main.dust[dust].velocity *= 0f;
-			Dust.NewDust(NPC.Center, (int)(NPC.width * .8f), (int)(NPC.height * .8f), DustID.Blood, NPC.velocity.X * .05f, NPC.velocity.Y * .05f, 2, default(Color), .7f);
+            // Core fleshy trail
+            //
+            if (Main.rand.NextBool(2))
+            {
+                int dust = Dust.NewDust(
+                    NPC.position,
+                    NPC.width,
+                    NPC.height,
+                    DustID.Blood,
+                    NPC.velocity.X * 0.15f,
+                    NPC.velocity.Y * 0.15f,
+                    100,
+                    default,
+                    1.1f
+                );
 
-			LookToPlayer();
-			Move();
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 0.2f;
+            }
+
+            // Darker "meaty" particles for depth
+            //
+            if (Main.rand.NextBool(3))
+            {
+                int dust = Dust.NewDust(
+                    NPC.Center,
+                    6, 6,
+                    DustID.CrimsonPlants,
+                    0f, 0f,
+                    0,
+                    default,
+                    0.9f
+                );
+
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity = NPC.velocity * -0.05f;
+            }
+
+            // Add "pulse" effect
+            float pulse = 0.05f * (float)Math.Sin(Main.GameUpdateCount * 0.2f + NPC.whoAmI);
+            NPC.scale = 0.8f + pulse;
+
+			// Look at the player unless dashing
+			//
+			if ((int)NPC.ai[1] != 1)
+			{
+                LookToPlayer();
+            }
+
+            Move();
 
 			// Fix overlap with other npcs
 			//
@@ -96,28 +170,86 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 			}
 		}
 
-		private void Move()
-		{
-			Vector2 moveTo = player.Center; // Gets the point that the npc will be moving to.
-			Vector2 move = moveTo - NPC.Center;
-			float magnitude = Magnitude(move);
-			if (magnitude > _speed)
-			{
-				move *= _speed / magnitude;
-			}
-			float turnResistance = 24f; // The larger the number the slower the npc will turn.
-			move = (NPC.velocity * turnResistance + move) / (turnResistance + 1f);
-			magnitude = Magnitude(move);
-			if (magnitude > _speed)
-			{
-				move *= _speed / magnitude;
-			}
-			NPC.velocity = move;
-		}
+        private void Move()
+        {
+            Vector2 toPlayer = _player.Center - NPC.Center;
+            float distance = toPlayer.Length();
 
-		private void Target()
+            float baseSpeed = _speed;     // now lower (e.g. 8.5f)
+            float dashSpeed = 14f;
+
+            switch ((int)NPC.ai[1])
+            {
+                case 0: // Normal movement
+                    {
+                        Vector2 desired = toPlayer.SafeNormalize(Vector2.Zero) * baseSpeed;
+                        NPC.velocity = (NPC.velocity * 28f + desired) / 29f;
+
+                        // Trigger pre-dash when close
+                        if (distance < 220f && NPC.ai[0] > 80)
+                        {
+                            NPC.ai[1] = 3; // go to pre-dash
+                            NPC.ai[0] = 0;
+                        }
+                    }
+                    break;
+
+                case 3: // Pre-dash (windup)
+                    {
+                        NPC.velocity *= 0.9f; // slight slowdown
+
+                        // Lock direction once at start
+                        if (NPC.ai[0] == 1)
+                        {
+                            _dashDirection = toPlayer.SafeNormalize(Vector2.UnitY);
+
+                            SoundEngine.PlaySound(
+                                SoundID.NPCHit13 with
+                                {
+                                    Volume = 0.35f,
+                                    Pitch = Main.rand.NextFloat(-0.2f, 0.2f)
+                                },
+                                NPC.Center
+                            );
+                        }
+
+                        if (NPC.ai[0] > 10)
+                        {
+                            NPC.ai[1] = 1; // dash
+                            NPC.ai[0] = 0;
+                        }
+                    }
+                    break;
+
+                case 1: // Dash (non-tracking)
+                    {
+                        NPC.velocity = _dashDirection * dashSpeed;
+
+                        if (NPC.ai[0] > 10)
+                        {
+                            NPC.ai[1] = 2; // slowdown
+                            NPC.ai[0] = 0;
+                        }
+                    }
+                    break;
+
+                case 2: // Slowdown / recovery
+                    {
+                        NPC.velocity *= 0.92f;
+
+                        if (NPC.ai[0] > 50)
+                        {
+                            NPC.ai[1] = 0; // back to normal
+                            NPC.ai[0] = 0;
+                        }
+                    }
+                    break;
+            }
+        }
+
+        private void Target()
 		{
-			player = Main.player[NPC.target]; // This will get the player target.
+			_player = Main.player[NPC.target]; // This will get the player target.
 		}
 
 
@@ -146,21 +278,18 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 				angle += (float)Math.PI;
 			}
 
-			NPC.rotation = angle;
-		}
-
-		private float Magnitude(Vector2 mag)
-		{
-			return (float)Math.Sqrt(mag.X * mag.X + mag.Y * mag.Y);
-		}
+			// Rotate smoothly
+            float targetRot = angle;
+            NPC.rotation = MathHelper.Lerp(NPC.rotation, targetRot, 0.2f);
+        }
 
 		private void DespawnHandler()
 		{
-			if (!player.active || player.dead)
+			if (!_player.active || _player.dead)
 			{
 				NPC.TargetClosest(false);
-				player = Main.player[NPC.target];
-				if (!player.active || player.dead)
+				_player = Main.player[NPC.target];
+				if (!_player.active || _player.dead)
 				{
 					NPC.velocity = new Vector2(0f, -10f);
 					if (NPC.timeLeft > 10)
@@ -193,5 +322,35 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 				i++;
 			}
 		}
-	}
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            // When dashing, draw a red afterimage trail
+			//
+            if (NPC.ai[1] == 1)
+            {
+                for (int i = 0; i < NPC.oldPos.Length; i++)
+                {
+                    Vector2 drawPos = NPC.oldPos[i] - screenPos + NPC.Size / 2f;
+
+                    Color color = new Color(180, 40, 40, 80) *
+                                  (1f - i / (float)NPC.oldPos.Length);
+
+                    spriteBatch.Draw(
+                        TextureAssets.Npc[NPC.type].Value,
+                        drawPos,
+                        NPC.frame,
+                        color,
+                        NPC.rotation,
+                        NPC.frame.Size() / 2,
+                        NPC.scale,
+                        SpriteEffects.None,
+                        0f
+                    );
+                }
+            }
+
+            return true;
+        }
+    }
 }
