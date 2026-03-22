@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using SupernovaMod.Common.Players;
 using SupernovaMod.Content.Items.Rings.BaseRings;
 using Terraria;
 using Terraria.Audio;
@@ -11,15 +10,14 @@ namespace SupernovaMod.Content.Items.Rings
 {
     public class RingOfHellfire : SupernovaRingItem
     {
+        public override int BaseCooldown => 60 * 200;
+        public override int UseTime => 40;
+
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Ring of Hellfire");
-            /* Tooltip.SetDefault("When the 'Ring Ability button' is pressed" +
-                "\n You will gain the inferno and Hellfire Ring buff." +
-                "\n The Hellfire Ring buff gives every attack a chance to spawn a fiery explosion near the target."); */
         }
+
         public override void SetDefaults()
         {
 			base.SetDefaults();
@@ -28,34 +26,28 @@ namespace SupernovaMod.Content.Items.Rings
             Item.rare = ItemRarityID.Orange;
             Item.value = Item.buyPrice(0, 6, 0, 0);
         }
-        public override int BaseCooldown => 60 * 200;
-        public override void RingActivate(Player player, float ringPowerMulti)
-        {
-            int buffTime = 60 * 30;
-            player.AddBuff(BuffID.Inferno, buffTime);
-            player.AddBuff(ModContent.BuffType<Buffs.Rings.HellfireRingBuff>(), (int)(buffTime * ringPowerMulti));
 
-            // Add dust effect
-            for (int i = 0; i < 15; i++)
-            {
-                int dust = Dust.NewDust(player.position, player.width, player.height, DustID.Torch);
-                Main.dust[dust].scale = 2;
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 3;
-                Main.dust[dust].velocity *= 3;
-            }
-            SoundEngine.PlaySound(SoundID.Item74);
+        public override void OnUseFrame(Player player, int frame)
+        {
+            Vector2 pos = player.Center + Main.rand.NextVector2Circular(30, 30);
+            Dust.NewDustPerfect(pos, DustID.Lava, (player.Center - pos) * 0.2f).noGravity = true;
+
+            RingVFX.PlayChargeSound(player.Center);
         }
 
-        public override int MaxAnimationFrames => 40;
-        public override void RingUseAnimation(Player player, int frame)
+        public override void OnActivate(Player player)
         {
-            SoundEngine.PlaySound(SoundID.Item15);
-            Vector2 dustPos = player.Center + new Vector2(30, 0).RotatedByRandom(MathHelper.ToRadians(360));
-            Vector2 diff = player.Center - dustPos;
-            diff.Normalize();
+            SoundEngine.PlaySound(SoundID.Item74);
 
-            Dust.NewDustPerfect(dustPos, DustID.Lava, diff * 2).noGravity = true;
+            int duration = 60 * 30;
+
+            player.AddBuff(BuffID.Inferno, duration);
+            player.AddBuff(ModContent.BuffType<Buffs.Rings.HellfireRingBuff>(), duration);
+
+            for (int i = 0; i < 25; i++)
+            {
+                Dust.NewDustDirect(player.position, player.width, player.height, DustID.Torch, Scale: 2f).noGravity = true;
+            }
         }
 
         public override void AddRecipes()

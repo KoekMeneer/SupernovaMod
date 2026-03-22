@@ -27,7 +27,7 @@ namespace SupernovaMod.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual = false)
         {
             ResourcePlayer resourcePlayer = player.GetModPlayer<ResourcePlayer>();
-			resourcePlayer.ringCoolRegen -= 0.08f;
+			resourcePlayer.ringCooldownMult -= 0.08f;
 
             if (player.HasBuff(ModContent.BuffType<Buffs.Cooldowns.RingCooldown>()))
             {

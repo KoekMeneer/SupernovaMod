@@ -24,7 +24,7 @@ With new NPCs and more content on the way, Supernova Mod delivers a fresh and th
 [h2]Supported Languages[/h2]
 
 Currently in English, with multilingual support in development.
-Want to help translate? Join our [url=https://discord.com/invite/T68d6t2bG6]Discord[/url] and / or check [url=https://github.com/your-repo/SupernovaMod]our GitHub[/url] for details!
+Want to help translate? Join our [url=https://discord.com/invite/T68d6t2bG6]Discord[/url] and / or check [url=https://github.com/KoekMeneer/SupernovaMod]our GitHub[/url] for details!
 
 [h2]Content Overview[/h2]
 
@@ -44,7 +44,7 @@ We’re actively developing Supernova Mod and welcome your feedback! Join our [u
 [list]
 [*] Stay updated on new features and releases.
 [*] Report bugs or suggest ideas.
-[*] Contribute to coding, sprites, translations, or testing ([url=https://github.com/your-repo/SupernovaMod/blob/main/CONTRIBUTING.md]Contribution Guide[/url]).
+[*] Contribute to coding, sprites, translations, or testing ([url=https://github.com/KoekMeneer/SupernovaMod/blob/main/CONTRIBUTING.md]Contribution Guide[/url]).
 [/list]
 
 [hr]

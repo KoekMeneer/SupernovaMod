@@ -445,30 +445,25 @@ Mods: {
 
 			BloodweaversRing: {
 				DisplayName: Bloodweaver's Ring
-				Tooltip:
-					'''
-					When the 'Ring Ability button' is pressed
-					You will drain life from the 10 nearest enemies
-					'''
+				Tooltip: Drains life from nearby enemies
 			}
 
 			GemRing: {
 				DisplayName: Gem Ring
-				Tooltip: When the 'Ring Ability button' is pressed, shoots gem projectiles to the direction you are looking at
+				Tooltip: Unleashes a prismatic burst of gem energy
 			}
 
 			ProspectorsRing: {
 				DisplayName: Prospectors Ring
-				Tooltip: Gives spelunker effect and faster mining speed for 12 seconds when the 'Ring Ability button' is pressed.
+				Tooltip: Reveals nearby ores and boosts mining speed
 			}
 
 			RingOfHellfire: {
 				DisplayName: Ring of Hellfire
 				Tooltip:
 					'''
-					When the 'Ring Ability button' is pressed
-					You will gain the inferno and Hellfire Ring buff
-					The Hellfire Ring buff gives every attack a chance to spawn a fiery explosion near the target
+					Empowers your attacks with explosive hellfire
+					Attacks have a chance to spawn a fiery explosion near the target
 					'''
 			}
 
@@ -476,7 +471,7 @@ Mods: {
 				DisplayName: Ring of Protection
 				Tooltip:
 					'''
-					When the 'Ring Ability button' is pressed you will dodge the next attack
+					Lets you evade the next attack
 					+2 defense when equiped
 					'''
 			}
@@ -978,12 +973,12 @@ Mods: {
 
 			RingOfQuake: {
 				DisplayName: Ring of Quake
-				Tooltip: When the 'Ring Ability button' is pressed a powerfull earthquake will strike your enemies
+				Tooltip: Summons a powerfull earthquake
 			}
 
 			RingOfQuake_Adamantite: {
 				DisplayName: Ring of Quake
-				Tooltip: When the 'Ring Ability button' is pressed a powerfull earthquake will strike your enemies
+				Tooltip: Summons a powerfull earthquake
 			}
 
 			Kusanagi: {
@@ -1054,7 +1049,7 @@ Mods: {
 
 			ThornedRing: {
 				DisplayName: Thorned Ring
-				Tooltip: When the 'Ring Ability button' is pressed, casts a ring of thorns around the player
+				Tooltip: Summons protective thorns that damage nearby enemies
 			}
 
 			FlyingTerrorBossMask: {
@@ -1083,12 +1078,7 @@ Mods: {
 
 			WizardsRing: {
 				DisplayName: Wizards Ring
-				Tooltip:
-					'''
-					When the 'Ring Ability button' is pressed
-					You will gain the Arcane Might buff
-					The Arcane Might buff prevents mana usage
-					'''
+				Tooltip: Prevents mana usage for some time
 			}
 
 			CrystalineDye: {
@@ -1118,6 +1108,11 @@ Mods: {
 			CosmicEgg: {
 				DisplayName: Cosmic Egg
 				Tooltip: Summons the Cosmic Collective
+			}
+
+			Cosmorang: {
+				DisplayName: Cosmorang
+				Tooltip: ""
 			}
 		}
 

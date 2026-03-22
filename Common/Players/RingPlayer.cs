@@ -2,9 +2,8 @@ using SupernovaMod.Common.Systems;
 using SupernovaMod.Content.Buffs.Cooldowns;
 using SupernovaMod.Content.Items.Rings.BaseRings;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
 
@@ -17,7 +16,7 @@ namespace SupernovaMod.Common.Players
 		/// <summary>
 		/// If our ring is on a cooldown
 		/// </summary>
-		public bool RingOnCooldown => Player.HasBuff(_ringCooldownBuffType);
+		public bool IsRingOnCooldown => Player.HasBuff(_ringCooldownBuffType);
 
 		#region Ring Animation Properties
 		private int _ringAnimationFrame = 0;
@@ -25,75 +24,123 @@ namespace SupernovaMod.Common.Players
 		/// If our ring is animating
 		/// </summary>
 		public bool RingAnimationActive => _ringAnimationFrame > 0;
-		#endregion
+        #endregion
 
-		public override void PostUpdateEquips()
-		{
-			ResourcePlayer resourcePlayer = Player.GetModPlayer<ResourcePlayer>();
-			// Check if a ring is equiped by the player
-			//
-			if (HasRing(out SupernovaRingItem equipedRing))
+        public override void PostUpdateEquips()
+        {
+            if (!TryGetEquippedRing(out SupernovaRingItem? ring))
 			{
-				try
-				{
-					// Check if the player doesn't have the ring cooldown debuff
-					//
-					if (!RingOnCooldown && equipedRing.CanRingActivate(this))
-					{
-						// Check if our 'ringAbility' button was pressed and we are not animating
-						//
-						if (SupernovaKeybinds.RingAbilityButton.JustPressed && !RingAnimationActive)
-						{
-							SoundEngine.PlaySound(SoundID.DD2_PhantomPhoenixShot, Player.Center);
-							// When the ringAbilityButton is pressed we start our ring animation
-							equipedRing.UseAnimation(Player);
-							_ringAnimationFrame = equipedRing.MaxAnimationFrames; // Start our animation
-						}
-						// Else when animating
-						//
-						else if (RingAnimationActive)
-						{
-							// Update our ring animation until done
-							equipedRing.RingUseAnimation(Player, _ringAnimationFrame);
-							_ringAnimationFrame--;
-
-							// On our last frame activate the ring
-							//
-							if (!RingAnimationActive)
-							{
-								// Activate our ring when our animation is done
-								equipedRing.RingActivate(Player, resourcePlayer.ringPower);
-
-								// After the ring is activated give the player a cooldown
-								int cooldown = equipedRing.Cooldown;
-								cooldown = (int)(cooldown * equipedRing.coolRegen);
-								Player.AddBuff(_ringCooldownBuffType, cooldown);
-							}
-						}
-					}
-					else if (RingOnCooldown)
-					{
-						// Call the ring cooldown effect for if the ring should give an effect when cooling down
-						//
-						equipedRing?.OnRingCooldown(Player.buffTime[Player.FindBuffIndex(_ringCooldownBuffType)], Player);
-					}
-				}
-				catch (Exception ex)
-				{
-					Main.NewText("SupernovaMod: Error '" + ex.Message+ "' when using the '" + equipedRing.Name + "' ring", Main.errorColor);
-					Mod.Logger.Error("Error '" + ex.Message+ "' when using the '" + equipedRing.Name + "' ring");
-					Mod.Logger.Error(ex);
-				}
+				return;
 			}
 
-			base.PostUpdateEquips();
-		}
+			try
+			{
+				// Handle use animation
+				//
+				if (RingAnimationActive)
+				{
+					ring.OnUseFrame(Player, _ringAnimationFrame);
+                    _ringAnimationFrame--;
+
+					if (!RingAnimationActive)
+					{
+						ring.OnActivate(Player);
+						ring.PostActivate(Player);
+
+						int cooldown = ring.GetScaledCooldown(Player);
+						Player.AddBuff(_ringCooldownBuffType, cooldown);
+					}
+                }
+
+				if (!SupernovaKeybinds.RingAbilityButton.JustPressed)
+				{
+					return;
+				}
+
+				// Check if our ring can be activated
+				//
+                if (!IsRingOnCooldown && ring.CanRingActivate(Player))
+				{
+					ring.PreActivate(Player);
+
+					_ringAnimationFrame = ring.UseTime;
+					ring.OnStartUse(Player);
+                }
+			}
+			catch (Exception ex)
+			{
+				Main.NewText($"Supernova Mod: Unexpected error occurred handling ring activation.", Main.errorColor);
+				Mod.Logger.Error($"Unexpected exception handling ring activation :: {ex}");
+			}
+        }
+
+		//public void __PostUpdateEquips()
+		//{
+		//	ResourcePlayer resourcePlayer = Player.GetModPlayer<ResourcePlayer>();
+		//	// Check if a ring is equiped by the player
+		//	//
+		//	if (TryGetEquippedRing(out SupernovaRingItem equipedRing))
+		//	{
+		//		try
+		//		{
+		//			// Check if the player doesn't have the ring cooldown debuff
+		//			//
+		//			if (!IsRingOnCooldown && equipedRing.CanRingActivate(this))
+		//			{
+		//				// Check if our 'ringAbility' button was pressed and we are not animating
+		//				//
+		//				if (SupernovaKeybinds.RingAbilityButton.JustPressed && !RingAnimationActive)
+		//				{
+		//					SoundEngine.PlaySound(SoundID.DD2_PhantomPhoenixShot, Player.Center);
+		//					// When the ringAbilityButton is pressed we start our ring animation
+		//					equipedRing.UseAnimation(Player);
+		//					_ringAnimationFrame = equipedRing.MaxAnimationFrames; // Start our animation
+		//				}
+		//				// Else when animating
+		//				//
+		//				else if (RingAnimationActive)
+		//				{
+		//					// Update our ring animation until done
+		//					equipedRing.RingUseAnimation(Player, _ringAnimationFrame);
+		//					_ringAnimationFrame--;
+
+		//					// On our last frame activate the ring
+		//					//
+		//					if (!RingAnimationActive)
+		//					{
+		//						// Activate our ring when our animation is done
+		//						equipedRing.RingActivate(Player, resourcePlayer.ringPower);
+
+		//						// After the ring is activated give the player a cooldown
+		//						int cooldown = equipedRing.Cooldown;
+		//						cooldown = (int)(cooldown * equipedRing.coolRegen);
+		//						Player.AddBuff(_ringCooldownBuffType, cooldown);
+		//					}
+		//				}
+		//			}
+		//			else if (IsRingOnCooldown)
+		//			{
+		//				// Call the ring cooldown effect for if the ring should give an effect when cooling down
+		//				//
+		//				equipedRing?.OnRingCooldown(Player.buffTime[Player.FindBuffIndex(_ringCooldownBuffType)], Player);
+		//			}
+		//		}
+		//		catch (Exception ex)
+		//		{
+		//			Main.NewText("SupernovaMod: Error '" + ex.Message+ "' when using the '" + equipedRing.Name + "' ring", Main.errorColor);
+		//			Mod.Logger.Error("Error '" + ex.Message+ "' when using the '" + equipedRing.Name + "' ring");
+		//			Mod.Logger.Error(ex);
+		//		}
+		//	}
+
+		//	base.PostUpdateEquips();
+		//}
 
 		/// <summary>
 		/// Checks if the player has equiped a ring
 		/// </summary>
 		/// <returns>If the player has a ring</returns>
-		public bool HasRing(out SupernovaRingItem equipedRing)
+		public bool TryGetEquippedRing([MaybeNullWhen(false)] out SupernovaRingItem equippedRing)
 		{
 			// Get the item currently in our ring slot
 			//
@@ -101,22 +148,22 @@ namespace SupernovaMod.Common.Players
 			{
 				Item ringSlotItem = ringSlot.FunctionalItem;
 
-				// Check if a ring is equiped
+				// Check if a ring is equipped
 				//
 				if (ItemIsRing(ringSlotItem))
 				{
-					equipedRing = ringSlotItem.ModItem as SupernovaRingItem;
-					return true;
+                    equippedRing = ringSlotItem.ModItem as SupernovaRingItem;
+					return equippedRing != null;
 				}
 			}
 
-			// No ring is equiped
-			//
-			equipedRing = null;
+            // No ring is equipped
+            //
+            equippedRing = null;
 			return false;
 		}
 
-		private AccessorySlotLoader _slotLoader = null;
+		private AccessorySlotLoader? _slotLoader = null;
 		/// <summary>
 		/// Tries to get the ring Accessory slot.
 		/// </summary>
@@ -171,7 +218,7 @@ namespace SupernovaMod.Common.Players
 			return ModContent.GetInstance<Configs.CommonConfig>().enableRingSlot;
 		}
 
-		// Overrides the default behaviour where a disabled accessory slot will allow retrieve items if it contains items
+		// Overrides the default behavior where a disabled accessory slot will allow retrieve items if it contains items
 		public override bool IsVisibleWhenNotEnabled()
 		{
 			return false; // We set to false to just not display if not Enabled. NOTE: this does not affect behavour when mod is unloaded!

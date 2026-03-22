@@ -181,7 +181,7 @@ namespace SupernovaMod.Common.Systems
 				return null;
 			}
 			// Get the resource player and return the RingCooldownMod
-			return player.GetModPlayer<Players.ResourcePlayer>().ringCoolRegen;
+			return player.GetModPlayer<Players.ResourcePlayer>().ringCooldownMult;
 		}
 		public object Call_GetRingPower(object[] args)
 		{
@@ -195,14 +195,14 @@ namespace SupernovaMod.Common.Systems
 
 		public object Call_BonusRingCooldown(object[] args)
 		{
-			if (!TryGetBonusArguments(args, out Player player, out float value))
+			if (!TryGetBonusArguments(args, out Player player, out int value))
 			{
 				return null;
 			}
 			// Get the resource player and add the value to the cooldown regen
 			//
 			Players.ResourcePlayer resourcePlayer = player.GetModPlayer<Players.ResourcePlayer>();
-			resourcePlayer.ringCoolRegen += value;
+			resourcePlayer.ringFlatCooldownReduction += value;
 			return null;
 		}
 		public object Call_BonusRingCooldownMulti(object[] args)
@@ -214,7 +214,7 @@ namespace SupernovaMod.Common.Systems
 			// Get the resource player and multiply the cooldown regen by the value
 			//
 			Players.ResourcePlayer resourcePlayer = player.GetModPlayer<Players.ResourcePlayer>();
-			resourcePlayer.ringCoolRegen *= value;
+			resourcePlayer.ringCooldownMult *= value;
 			return true;
 		}
 
