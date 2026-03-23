@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SupernovaMod.Common.Players;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -15,11 +16,36 @@ namespace SupernovaMod.Common.Players
 {
 	public class SupernovaPlayer : ModPlayer
 	{
+        //
         public bool blackFlamesDebuff = false;
+
+        //
+        public int algizShieldHits = 0;
 
         public override void ResetEffects()
         {
-			blackFlamesDebuff = false;
+            blackFlamesDebuff = false;
+        }
+
+        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
+        {
+            return new Item[]
+            {
+                // Add Fractured Lifeward Ring to starting
+                new Item(ModContent.ItemType<Content.Items.Rings.RingOfProtection>(), 1, 0)
+            };
+        }
+
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
+        {
+            // Handle algiz shield player logic
+            //
+            if (algizShieldHits > 0)
+            {
+                modifiers.DisableSound();
+                modifiers.FinalDamage *= 0f; // negate damage
+                algizShieldHits--;
+            }
         }
 
         public override void UpdateBadLifeRegen()

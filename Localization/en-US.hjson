@@ -468,12 +468,14 @@ Mods: {
 			}
 
 			RingOfProtection: {
-				DisplayName: Ring of Protection
-				Tooltip:
-					'''
-					Lets you evade the next attack
-					+2 defense when equiped
-					'''
+				DisplayName: Fractured Lifeward Ring
+				Tooltip: Grants a shield which lasts for 10 seconds and blocks 1 hit
+				FlavorText: A fragile ring that barely holds its ward.
+			}
+
+			LifewardRing: {
+				DisplayName: Lifeward Ring
+				Tooltip: Grants a shield which lasts for 15 seconds and blocks 2 hits
 			}
 
 			RingForge: {
@@ -1220,6 +1222,7 @@ Mods: {
 			ThornedRingProj.DisplayName: Ring of Thorns
 			DynamicTrail.DisplayName: Dynamic Trail
 			CursedBoneSwordSlash.DisplayName: Cursed Bone Sword Slash
+			AlgizShieldProj.DisplayName: Algiz Shield
 		}
 	}
 }
