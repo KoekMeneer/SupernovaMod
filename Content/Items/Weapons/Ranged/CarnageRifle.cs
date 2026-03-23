@@ -36,8 +36,8 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
             base.SetDefaults();
 
             Item.damage = 40;
-            Item.width = 58;
             Item.crit = 2;
+            Item.width = 56;
             Item.height = 20;
             Item.useAnimation = 21;
             Item.useTime = 21;

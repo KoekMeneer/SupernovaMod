@@ -16,8 +16,8 @@ namespace SupernovaMod.Content.Items.Materials
 
         public override void SetDefaults()
         {
-            Item.width = 16;
-            Item.height = 16;
+            Item.width = 30;
+            Item.height = 26;
             Item.maxStack = 9999;
             Item.value = Item.buyPrice(0, 0, 4, 0);
             Item.rare = ItemRarityID.Green;

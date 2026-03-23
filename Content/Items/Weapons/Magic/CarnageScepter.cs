@@ -20,8 +20,8 @@ namespace SupernovaMod.Content.Items.Weapons.Magic
         {
             Item.damage = 18;
             Item.crit = 1;
-            Item.width = 28;
-            Item.height = 34;
+            Item.width = 48;
+            Item.height = 48;
             Item.useTime = 38;
             Item.useAnimation = 38;
             Item.useStyle = ItemUseStyleID.Shoot;        //this is how the item is holded
