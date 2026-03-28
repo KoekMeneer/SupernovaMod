@@ -1,16 +1,15 @@
 ﻿using System;
-using Terraria.Audio;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using SupernovaMod.Api.Helpers;
-using SupernovaMod.Core.Helpers;
 
 namespace SupernovaMod.Content.Npcs.CosmicCollective.Projectiles
 {
     public class CosmicEyeProjectile : ModProjectile
     {
+        private const float ExpertDamageMultiplier = .9f;
+
         public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.NebulaEye}";
 
         public override void SetStaticDefaults()
@@ -44,17 +43,7 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective.Projectiles
                 const int type = ProjectileID.EyeLaser;
                 const int damage = 32;
 
-                Vector2 targetCenter = target.Center;
-                Vector2 velocity = Mathf.VelocityFPTP(Projectile.Center, targetCenter, 12);
-                targetCenter = ProjectileHelper.CalculateBasicTargetPrediction(Projectile.Center, targetCenter, velocity);
-                velocity = Mathf.VelocityFPTP(Projectile.Center, targetCenter, 12).RotatedByRandom(.01f);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, velocity, type, Projectile.damage, 0f, 0);
-
-                for (int x = 0; x < 5; x++)
-                {
-                    int dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.UndergroundHallowedEnemies, velocity.X, velocity.Y, 80, default, Main.rand.NextFloat(.9f, 1.6f));
-                    Main.dust[dust].noGravity = true;
-                }
+                ShootToPlayer(type, damage, target);
 
                 //
                 Projectile.timeLeft = 0;
@@ -96,6 +85,27 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective.Projectiles
             //Increase the counter/angle in degrees by 1 point, you can change the rate here too, but the orbit may look choppy depending on the value  
             float increase = 2;
             Projectile.ai[0] += increase;
+        }
+
+        private void ShootToPlayer(int type, int damage, Player target, float velocityMulti = .7f)
+        {
+            Vector2 position = Projectile.Center;
+            float rotation = (float)Math.Atan2(position.Y - (target.position.Y + target.height * 0.2f), position.X - (target.position.X + target.width * 0.15f));
+            rotation += MathHelper.ToRadians(Main.rand.NextFloat(-6f, 6f));
+
+            float baseSpeed = 11f;
+            Vector2 velocity = new Vector2(
+                -(float)Math.Cos(rotation) * baseSpeed,
+                -(float)Math.Sin(rotation) * baseSpeed
+            ) * velocityMulti;
+
+            for (int x = 0; x < 5; x++)
+            {
+                int dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.UndergroundHallowedEnemies, velocity.X, velocity.Y, 80, default, Main.rand.NextFloat(.9f, 1.6f));
+                Main.dust[dust].noGravity = true;
+            }
+
+            Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, velocity, type, (int)(damage * ExpertDamageMultiplier), 0f, 0);
         }
     }
 }
