@@ -62,12 +62,13 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 			NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.ShadowFlame] = true;
 			NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Venom] = true;
 			NPCID.Sets.TeleportationImmune[NPC.type] = true;
-			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			var value = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{
-				// Influences how the NPC looks in the Bestiary
-				PortraitScale = .25f,
-				Scale = .5f
-			};
+				PortraitScale = .5f,
+				Scale = .5f,
+                Position = new Vector2(0, 10), // Moves the sprite inside the frame
+                PortraitPositionYOverride = 10 // This overrides vertical centering logic.
+            };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
             NPCID.Sets.BossBestiaryPriority.Add(Type);
         }
@@ -82,7 +83,10 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
                 new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement(""),
+				new FlavorTextBestiaryInfoElement(
+                    "A grotesque union of cosmic flesh, drifting between thought and form. " +
+					"The Cosmic Collective extends its will through writhing tendrils, spawning fragments of itself to overwhelm anything that dares approach."
+				),
             });
         }
 
