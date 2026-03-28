@@ -32,6 +32,7 @@ namespace SupernovaMod.Content.Projectiles.Magic
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = true;
 			Projectile.DamageType = DamageClass.Magic;
+            Projectile.scale = Main.rand.NextFloat(.9f, 1.1f);
 		}
 
 		public override void AI()

@@ -10,11 +10,6 @@ namespace SupernovaMod.Content.Projectiles.Hostile
 {
     public class BloodBoltHostile : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Blood Bolt");
-        }
-
         public override void SetDefaults()
         {
 			Projectile.width = 14;
@@ -29,18 +24,48 @@ namespace SupernovaMod.Content.Projectiles.Hostile
 
 		public override void AI()
 		{
-			//this make that the projectile faces the right way
+			// Make the projectile face the right way
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.ToRadians(90);
 
-			int dustId = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.BloodDust>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 20, default);
-			Main.dust[dustId].noGravity = true;
+            // Subtle wobble
+            Projectile.velocity = Projectile.velocity.RotatedBy(Math.Sin(Projectile.timeLeft * 0.15f) * 0.01f);
 
-			if (Main.rand.NextBool())
-			{
-				dustId = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.CrimsonTorch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 20, default);
-				Main.dust[dustId].noGravity = true;
-			}
-		}
+            // Blood dust (main)
+            if (Main.rand.NextBool(2))
+            {
+                int dustId = Dust.NewDust(
+                    Projectile.position,
+                    Projectile.width,
+                    Projectile.height,
+                    ModContent.DustType<Dusts.BloodDust>(),
+                    Projectile.velocity.X * 0.2f,
+                    Projectile.velocity.Y * 0.2f,
+                    30,
+                    default,
+                    Main.rand.NextFloat(0.8f, 1.3f)
+                );
+
+                Main.dust[dustId].noGravity = true;
+            }
+
+            // Occasional brighter crimson spark
+            if (Main.rand.NextBool(5))
+            {
+                int dustId = Dust.NewDust(
+                    Projectile.position,
+                    Projectile.width,
+                    Projectile.height,
+                    DustID.CrimsonTorch,
+                    0f,
+                    0f,
+                    100,
+                    default,
+                    1.2f
+                );
+
+                Main.dust[dustId].noGravity = true;
+            }
+        }
 
 		public override bool PreDraw(ref Color lightColor)
 		{

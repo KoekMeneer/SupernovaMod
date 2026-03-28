@@ -28,8 +28,8 @@ namespace SupernovaMod.Content.Projectiles.Summon
 
         public override void SetDefaults()
         {
-            Projectile.width = 18;
-            Projectile.height = 28;
+            Projectile.width = 54;
+            Projectile.height = 54;
             Projectile.tileCollide = false; // Makes the minion go through tiles freely
 
             // These below are needed for a minion weapon

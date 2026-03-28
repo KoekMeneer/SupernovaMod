@@ -1,10 +1,11 @@
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
 using Microsoft.Xna.Framework;
-using Terraria.GameContent.Creative;
 using SupernovaMod.Api;
 using SupernovaMod.Core;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.Creative;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace SupernovaMod.Content.Items.Weapons.Melee
 {
@@ -53,8 +54,11 @@ namespace SupernovaMod.Content.Items.Weapons.Melee
 			{
 				return;
 			}
-			//
-			Vector2 velocity = -Vector2.UnitY * Main.rand.Next(5, 9);
+
+            SoundEngine.PlaySound(SoundID.NPCDeath19, groundPosition);
+
+            //
+            Vector2 velocity = -Vector2.UnitY * Main.rand.Next(5, 9);
 			velocity = velocity.RotatedByRandom(.32f);
 			// Spawn our projectile and make melee projectile
 			//
