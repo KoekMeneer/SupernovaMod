@@ -1,9 +1,9 @@
-﻿using SupernovaMod.Content.Projectiles.BaseProjectiles;
+﻿using Microsoft.Xna.Framework;
+using SupernovaMod.Content.Projectiles.BaseProjectiles;
+using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
-using System;
 
 namespace SupernovaMod.Content.Projectiles.Summon
 {
@@ -23,11 +23,13 @@ namespace SupernovaMod.Content.Projectiles.Summon
 
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
+
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 1;
         }
         public override void SetDefaults()
         {
-            Projectile.width = 18;
-            Projectile.height = 28;
+            Projectile.width = 50;
+            Projectile.height = 40;
             Projectile.tileCollide = false; // Makes the minion go through tiles freely
 
             // These below are needed for a minion weapon
@@ -41,7 +43,8 @@ namespace SupernovaMod.Content.Projectiles.Summon
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 18;
 
-            speedMax = 10;
+            speedMax = 12;
+            speed = 10;
             inertia = 4;
             setProjectileDirection = false;
         }
@@ -78,6 +81,50 @@ namespace SupernovaMod.Content.Projectiles.Summon
                     }
                 }
             }
+
+            // --- Add Cosmoling visuals
+
+            // Core fleshy trail
+            //
+            if (Main.rand.NextBool(2))
+            {
+                int dust = Dust.NewDust(
+                    Projectile.position,
+                    Projectile.width,
+                    Projectile.height,
+                    DustID.Blood,
+                    Projectile.velocity.X * 0.15f,
+                    Projectile.velocity.Y * 0.15f,
+                    100,
+                    default,
+                    1.1f
+                );
+
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 0.2f;
+            }
+
+            // Darker "meaty" particles for depth
+            //
+            if (Main.rand.NextBool(3))
+            {
+                int dust = Dust.NewDust(
+                    Projectile.Center,
+                    6, 6,
+                    DustID.CrimsonPlants,
+                    0f, 0f,
+                    0,
+                    default,
+                    0.9f
+                );
+
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity = Projectile.velocity * -0.05f;
+            }
+
+            // Add "pulse" effect
+            float pulse = 0.05f * (float)Math.Sin(Main.GameUpdateCount * 0.2f + Projectile.whoAmI);
+            Projectile.scale = 0.8f + pulse;
         }
 
         protected override void UpdateMovement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, NPC target, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
@@ -90,6 +137,8 @@ namespace SupernovaMod.Content.Projectiles.Summon
             }
             else
             {
+                Projectile.ai[0] = 0; // Reset
+
                 lookAtPosition = Main.player[Projectile.owner].Center;
                 ModifyIdlePosition(ref lookAtPosition);
 
@@ -123,14 +172,33 @@ namespace SupernovaMod.Content.Projectiles.Summon
 
         protected override void UpdateAttackMovement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, NPC target, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
-            // Minion has a target: attack (here, fly towards the enemy)
-            //
-            if (distanceFromTarget < target.width + (Projectile.width * 2))
+            Projectile.ai[0]++;
+
+            Vector2 toTarget = target.Center - Projectile.Center;
+            float distance = toTarget.Length();
+
+            Vector2 desiredDir = toTarget.SafeNormalize(Vector2.Zero);
+
+            // Base movement (always active)
+            float baseSpeed = 10f;
+            float inertia = 20f;
+
+            Vector2 desiredVelocity = desiredDir * baseSpeed;
+            Projectile.velocity = (Projectile.velocity * (inertia - 1) + desiredVelocity) / inertia;
+
+            // Micro dash trigger
+            bool canDash = Projectile.ai[0] > 20;
+            bool inRange = distance < 150f;
+
+            if (canDash && inRange)
             {
-                Projectile.velocity *= 1.02f;
-                return;
+                Projectile.ai[0] = 0;
+
+                float dashSpeed = 14f;
+
+                // Burst forward
+                Projectile.velocity = desiredDir * dashSpeed;
             }
-            base.UpdateAttackMovement(foundTarget, distanceFromTarget, targetCenter, target, distanceToIdlePosition, vectorToIdlePosition);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -142,5 +210,39 @@ namespace SupernovaMod.Content.Projectiles.Summon
                 i++;
             }
         }
+
+        // TODO: Fix
+        //public override bool PreDraw(ref Color lightColor)
+        //{
+        //    // When dashing, draw a red afterimage trail
+        //    if (Projectile.ai[1] == 1)
+        //    {
+        //        SpriteBatch spriteBatch = Main.spriteBatch;
+
+        //        for (int i = 0; i < Projectile.oldPos.Length; i++)
+        //        {
+        //            Vector2 drawPos = Projectile.oldPos[i]
+        //                - Main.screenPosition
+        //                + Projectile.Size / 2f;
+
+        //            Color color = new Color(180, 40, 40, 80) *
+        //                          (1f - i / (float)Projectile.oldPos.Length);
+
+        //            spriteBatch.Draw(
+        //                TextureAssets.Projectile[Projectile.type].Value,
+        //                drawPos,
+        //                null, // Projectiles usually don't use frames unless animated
+        //                color,
+        //                Projectile.rotation,
+        //                TextureAssets.Projectile[Projectile.type].Value.Size() / 2,
+        //                Projectile.scale,
+        //                SpriteEffects.None,
+        //                0f
+        //            );
+        //        }
+        //    }
+
+        //    return true;
+        //}
     }
 }

@@ -38,18 +38,22 @@ namespace SupernovaMod.Content.Npcs.FlyingTerror
 			NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.OnFire] = true;
 			NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.ShadowFlame] = true;
 			NPCID.Sets.TeleportationImmune[NPC.type] = true;
-			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
-            {
-                // Influences how the NPC looks in the Bestiary
-                PortraitScale = .75f,
-                Scale = .75f
-            };
+			var value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				PortraitScale = .7f,            // Controls zoom level in the bestiary portrait
+				Position = new Vector2(90, -10),// Moves the sprite inside the frame
+				PortraitPositionXOverride = 20
+			};
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+            NPCID.Sets.BossBestiaryPriority.Add(Type);
         }
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
-			// We can use AddRange instead of calling Add multiple times in order to add multiple items at once
-			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+            // Makes it so whenever you beat the boss associated with it, it will also get unlocked immediately
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[Type], quickUnlock: true);
+
+            // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the spawning conditions of NPC NPC that is listed in the bestiary.
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
 

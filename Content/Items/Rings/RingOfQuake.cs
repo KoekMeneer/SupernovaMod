@@ -6,13 +6,16 @@ using Terraria;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using SupernovaMod.Api.Helpers;
-using Terraria.Localization;
 using SupernovaMod.Core;
 
 namespace SupernovaMod.Content.Items.Rings
 {
     public class RingOfQuake : SupernovaRingItem
     {
+        public override int BaseCooldown => 47 * 60;
+        public override int Damage { get; protected set; } = 108;
+        public override int UseTime => 80;
+
         private float _rot;
 
         public override void SetStaticDefaults()
@@ -27,19 +30,20 @@ namespace SupernovaMod.Content.Items.Rings
             Item.rare = ItemRarityID.LightRed;
             Item.value = BuyPrice.RarityLightRed;
             Item.damage = 108;
-            damage = 108;
         }
-        public override int BaseCooldown => 47 * 60;
-        public override void RingActivate(Player player, float ringPowerMulti)
+
+        public override void OnActivate(Player player)
         {
             SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact with { Volume = 2 });
+
+            int dmg = GetScaledDamage(player);
 
             for (int i = 0; i < 200; i++)
             {
                 NPC target = Main.npc[i];
                 if (target.CanBeChasedBy())
                 {
-                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.position, Vector2.Zero, 476, (int)(damage * ringPowerMulti), 24f, Main.myPlayer, 0f, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.position, Vector2.Zero, 476, dmg, 24f, Main.myPlayer, 0f, 0f, 0f);
                 }
             }
             for (int i = 0; i < 15; i++)
@@ -63,11 +67,10 @@ namespace SupernovaMod.Content.Items.Rings
             }
         }
 
-        public override int MaxAnimationFrames => 80;
 
         private int? _projectile;
         protected virtual int AnimationDustType => DustID.Phantasmal;
-        public override void RingUseAnimation(Player player, int frame)
+        public override void OnUseFrame(Player player, int frame)
         {
             if (frame == 25)
             {

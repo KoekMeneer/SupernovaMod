@@ -18,18 +18,18 @@ namespace SupernovaMod.Content.Items.Weapons.Magic
 			Item.crit = 3;
 			Item.width = 24;
 			Item.height = 28;
-			Item.useTime = 27;
-			Item.useAnimation = 27;
+			Item.useTime = 28;
+			Item.useAnimation = 28;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
 			Item.knockBack = 4;
 			Item.value = BuyPrice.RarityLightRed;
 			Item.rare = ItemRarityID.LightRed;
 			Item.mana = 14;
-			Item.UseSound = SoundID.Item21;
+			Item.UseSound = SoundID.Item8;
 			Item.autoReuse = true;
 			Item.shoot = ModContent.ProjectileType<Projectiles.Magic.EldrichBolt>();
-			Item.shootSpeed = 12;
+			Item.shootSpeed = 15;
 			Item.DamageType = DamageClass.Magic;
 		}
 

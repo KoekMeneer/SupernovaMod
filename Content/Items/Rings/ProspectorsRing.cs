@@ -11,10 +11,14 @@ namespace SupernovaMod.Content.Items.Rings
 {
     public class ProspectorsRing : SupernovaRingItem
     {
+        public override int BaseCooldown => 1800;
+        public override int UseTime => 30;
+
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
+
         public override void SetDefaults()
         {
 			base.SetDefaults();
@@ -23,41 +27,26 @@ namespace SupernovaMod.Content.Items.Rings
             Item.rare = ItemRarityID.Green;
             Item.value = Item.buyPrice(0, 5, 0, 0);
         }
-        public override int BaseCooldown => 1800;
-        public override void RingActivate(Player player, float ringPowerMulti)
-        {
-            player.AddBuff(BuffID.Spelunker, 720);
 
-            // Add dust effect
-            for (int i = 0; i < 15; i++)
-            {
-                int dust = Dust.NewDust(player.position, player.width, player.height, DustID.Gold);
-                Main.dust[dust].scale = 1.5f;
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1.5f;
-                Main.dust[dust].velocity *= 1.5f;
-            }
+        public override void OnUseFrame(Player player, int frame)
+        {
+            SoundEngine.PlaySound(SoundID.CoinPickup with { Volume = 0.3f });
+
+            Vector2 pos = player.Center + Main.rand.NextVector2Circular(25, 25);
+            Dust.NewDustPerfect(pos, DustID.Gold, Vector2.Zero).noGravity = true;
+        }
+
+        public override void OnActivate(Player player)
+        {
             SoundEngine.PlaySound(SoundID.Item73);
-        }
-        public override void OnRingCooldown(int curentCooldown, Player player)
-        {
-            ResourcePlayer resourcePlayer = player.GetModPlayer<ResourcePlayer>();
-            // Only run the first 12 seconds (720ms / 60 = 12sec)
-            //
-            if (curentCooldown >= Cooldown * resourcePlayer.ringCoolRegen - 720)
-                player.pickSpeed -= .5f * resourcePlayer.ringPower;
-        }
 
-        public override int MaxAnimationFrames => 30;
-        public override void RingUseAnimation(Player player, int frame)
-        {
-            SoundEngine.PlaySound(SoundID.CoinPickup);
+            player.AddBuff(BuffID.Spelunker, 60 * 12);
+            player.AddBuff(BuffID.Mining, 60 * 12);
 
-            Vector2 dustPos = player.Center + new Vector2(23, 0).RotatedByRandom(MathHelper.ToRadians(360));
-            Vector2 diff = player.Center - dustPos;
-            diff.Normalize();
-
-            Dust.NewDustPerfect(dustPos, DustID.Gold, diff * 2).noGravity = true;
+            for (int i = 0; i < 20; i++)
+            {
+                Dust.NewDustDirect(player.position, player.width, player.height, DustID.Gold, Scale: 1.5f).noGravity = true;
+            }
         }
 
         public override void AddRecipes()

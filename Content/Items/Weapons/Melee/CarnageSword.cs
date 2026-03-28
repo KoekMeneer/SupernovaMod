@@ -22,8 +22,8 @@ namespace SupernovaMod.Content.Items.Weapons.Melee
         {
             Item.damage = 22;
             Item.crit = 5;
-            Item.width = 52;
-            Item.height = 62;
+            Item.width = 44;
+            Item.height = 48;
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Swing;

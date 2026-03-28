@@ -47,7 +47,7 @@ namespace SupernovaMod.Content.Npcs.NormalNPCs
             NPC.lifeMax = 100;
             NPC.HitSound = SoundID.NPCHit5;
             NPC.DeathSound = SoundID.NPCDeath7;
-            NPC.value = 1200f;
+            NPC.value = 200f;
             NPC.knockBackResist = .25f;
             NPC.noGravity = true; // Not affected by gravity
             NPC.noTileCollide = true; // Will not collide with the tiles.

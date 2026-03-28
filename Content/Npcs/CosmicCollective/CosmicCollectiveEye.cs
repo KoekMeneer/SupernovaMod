@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using SupernovaMod.Content.Dusts;
 using System;
 using System.IO;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,9 +10,9 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 {
 	public class CosmicCollectiveEye : ModNPC
 	{
-		private const float ExpertDamageMultiplier = .7f;
+		private const float ExpertDamageMultiplier = .9f;
 
-		public Player target;
+		private Player _target;
 		public CosmicCollective Owner => Main.npc[(int)NPC.ai[0]].ModNPC as CosmicCollective;
 		public float OffsetX => NPC.ai[1];
 		public float OffsetY => NPC.ai[2];
@@ -85,39 +83,42 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 			// Set NPC position
 			NPC.Center = Owner.NPC.Center - new Vector2(OffsetX, OffsetY);
 
-			// Shoot
-			//
-			int timeTilNextShot = (Owner.State == CosmicCollective.AIState.Phase2 ? 160 : 180) + extraShootDelay;
+            //
+            int timeTilNextShot = (Owner.State == CosmicCollective.AIState.Phase2 ? 170 : 190);
+
+            // Difficulty scaling
             if (Main.expertMode || Main.masterMode)
-            {
+			{
                 timeTilNextShot -= 10;
-            }
-            if (Owner.EyesActive < 5)
-            {
-                timeTilNextShot -= 10;
-            }
-            if (Owner.EyesActive < 4)
-            {
-                timeTilNextShot -= 20;
-            }
-            if (Owner.EyesActive < 3)
-            {
-                timeTilNextShot -= 35;
-            }
-            if (Owner.EyesActive < 2)
-            {
-                timeTilNextShot -= 50;
             }
 
-            if (Timer % timeTilNextShot == 0)
+            // Gradual scaling based on remaining eyes
+            int missingEyes = 6 - Owner.EyesActive;
+            timeTilNextShot -= missingEyes * 6;
+
+            // Clamp so it never becomes spammy
+            timeTilNextShot = Math.Max(timeTilNextShot, 110);
+
+			//
+			float timeForThisNpc = (Timer + NPC.whoAmI * 7); // Adds randomness for each eye
+
+            // Telegraph the shot
+            if (Timer % timeTilNextShot == timeTilNextShot - 20)
+            {
+                // small pre-fire cue
+                Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 0f, 0f, 0, default, 1.2f);
+            }
+
+            //
+            if (timeForThisNpc % timeTilNextShot == 0)
 			{
-				ShootToPlayer(ProjectileID.EyeLaser, 45);
+				ShootToPlayer(ProjectileID.EyeLaser, 32);
 			}
 		}
 
 		private void AI_Setup()
 		{
-			target = Main.player[NPC.target];
+			_target = Main.player[NPC.target];
 			Timer++;
 		}
 		private bool AI_Despawn()
@@ -157,10 +158,10 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 		}
 
 
-        private void ShootToPlayer(int type, int damage, float velocityMulti = .7f, float rotationMulti = 1)
+        private void ShootToPlayer(int type, int damage, float velocityMulti = .7f)
 		{
-            float sin = 1f + (float)Math.Sin(((ModNPC)this).NPC.timeLeft * 10);
-            float cos = 1f + (float)Math.Cos(((ModNPC)this).NPC.timeLeft * 10);
+            float sin = 1f + (float)Math.Sin(NPC.timeLeft * 10);
+            float cos = 1f + (float)Math.Cos(NPC.timeLeft * 10);
             Color color = new Color(0.5f + cos * 0.2f, 0.8f, 0.5f + sin * 0.2f);
             for (int i = 0; i < 10; i++)
             {
@@ -168,11 +169,16 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
             }
 
             Vector2 position = NPC.Center;
-			float rotation = (float)Math.Atan2(position.Y - (target.position.Y + target.height * 0.2f), position.X - (target.position.X + target.width * 0.15f));
-			rotation *= rotationMulti;
+			float rotation = (float)Math.Atan2(position.Y - (_target.position.Y + _target.height * 0.2f), position.X - (_target.position.X + _target.width * 0.15f));
+            rotation += MathHelper.ToRadians(Main.rand.NextFloat(-5.5f, 5.5f));
 
-			Vector2 velocity = new Vector2((float)-(Math.Cos(rotation) * 18) * .75f, (float)-(Math.Sin(rotation) * 18) * .75f) * velocityMulti;
-			Projectile.NewProjectile(NPC.GetSource_FromAI(), position, velocity, type, (int)(damage * ExpertDamageMultiplier), 0f, 0);
+            float baseSpeed = 12;
+            Vector2 velocity = new Vector2(
+                -(float)Math.Cos(rotation) * baseSpeed,
+                -(float)Math.Sin(rotation) * baseSpeed
+            ) * velocityMulti;
+
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), position, velocity, type, (int)(damage * ExpertDamageMultiplier), 0f, 0);
 		}
 	}
 }

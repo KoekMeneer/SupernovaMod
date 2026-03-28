@@ -10,9 +10,14 @@ namespace SupernovaMod.Content.Items.Rings
 {
     public class BloodweaversRing : SupernovaRingItem
     {
-		public override RingType RingType => RingType.Projectile;
+        public override RingType RingType => RingType.Projectile;
+        public override int BaseCooldown => 60 * 140;
+        public override int Damage { get; protected set; } = 24;
+        public override int UseTime => 75;
 
-		public override void SetStaticDefaults()
+        private float _rot;
+
+        public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -23,109 +28,69 @@ namespace SupernovaMod.Content.Items.Rings
             Item.height = 16;
             Item.rare = ItemRarityID.Orange;
             Item.value = Item.buyPrice(0, 6, 0, 0);
-
-			damage = 24;
 		}
-		public override int BaseCooldown => 60 * 140;
-		public override bool CanRingActivate(RingPlayer player)
-		{
-			return true;
-			//
-			// TODO: Make multiplayer proof!
-			//
 
-			// Check if there is at least 1 target for the ring to use
-			//
-			for (int i = 0; i < 200; i++)
-			{
-				NPC target = Main.npc[i];
-
-				if (target.CanBeChasedBy())
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-		public override void RingActivate(Player player, float ringPowerMulti)
+        public override void OnUseFrame(Player player, int frame)
         {
-			SoundEngine.PlaySound(SoundID.Item14, player.Center);
+            SoundEngine.PlaySound(SoundID.Item15 with { Volume = 0.25f }, player.Center);
 
-			// Make sure this only runs for our client
-			//
-			if (player.whoAmI != Main.myPlayer)
-			{
-				return;
-			}
+            // Rotating blood tendrils around the player
+            float rot = MathHelper.ToRadians(frame * 9);
+            Vector2 pos = player.Center + new Vector2(30f, 0).RotatedBy(rot);
 
-			int targets = 0;
-			for (int i = 0; i < 200; i++)
-			{
-				NPC target = Main.npc[i];
+            int dustId = Main.rand.NextBool(2) ? DustID.CrimsonTorch : DustID.Blood;
+            RingVFX.DustOrbit(
+                ref rot,
+                pos,
+                dustId,
+                radius: .2f,
+                speed: MathHelper.ToRadians(frame * 9)
+            );
 
-                // Check if hostile
-                //
-				if (target.CanBeChasedBy())
-				{
-					// Get a random starting velocity so not all projectiles will start the same direction.
-					Vector2 startVelocity = new Vector2(
-						Main.rand.Next(-10, 10),
-						Main.rand.Next(-10, 10)
-					);
-
-					float shootX = target.position.X + (float)target.width * 0.5f;
-					
-                    // Spawn the damaging projectile
-                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), shootX, target.position.Y, 0, 0, ProjectileID.SoulDrain, damage, 0, Main.myPlayer, 0f, 0f);
-
-                    // Spawn the healing projectile
-                    int healAmount = (int)(damage * .4f);
-					Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center, startVelocity, ProjectileID.VampireHeal, 1, 0, player.whoAmI, 0, healAmount);
-					targets++;
-				}
-
-				// Stop if the amount of targets is 6
-				//
-				if (targets >= 6)
-                {
-                    break;
-                }
-			}
-
-			// Add dust effect
-			for (int i = 0; i < 15; i++)
-			{
-				int dust = Dust.NewDust(player.position, player.width, player.height, DustID.CrimsonTorch);
-				Main.dust[dust].scale = 1.5f;
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity *= 1.5f;
-				Main.dust[dust].velocity *= 1.5f;
-			}
+            Vector2 pos2 = player.Center + new Vector2(30f, 0).RotatedBy(rot);
+            RingVFX.DustOrbit(
+                ref rot,
+                pos2,
+                dustId,
+                radius: -.2f,
+                speed: MathHelper.ToRadians(frame * 9)
+            );
         }
 
-        public override int MaxAnimationFrames => 75;
-
-		private float _rot = 0;
-		public override void RingUseAnimation(Player player, int frame)
+        public override void OnActivate(Player player)
         {
-            SoundEngine.PlaySound(SoundID.Item15);
+            SoundEngine.PlaySound(SoundID.Item14, player.Center);
 
-			for (int i = 0; i < 2; i++)
-			{
-				_rot += MathHelper.ToRadians(67.5f);
-				_rot = _rot % MathHelper.ToRadians(360);
+			int dmg = GetScaledDamage(player);
+            int hits = 0;
 
-				Vector2 dustPos = player.Center + new Vector2(35, 0).RotatedBy(_rot);
-				Vector2 diff = player.Center - dustPos;
-				diff.Normalize();
+            foreach (NPC npc in Main.npc)
+            {
+                if (!npc.CanBeChasedBy()) continue;
 
-				int dustType = DustID.CrimsonTorch;
-				Dust.NewDustPerfect(dustPos, dustType, diff * 2, Scale: 1.75f).noGravity = true;
+                float dist = Vector2.Distance(player.Center, npc.Center);
+                if (dist > 800) continue;
 
-				dustType = DustID.Blood;
-				Dust.NewDustPerfect(dustPos, dustType, diff * 2, Scale: 1f).noGravity = true;
-			}
-			_rot += MathHelper.ToRadians(1);
-		}
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item),
+                    npc.Center, Vector2.Zero,
+                    ProjectileID.SoulDrain, dmg, 0, player.whoAmI
+                );
+
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item),
+                    npc.Center,
+                    Main.rand.NextVector2Circular(3, 3),
+                    ProjectileID.VampireHeal, 1, 0,
+                    player.whoAmI, 0, (int)(dmg * 0.4f)
+                );
+
+                hits++;
+                if (hits >= 10) break;
+            }
+
+            for (int i = 0; i < 20; i++)
+            {
+                Dust.NewDustDirect(player.position, player.width, player.height, DustID.Blood, Scale: 2f).noGravity = true;
+            }
+        }
     }
 }

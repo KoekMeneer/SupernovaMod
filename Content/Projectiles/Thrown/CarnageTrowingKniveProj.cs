@@ -4,7 +4,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.IO;
 using SupernovaMod.Common.Systems;
 
 namespace SupernovaMod.Content.Projectiles.Thrown
@@ -123,53 +122,6 @@ namespace SupernovaMod.Content.Projectiles.Thrown
 
             // Makes sure the sticking javelins do not deal damage anymore
             Projectile.damage = 0;
-        }
-
-        //public override bool PreAI() => !IsStickingToTarget; // When we are sticking to the target we will not use the normal ai
-
-        /*public override void AI()
-		{
-            // Check if we should stick to the target
-            //
-            if (IsStickingToTarget)
-			{
-                StickyAI();
-            }
-            else
-			{
-                base.AI();
-            }
-        }*/
-
-        private void StickyAI()
-        {
-            // These 2 could probably be moved to the ModifyNPCHit hook, but in vanilla they are present in the AI
-            Projectile.ignoreWater = true; // Make sure the projectile ignores water
-            Projectile.tileCollide = false; // Make sure the projectile doesn't collide with tiles anymore
-            const int aiFactor = 15; // Change this factor to change the 'lifetime' of this sticking javelin
-            Projectile.localAI[0] += 1f;
-
-            // Every 30 ticks, the javelin will perform a hit effect
-            bool hitEffect = Projectile.localAI[0] % 30f == 0f;
-            int projTargetIndex = TargetWhoAmI;
-            if (Projectile.localAI[0] >= 60 * aiFactor || projTargetIndex < 0 || projTargetIndex >= 200)
-            { // If the index is past its limits, kill it
-                Projectile.Kill();
-            }
-            else if (Main.npc[projTargetIndex].active && !Main.npc[projTargetIndex].dontTakeDamage)
-            { // If the target is active and can take damage
-              // Set the projectile's position relative to the target's center
-                Projectile.Center = Main.npc[projTargetIndex].Center - Projectile.velocity * 2f;
-                Projectile.gfxOffY = Main.npc[projTargetIndex].gfxOffY;
-                if (hitEffect)
-                { // Perform a hit effect here
-                    Main.npc[projTargetIndex].HitEffect(0, 1.0);
-                }
-            }
-            else
-            { // Otherwise, kill the projectile
-                Projectile.Kill();
-            }
         }
     }
 }

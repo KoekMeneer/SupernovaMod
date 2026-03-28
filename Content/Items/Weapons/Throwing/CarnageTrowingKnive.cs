@@ -25,7 +25,7 @@ namespace SupernovaMod.Content.Items.Weapons.Throwing
             Item.UseSound = SoundID.Item1;
             Item.useAnimation = 8;
             Item.useTime = 8;
-            Item.width = 30;
+            Item.width = 18;
             Item.height = 30;
             Item.consumable = true; // Makes it so one is taken from stack after use.
             Item.noUseGraphic = true;

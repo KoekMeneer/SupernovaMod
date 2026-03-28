@@ -17,27 +17,27 @@ namespace SupernovaMod.Content.Projectiles.BaseProjectiles
         /// <summary>
         /// How quickly the boomerang will return to its owner. (Default = 9)
         /// </summary>
-        public float ReturnSpeed { get; set; } = 9f;
+        public float ReturnSpeed { get; protected set; } = 9f;
 
         /// <summary>
         /// How strong the boomerang will home in on its owner when returning. (Default = .4f)
         /// </summary>
-        public float HomingOnOwnerStrength { get; set; } = 0.4f;
+        public float HomingOnOwnerStrength { get; protected set; } = 0.4f;
 
         /// <summary>
         /// How many frames the boomerang will travel away from the player for. (Default = 30)
         /// </summary>
-        public int TravelOutFrames { get; set; } = 30;
+        public int TravelOutFrames { get; protected set; } = 30;
 
         /// <summary>
         /// How many radians the boomerang will rotate per frame. (Default = .4f)
         /// </summary>
-        public float RotationSpeed { get; set; } = 0.4f;
+        public float RotationSpeed { get; protected set; } = 0.4f;
 
         /// <summary>
         /// Whether or not the boomerang will turn around when it reaches its max TravelOutFrames. (Default = true)
         /// </summary>
-        public bool DoTurn { get; set; } = true;
+        public bool DoTurn { get; protected set; } = true;
 
         public Player Owner => Main.player[Projectile.owner];
 

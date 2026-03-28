@@ -1,5 +1,4 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace SupernovaMod.Common.Players
 {
@@ -9,18 +8,22 @@ namespace SupernovaMod.Common.Players
 		public int lifeEnergyMax2 = 0;
 		public float lifeEnergyRegen = .01f;
 
-		public float ringPower = 1;
-		public float ringCoolRegen = 1;
+        public float ringPower = 1;
 
-		public override void PreUpdate()
+        public float ringCooldownMult = 1f;   // affects cooldown
+        public int ringFlatCooldownReduction = 0; // flat reduction
+
+        public override void PreUpdate()
 		{
 			// Reset our max values
 			lifeEnergyMax2 = 0;
 			lifeEnergyRegen = .001f;
-			ringPower = 1;
-			ringCoolRegen = 1;
 
-			base.PreUpdate();
+			ringPower = 1;
+			ringCooldownMult = 1;
+			ringFlatCooldownReduction = 0;
+
+            base.PreUpdate();
 		}
 
 		public override void PostUpdateEquips()

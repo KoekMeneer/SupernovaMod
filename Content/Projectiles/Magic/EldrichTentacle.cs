@@ -16,72 +16,91 @@ namespace SupernovaMod.Content.Projectiles.Magic
 			Projectile.penetrate = 2;
 			Projectile.aiStyle = -1;
 			Projectile.DamageType = DamageClass.Magic;
-		}
+            Projectile.width = 20;
+            Projectile.height = 20;
+            Projectile.friendly = true;
+        }
 
 		public override void AI()
-		{
-			Vector2 center13 = Projectile.Center;
-			Projectile.scale = 1f - Projectile.localAI[0];
-			Projectile.width = (int)(20f * Projectile.scale);
-			Projectile.height = Projectile.width;
-			Projectile.position.X = center13.X - (float)(Projectile.width / 2);
-			Projectile.position.Y = center13.Y - (float)(Projectile.height / 2);
-			ref float ptr = ref Projectile.localAI[0];
-			if (Projectile.ai[2] == 0)
-			{
-				Projectile.ai[2] = (Projectile.velocity.RotatedByRandom(.1) * Main.rand.Next(-1, 1)).ToRotation();
-			}
-			if ((double)Projectile.localAI[0] < 0.1)
-			{
-				ptr = ref Projectile.localAI[0];
-				ptr += 0.01f;
-			}
-			else
-			{
-				ptr = ref Projectile.localAI[0];
-				ptr += 0.025f;
-            }
+        {
+            // Life progression
+            Projectile.localAI[0] += (Projectile.localAI[0] < 0.1f) ? 0.01f : 0.025f;
             if (Projectile.localAI[0] >= 0.95f)
-			{
-				Projectile.Kill();
-			}
-			ptr = ref Projectile.velocity.X;
-			ptr += Projectile.ai[0] * 1.5f;
-			ptr = ref Projectile.velocity.Y;
-			ptr += Projectile.ai[1] * 1.5f;
-			if (Projectile.velocity.Length() > 16f)
-			{
-				Projectile.velocity.Normalize();
-                Projectile.velocity *= 16f;
-			}
-			ptr = ref Projectile.ai[0];
-			ptr *= 1.05f;
-			ptr = ref Projectile.ai[1];
-			ptr *= 1.05f;
-			if (Projectile.scale < 1f)
-			{
-				Projectile.velocity = Projectile.velocity.RotatedBy(Projectile.ai[2] / 100);
-				Projectile.ai[2] *= 1.065f;
+            {
+                Projectile.Kill();
+                return;
+            }
 
+            // Scale & center
+            Projectile.scale = 1f - Projectile.localAI[0];
+            Vector2 center = Projectile.Center;
+            Projectile.width = (int)(20f * Projectile.scale);
+            Projectile.height = Projectile.width;
+            Projectile.position = center - new Vector2(Projectile.width / 2f, Projectile.height / 2f);
 
-                int num791 = 0;
-				while ((float)num791 < Projectile.scale * 10f)
-				{
-					int num792 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.CorruptionThorns, Projectile.velocity.X, Projectile.velocity.Y, 100, default(Color), .5f);
-					Main.dust[num792].position = (Main.dust[num792].position + Projectile.Center) / 2f;
-					Main.dust[num792].noGravity = true;
-					Dust dust2 = Main.dust[num792];
-					dust2.velocity *= 0.1f;
-					dust2 = Main.dust[num792];
-					dust2.velocity -= Projectile.velocity * (1.3f - Projectile.scale);
-					Main.dust[num792].fadeIn = (float)(100 + Projectile.owner);
-					dust2 = Main.dust[num792];
-					dust2.scale += Projectile.scale * 0.75f;
-					int num3 = num791;
-					num791 = num3 + 1;
-				}
-				return;
-			}
-		}
-	}
+            // Initialize rotation offset once
+            if (Projectile.ai[2] == 0)
+            {
+                Projectile.ai[2] = Main.rand.NextFloat(-MathHelper.PiOver4, MathHelper.PiOver4);
+            }
+
+            // Add random wriggling to velocity
+            float wiggleAmount = Main.rand.NextFloat(.25f, .3f); // adjust for more/less tentacle wriggle
+            Projectile.velocity += new Vector2(Main.rand.NextFloat(-wiggleAmount, wiggleAmount),
+                                               Main.rand.NextFloat(-wiggleAmount, wiggleAmount));
+
+            // Slightly curve motion over time
+            Projectile.velocity = Projectile.velocity.RotatedBy(Projectile.ai[2] / 50f);
+            Projectile.ai[2] *= 1.02f;
+
+            // Clamp max speed
+            if (Projectile.velocity.Length() > 16f)
+            {
+                Projectile.velocity = Projectile.velocity.SafeNormalize(Vector2.Zero) * 16f;
+            }
+
+            // Direction vectors
+            Vector2 forward = Projectile.velocity.SafeNormalize(Vector2.UnitX);
+            Vector2 right = forward.RotatedBy(MathHelper.PiOver2);
+
+            // Tentacle length & thickness scale with projectile
+            float length = Projectile.scale * 30f;
+            float thickness = Projectile.scale * 6f;
+
+            // How many segments along the tentacle
+            int segments = (int)(Projectile.scale * 12f);
+
+            for (int i = 0; i < segments; i++)
+            {
+                float progress = i / (float)segments;
+
+                // Position along the tentacle
+                Vector2 basePos = Projectile.Center - forward * progress * length;
+
+                // Organic wiggle
+                float wiggle = (float)Math.Sin(Main.GlobalTimeWrappedHourly * 10f + i) * thickness * 0.3f;
+
+                // === CENTER CORE (bright, fleshy) ===
+                Vector2 centerPos = basePos + right * wiggle;
+                int coreDust = Dust.NewDust(centerPos, 0, 0, DustID.Blood, 0f, 0f, 0, default, Projectile.scale * 1.2f);
+                Main.dust[coreDust].noGravity = true;
+                Main.dust[coreDust].velocity = -forward * 0.5f;
+
+                // === OUTLINE LEFT ===
+                Vector2 leftPos = basePos + right * (thickness + wiggle);
+                int leftDust = Dust.NewDust(leftPos, 0, 0, DustID.CrimsonTorch, 0f, 0f, 0, default, Projectile.scale);
+                Main.dust[leftDust].noGravity = true;
+                Main.dust[leftDust].velocity = -forward * 0.3f;
+
+                // === OUTLINE RIGHT ===
+                Vector2 rightPos = basePos - right * (thickness - wiggle);
+                int rightDust = Dust.NewDust(rightPos, 0, 0, DustID.CrimsonTorch, 0f, 0f, 0, default, Projectile.scale);
+                Main.dust[rightDust].noGravity = true;
+                Main.dust[rightDust].velocity = -forward * 0.3f;
+            }
+
+            // Rotation for visual tentacle curl
+            Projectile.rotation = Projectile.velocity.ToRotation();
+        }
+    }
 }

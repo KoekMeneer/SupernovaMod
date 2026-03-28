@@ -13,7 +13,8 @@ namespace SupernovaMod.Content.Items.Rings
     public class WizardsRing : SupernovaRingItem
     {
         public override int BaseCooldown => 7200;
-        public override int MaxAnimationFrames => 30;
+        public override int Damage { get; protected set; } = 0;
+        public override int UseTime => 30;
 
         public override void SetStaticDefaults()
         {
@@ -29,27 +30,24 @@ namespace SupernovaMod.Content.Items.Rings
             base.Item.value = BuyPrice.RarityLightPurple;
         }
 
-        public override void RingActivate(Player player, float ringPowerMulti)
+        public override void OnUseFrame(Player player, int frame)
         {
-            player.AddBuff(ModContent.BuffType<ArcaneMight>(), (int)(600 * ringPowerMulti), true, false);
-            for (int i = 0; i < 15; i++)
-            {
-                int dust = Dust.NewDust(player.position, player.width, player.height, DustID.ManaRegeneration, 0f, 0f, 0, default(Color), 1f);
-                Main.dust[dust].scale = 1.5f;
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1.5f;
-                Main.dust[dust].velocity *= 1.5f;
-            }
-            SoundEngine.PlaySound(SoundID.Item73, player.position);
+            SoundEngine.PlaySound(SoundID.MaxMana with { Volume = 0.3f });
+
+            Vector2 pos = player.Center + Main.rand.NextVector2Circular(25, 25);
+            Dust.NewDustPerfect(pos, DustID.ManaRegeneration, Vector2.Zero).noGravity = true;
         }
 
-        public override void RingUseAnimation(Player player, int frame)
+        public override void OnActivate(Player player)
         {
-            SoundEngine.PlaySound(SoundID.MaxMana, player.position);
-            Vector2 dustPos = player.Center + Utils.RotatedByRandom(new Vector2(23f, 0f), (double)MathHelper.ToRadians(360f));
-            Vector2 diff = player.Center - dustPos;
-            diff.Normalize();
-            Dust.NewDustPerfect(dustPos, 45, new Vector2?(diff * 2f), 0, default(Color), 1.5f).noGravity = true;
+            SoundEngine.PlaySound(SoundID.Item73);
+
+            player.AddBuff(ModContent.BuffType<ArcaneMight>(), 600);
+
+            for (int i = 0; i < 20; i++)
+            {
+                Dust.NewDustDirect(player.position, player.width, player.height, DustID.ManaRegeneration, Scale: 1.5f).noGravity = true;
+            }
         }
     }
 }

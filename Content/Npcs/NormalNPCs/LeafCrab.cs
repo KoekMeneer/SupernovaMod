@@ -47,7 +47,7 @@ namespace SupernovaMod.Content.Npcs.NormalNPCs
             NPC.lifeMax = 45;
             NPC.HitSound = SoundID.NPCHit33;
             NPC.DeathSound = SoundID.NPCDeath36;
-            NPC.value = 1000f;
+            NPC.value = 100;
             NPC.knockBackResist = .65f;
             NPC.aiStyle = NPCAIStyleID.Fighter;
             AIType = NPCID.Crab;  //NPC behavior

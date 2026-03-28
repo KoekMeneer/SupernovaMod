@@ -1,16 +1,17 @@
-﻿using Terraria.ID;
-using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.Audio;
-using System.IO;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SupernovaMod.Api;
 using SupernovaMod.Api.Helpers;
-using Terraria.GameContent.ItemDropRules;
-using Microsoft.Xna.Framework.Graphics;
+using SupernovaMod.Common.ItemDropRules.DropConditions;
+using System;
+using System.IO;
+using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
-using SupernovaMod.Common.ItemDropRules.DropConditions;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace SupernovaMod.Content.Npcs.CosmicCollective
 {
@@ -61,24 +62,31 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 			NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.ShadowFlame] = true;
 			NPCID.Sets.SpecificDebuffImmunity[NPC.type][BuffID.Venom] = true;
 			NPCID.Sets.TeleportationImmune[NPC.type] = true;
-			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			var value = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{
-				// Influences how the NPC looks in the Bestiary
 				PortraitScale = .5f,
-				Scale = .5f
-			};
+				Scale = .5f,
+                Position = new Vector2(0, 10), // Moves the sprite inside the frame
+                PortraitPositionYOverride = 10 // This overrides vertical centering logic.
+            };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
-		}
+            NPCID.Sets.BossBestiaryPriority.Add(Type);
+        }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
+            // Makes it so whenever you beat the boss associated with it, it will also get unlocked immediately
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[Type], quickUnlock: true);
+
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
-				// Sets the spawning conditions of this NPC that is listed in the bestiary.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+                new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement(""),
+				new FlavorTextBestiaryInfoElement(
+                    "A grotesque union of cosmic flesh, drifting between thought and form. " +
+					"The Cosmic Collective extends its will through writhing tendrils, spawning fragments of itself to overwhelm anything that dares approach."
+				),
             });
         }
 
@@ -177,6 +185,7 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 			{
 				return;
 			}
+
 			// Handle teleport when player is too far
 			//
 			if (NPC.ai[2] == 10)
@@ -184,10 +193,11 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 				if (HandleTeleport(ref NPC.ai[3]))
 				{
 					NPC.ai[2] = 0;
-
                 }
 				return;
 			}
+
+			// Handle attack AI based on state
 			switch (State)
 			{
 				case AIState.Phase1:
@@ -197,7 +207,7 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 					AI_Stage2();
 					break;
 			}
-		}
+        }
 		private void AI_Setup()
 		{
 			npcLifeRatio = NPC.life / (float)NPC.lifeMax;
@@ -396,11 +406,16 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
                             int damage = (int)(36 * ExpertDamageMultiplier);
 
                             SoundEngine.PlaySound(SoundID.NPCDeath55, NPC.Center);
-                            Vector2 Velocity = Mathf.VelocityFPTP(NPC.Center, new Vector2(target.Center.X, target.Center.Y), 5.2f);
-                            Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velocity.RotatedBy(.25f), type, damage, 3, ai0: NPC.target);
-                            Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center + Velocity, Velocity.RotatedBy(.1f), type, damage, 3, ai0: NPC.target);
-                            Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center + Velocity, Velocity.RotatedBy(-.1f), type, damage, 3, ai0: NPC.target);
-                            Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velocity.RotatedBy(-.25f), type, damage, 3, ai0: NPC.target);
+                            Vector2 Velocity = Mathf.VelocityFPTP(NPC.Center, new Vector2(target.Center.X, target.Center.Y), 5);
+
+                            Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velocity.RotatedBy(.25f), type, damage, 3, ai0: NPC.target)
+								.tileCollide = false;
+                            Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center + Velocity, Velocity.RotatedBy(.1f), type, damage, 3, ai0: NPC.target)
+                                .tileCollide = false;
+                            Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center + Velocity, Velocity.RotatedBy(-.1f), type, damage, 3, ai0: NPC.target)
+                                .tileCollide = false;
+                            Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velocity.RotatedBy(-.25f), type, damage, 3, ai0: NPC.target)
+                                .tileCollide = false;
 
                             Timer++;
                             AtkTimer = 0;
