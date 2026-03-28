@@ -9,7 +9,7 @@ With new NPCs and more content on the way, Supernova Mod delivers a fresh and th
 
 [list]
 [*] [b]Epic Bosses[/b]: Challenge 4 unique bosses with distinct mechanics and rewards.
-[*] [b]Extensive Item Collection[/b]: Craft and discover 148+ items, including 40+ weapons ranging from swords to magical staves.
+[*] [b]Extensive Item Collection[/b]: Craft and discover 149+ items, including 40+ weapons ranging from swords to magical staves.
 [*] [b]Ring System[/b]: Equip powerful rings in a dedicated slot, activate their unique abilities (e.g., buffs, attacks, or mobility) with a hotkey, and manage cooldowns strategically.
 [*] [b]New NPCs[/b]: Interact with 16 new NPCs, each with unique dialogue and roles.
 [*] [b]Mod Compatibility[/b]: Seamlessly works with BossChecklist, Calamity, Thorium, MusicDisplay, and WikiThis.
