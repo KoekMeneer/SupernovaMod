@@ -46,7 +46,7 @@ namespace SupernovaMod.Content.Npcs.NormalNPCs
 			NPC.lifeMax = 200;
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath37;
-			NPC.value = BuyPrice.RarityWhite;
+			NPC.value = 500;
 			NPC.knockBackResist = .35f;
 			NPC.aiStyle = NPCAIStyleID.Fighter;
 			AIType = NPCID.AnomuraFungus;  //NPC behavior 
