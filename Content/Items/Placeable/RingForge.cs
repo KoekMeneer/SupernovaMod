@@ -31,7 +31,7 @@ namespace SupernovaMod.Content.Items.Placeable
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.IronBar, 58);
+            recipe.AddIngredient(ItemID.IronBar, 20);
             recipe.AddIngredient(ItemID.LavaBucket, 1);
             recipe.acceptedGroups = new() { RecipeGroupID.IronBar };
             recipe.AddTile(TileID.Anvils);
