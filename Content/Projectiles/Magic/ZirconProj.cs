@@ -32,36 +32,43 @@ namespace SupernovaMod.Content.Projectiles.Magic
 
         public override void AI()
         {
-			int num3;
-			int num240 = (int)Projectile.ai[0];
-			for (int num241 = 0; num241 < 3; num241 = num3 + 1)
-			{
-				int num242 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, ModContent.DustType<Dusts.ZirconDust>(), Projectile.velocity.X, Projectile.velocity.Y, num240, default(Color), 1.2f);
-				Main.dust[num242].position = (Main.dust[num242].position + Projectile.Center) / 2f;
-				Main.dust[num242].noGravity = true;
-				Dust dust2 = Main.dust[num242];
-				dust2.velocity *= 0.5f;
-				num3 = num241;
-			}
-			for (int num243 = 0; num243 < 2; num243 = num3 + 1)
-			{
-				int num242 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, ModContent.DustType<Dusts.ZirconDust>(), Projectile.velocity.X, Projectile.velocity.Y, num240, default(Color), 0.4f);
-				if (num243 == 0)
-				{
-					Main.dust[num242].position = (Main.dust[num242].position + Projectile.Center * 5f) / 6f;
-				}
-				else if (num243 == 1)
-				{
-					Main.dust[num242].position = (Main.dust[num242].position + (Projectile.Center + Projectile.velocity / 2f) * 5f) / 6f;
-				}
-				Dust dust2 = Main.dust[num242];
-				dust2.velocity *= 0.1f;
-				Main.dust[num242].noGravity = true;
-				Main.dust[num242].fadeIn = 1f;
-				num3 = num243;
-			}
-			//this make that the projectile faces the right way
-			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
+            // Main dust
+            int dustAmount = 3;
+            for (int i = 0; i < dustAmount; i++)
+            {
+                int dustIndex = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.ZirconDust>(), Projectile.velocity.X, Projectile.velocity.Y);
+                Dust dust = Main.dust[dustIndex];
+
+                // Position dust slightly off from the projectile center
+                dust.position = (dust.position + Projectile.Center) / 2f;
+                dust.noGravity = true;
+                dust.velocity *= 0.5f;
+            }
+
+            // Secondary dust
+            dustAmount = 2;
+            for (int i = 0; i < dustAmount; i++)
+            {
+                int dustIndex = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.ZirconDust>(), Projectile.velocity.X, Projectile.velocity.Y);
+                Dust dust = Main.dust[dustIndex];
+
+                // Adjust positions based on iteration to create a trailing effect
+                if (i == 0)
+                {
+                    dust.position = (dust.position + Projectile.Center * 5f) / 6f;
+                }
+                else if (i == 1)
+                {
+                    dust.position = (dust.position + (Projectile.Center + Projectile.velocity / 2f) * 5f) / 6f;
+                }
+
+                dust.noGravity = true;
+                dust.fadeIn = 1f;
+                dust.velocity *= 0.1f;
+            }
+
+            // Ensure the projectile faces the direction it's moving
+            Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
         }
 
 		public override void OnKill(int timeLeft)

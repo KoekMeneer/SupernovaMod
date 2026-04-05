@@ -37,10 +37,33 @@ namespace SupernovaMod.Content.Items.Weapons.Melee
             Item.DamageType = DamageClass.Melee;
         }
 
+        public override void MeleeEffects(Player player, Rectangle hitbox)
+        {
+            if (Main.rand.NextBool(4))
+            {
+                // Create a subtle dust trail behind the sword during the swing
+                int dustIndex = Dust.NewDust(hitbox.TopLeft(), hitbox.Width, hitbox.Height, ModContent.DustType<Dusts.ZirconDust>(), 0f, 0f, 100, default, 1.2f);
+                Dust dust = Main.dust[dustIndex];
+                dust.noGravity = true;
+                dust.velocity *= 0.5f;
+                dust.position.X += player.direction * hitbox.Width * 0.5f;  // Position dust behind the sword
+            }
+        }
+
         private int _hits;
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-			_hits++;
+            // Create a burst of zircon dust when the sword hits an NPC
+            int dustAmount = 5;
+            for (int i = 0; i < dustAmount; i++)
+            {
+                int dustIndex = Dust.NewDust(target.position, Item.width, Item.height, ModContent.DustType<Dusts.ZirconDust>(), Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), 100, default, 1.5f);
+                Dust dust = Main.dust[dustIndex];
+                dust.noGravity = true;
+                dust.velocity *= 0.75f;
+            }
+
+            _hits++;
 			if (_hits < 4)
             {
                 return;
