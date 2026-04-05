@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SupernovaMod.Api;
 using SupernovaMod.Api.Helpers;
 using SupernovaMod.Common.ItemDropRules.DropConditions;
+using SupernovaMod.Core.Effects;
 using System;
 using System.IO;
 using Terraria;
@@ -275,9 +276,12 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
                 {
                     State = AIState.Phase2;
                     SpawnEyes();
-                    // Reset:
+
+                    // Reset
                     Timer = 0;
-                    NPC.scale = 1; // Just to be sure
+                    NPC.scale = 1; // Just in case
+
+					DoPhaseTransitionEffect();
                     return;
                 }
             }
@@ -287,168 +291,14 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 			if (_eyesActive > 0)
 			{
 				Timer++;
-				MovementAI(target.Center + new Vector2(0, 25), .5f, .3f);
-
-
-				// Only in phase 2
-				//
-				//if (State == AIState.Phase2)
-				//{
-    //                // Every x time shoot blood shots
-    //                //
-    //                int shootTime = Main.expertMode ? 375 : 400;
-    //                if (Timer % shootTime == 0)
-    //                {
-    //                    int type = ProjectileID.BloodShot;
-    //                    int damage = (int)(34 * ExpertDamageMultiplier);
-
-    //                    SoundEngine.PlaySound(SoundID.NPCDeath55, NPC.Center);
-    //                    Vector2 Velocity = -Vector2.UnitY * 12;
-
-    //                    for (int i = 0; i < Main.rand.Next(7, 9); i++)
-    //                    {
-    //                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velocity.RotatedByRandom(.8f), type, damage, 4.5f, ai0: NPC.target);
-    //                    }
-    //                }
-    //            }
-
-                // Every x time spawn minions
-                //
-                int spawnTime = 245;
-                if (_eyesActive < 5)
-                {
-                    spawnTime -= 10;
-                }
-                if (_eyesActive < 4)
-                {
-                    spawnTime -= 20;
-                }
-                if (_eyesActive < 3)
-                {
-                    spawnTime -= 10;
-                }
-                if (Timer % spawnTime == 0 && CosmolingsActive() < MAX_COSMOLINGS)
-				{
-                    SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
-                    SpawnCosmolings(Main.rand.Next(2, 3));
-                }
+				MovementAI(target.Center + new Vector2(0, 25), .5f, .18f);
+				HandleMinionSpawning();
 			}
 			else // Else when no eyes are left
 			{
-				MovementAI(target.Center + new Vector2(0, 25), 7, .01f);
-
-				switch (AtkPtr)
-				{
-					case 1:
-						if (Timer > 8)
-						{
-							Timer++;
-							if (Timer > 120)
-							{
-								Timer = 0;
-								AtkTimer = 0;
-                                AtkPtr = Main.rand.Next(2, 4);
-								break;
-                            }
-                        }
-						AtkTimer++;
-						if (AtkTimer % 20 == 0)
-						{
-                            SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
-                            SpawnCosmolings(1);
-							Timer++;
-						}
-						break;
-					case 2: // Teleport attack
-						if (Timer >= 3)
-						{
-							Timer++;
-							if (Timer > 90)
-							{
-								Timer = 0;
-                                AtkTimer = 0;
-
-                                // Make sure a different attack than this one is chosen
-                                //
-                                // Use max tries to make sure the random value
-                                // does not make an infinite loop.
-                                const int maxTries = 6;
-								for (int i = 0; (AtkPtr == 2 && i < maxTries); i++)
-								{
-                                    AtkPtr = Main.rand.Next(1, 5);
-                                }
-							}
-							break;
-						}
-						if (AtkTimer > 0)
-						{
-							AtkTimer++;
-							if (AtkTimer > 60)
-							{
-								AtkTimer = 0;
-							}
-							break;
-						}
-						if (HandleTeleport(ref NPC.ai[2]))
-						{
-                            int dustType = DustID.HallowedWeapons;
-                            Vector2 dustPosition = NPC.Center + NPC.velocity * .4f;
-                            for (int i = 0; i < 10; i++)
-                            {
-                                Vector2 dustVelocity = Utils.ToRotationVector2(Utils.ToRotation(NPC.velocity) + (float)Utils.ToDirectionInt(Utils.NextBool(Main.rand)) * 1.5707964f) * Utils.NextFloat(Main.rand, 2f, 6f);
-                                Dust dust = Dust.NewDustDirect(dustPosition, 0, 0, dustType, dustVelocity.X, dustVelocity.Y, 0, default(Color), 1.75f);
-                                dust.noGravity = true;
-                            }
-
-                            // Shoot
-                            //
-                            int type = ProjectileID.EyeLaser;
-                            int damage = (int)(36 * ExpertDamageMultiplier);
-
-                            SoundEngine.PlaySound(SoundID.NPCDeath55, NPC.Center);
-                            Vector2 Velocity = Mathf.VelocityFPTP(NPC.Center, new Vector2(target.Center.X, target.Center.Y), 5);
-
-                            Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velocity.RotatedBy(.25f), type, damage, 3, ai0: NPC.target)
-								.tileCollide = false;
-                            Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center + Velocity, Velocity.RotatedBy(.1f), type, damage, 3, ai0: NPC.target)
-                                .tileCollide = false;
-                            Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center + Velocity, Velocity.RotatedBy(-.1f), type, damage, 3, ai0: NPC.target)
-                                .tileCollide = false;
-                            Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velocity.RotatedBy(-.25f), type, damage, 3, ai0: NPC.target)
-                                .tileCollide = false;
-
-                            Timer++;
-                            AtkTimer = 0;
-                            NPC.ai[2] = 0;
-						}
-						break;
-
-					case 3:
-
-                        AtkTimer++;
-						if (AtkTimer > 40 && AtkTimer < 210)
-						{
-							if (AtkTimer % 10 == 0)
-							{
-								Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.CosmicEyeProjectile>(), (int)(38 * ExpertDamageMultiplier), 1, Main.myPlayer, ai1: NPC.whoAmI);
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.CosmicEyeProjectile>(), (int)(38 * ExpertDamageMultiplier), 1, Main.myPlayer, ai1: NPC.whoAmI, ai2: -1);
-                                SoundEngine.PlaySound(SoundID.DD2_BookStaffCast, NPC.Center);
-                            }
-                        }
-						else if (AtkTimer > 420)
-						{
-                            Timer = 0;
-                            AtkTimer = 0;
-                            AtkPtr = Main.rand.Next(1, 3);
-                        }
-
-                        break;
-
-					default:
-                        AtkTimer = 0;
-                        AtkPtr = Main.rand.Next(1, 3);
-                        break;
-				}
+                float speed = (float)Math.Max(5 - (AtkTimer / 50), 1.5);
+				MovementAI(target.Center + new Vector2(0, -150), speed, 0.25f);
+				HandleNoEyesAttacks();
 			}
 		}
 		private void AI_Stage2()
@@ -463,10 +313,158 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 			{
 				_eyesActive--;
 			}
-			SoundEngine.PlaySound(SoundID.ForceRoar, NPC.Center);
+            if (_eyesActive <= 0)
+            {
+                DoPhaseTransitionEffect();
+            }
+            SoundEngine.PlaySound(SoundID.ForceRoar, NPC.Center);
 		}
 
-		private void MovementAI(Vector2 destination, float velocity, float acceleration)
+        private void HandleMinionSpawning()
+        {
+            // Every x time spawn minions
+            //
+            int spawnTime = 250;
+            if (Main.expertMode) spawnTime -= 10;
+            if (_eyesActive < 5) spawnTime -= 40;
+            if (_eyesActive < 3) spawnTime -= 30;
+
+            if (Timer % spawnTime == 0 && CosmolingsActive() < MAX_COSMOLINGS)
+            {
+                SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
+                SpawnCosmolings(Main.rand.Next(2, 3));
+            }
+        }
+
+        private void HandleNoEyesAttacks()
+		{
+            switch (AtkPtr)
+            {
+                case 1: // Minion burst
+                    if (Timer > 8)
+                    {
+                        Timer++;
+                        if (Timer > 120)
+                        {
+                            Timer = 0;
+                            AtkTimer = 0;
+                            AtkPtr = Main.rand.Next(2, 4);
+                            break;
+                        }
+                    }
+                    AtkTimer++;
+                    if (AtkTimer % 20 == 0)
+                    {
+                        SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
+                        SpawnCosmolings(1);
+                        Timer++;
+                    }
+                    break;
+                case 2: // Teleport attack
+                    if (Timer >= 3)
+                    {
+                        Timer++;
+                        if (Timer > 90)
+                        {
+                            Timer = 0;
+                            AtkTimer = 0;
+
+                            // Make sure a different attack than this one is chosen
+                            //
+                            // Use max tries to make sure the random value
+                            // does not make an infinite loop.
+                            const int maxTries = 6;
+                            for (int i = 0; (AtkPtr == 2 && i < maxTries); i++)
+                            {
+                                AtkPtr = Main.rand.Next(1, 5);
+                            }
+                        }
+                        break;
+                    }
+                    if (AtkTimer > 0)
+                    {
+                        AtkTimer++;
+                        if (AtkTimer == 100) // Telegraph the attack
+                        {
+                            int dustType = DustID.HallowedWeapons;
+                            Vector2 dustPosition = NPC.Center + NPC.velocity * .4f;
+                            for (int i = 0; i < 10; i++)
+                            {
+                                Vector2 dustVelocity = Utils.ToRotationVector2(Utils.ToRotation(NPC.velocity) + (float)Utils.ToDirectionInt(Utils.NextBool(Main.rand)) * 1.5707964f) * Utils.NextFloat(Main.rand, 2f, 6f);
+                                Dust dust = Dust.NewDustDirect(dustPosition, 0, 0, dustType, dustVelocity.X, dustVelocity.Y, 0, default(Color), 1.75f);
+                                dust.noGravity = true;
+                            }
+
+                        }
+                        else if (AtkTimer > 120)
+                        {
+                            AtkTimer = 0;
+                        }
+                        break;
+                    }
+                    if (HandleTeleport(ref NPC.ai[2]))
+                    {
+                        int dustType = DustID.HallowedWeapons;
+                        Vector2 dustPosition = NPC.Center + NPC.velocity * .4f;
+                        for (int i = 0; i < 10; i++)
+                        {
+                            Vector2 dustVelocity = Utils.ToRotationVector2(Utils.ToRotation(NPC.velocity) + (float)Utils.ToDirectionInt(Utils.NextBool(Main.rand)) * 1.5707964f) * Utils.NextFloat(Main.rand, 2f, 6f);
+                            Dust dust = Dust.NewDustDirect(dustPosition, 0, 0, dustType, dustVelocity.X, dustVelocity.Y, 0, default(Color), 1.75f);
+                            dust.noGravity = true;
+                        }
+
+                        // Shoot
+                        //
+                        int type = ProjectileID.EyeLaser;
+                        int damage = (int)(36 * ExpertDamageMultiplier);
+
+                        SoundEngine.PlaySound(SoundID.NPCDeath55, NPC.Center);
+                        Vector2 Velocity = Mathf.VelocityFPTP(NPC.Center, new Vector2(target.Center.X, target.Center.Y), 5);
+
+                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velocity.RotatedBy(.25f), type, damage, 3, ai0: NPC.target)
+                            .tileCollide = false;
+                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center + Velocity, Velocity.RotatedBy(.1f), type, damage, 3, ai0: NPC.target)
+                            .tileCollide = false;
+                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center + Velocity, Velocity.RotatedBy(-.1f), type, damage, 3, ai0: NPC.target)
+                            .tileCollide = false;
+                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velocity.RotatedBy(-.25f), type, damage, 3, ai0: NPC.target)
+                            .tileCollide = false;
+
+                        Timer++;
+                        AtkTimer = 0;
+                        NPC.ai[2] = 0;
+                    }
+                    break;
+
+                case 3: // Cosmic Eye projectiles
+
+                    AtkTimer++;
+                    if (AtkTimer > 40 && AtkTimer < 210)
+                    {
+                        if (AtkTimer % 10 == 0)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.CosmicEyeProjectile>(), (int)(38 * ExpertDamageMultiplier), 1, Main.myPlayer, ai1: NPC.whoAmI);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.CosmicEyeProjectile>(), (int)(38 * ExpertDamageMultiplier), 1, Main.myPlayer, ai1: NPC.whoAmI, ai2: -1);
+                            SoundEngine.PlaySound(SoundID.DD2_BookStaffCast, NPC.Center);
+                        }
+                    }
+                    else if (AtkTimer > 420)
+                    {
+                        Timer = 0;
+                        AtkTimer = 0;
+                        AtkPtr = Main.rand.Next(1, 3);
+                    }
+
+                    break;
+
+                default:
+                    AtkTimer = 0;
+                    AtkPtr = Main.rand.Next(1, 3);
+                    break;
+            }
+        }
+
+        private void MovementAI(Vector2 destination, float velocity, float acceleration)
 		{
 			float gateValue = 100f;
 			Vector2 distanceFromTarget = new Vector2(destination.X, destination.Y) - NPC.Center;
@@ -483,6 +481,21 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 				NPC.direction = 1;
 			}
 		}
+
+        private void DoPhaseTransitionEffect()
+        {
+            SoundEngine.PlaySound(SoundID.ForceRoar, NPC.Center);
+            SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFuryCircle, NPC.Center); // Extra weight
+
+            for (int i = 0; i < 120; i++)
+            {
+                Vector2 velocity = Main.rand.NextVector2CircularEdge(9f, 12f);
+                Dust d = Dust.NewDustPerfect(NPC.Center, DustID.Blood, velocity * Main.rand.NextFloat(1.8f, 3.5f));
+                d.scale = Main.rand.NextFloat(2.4f, 3.8f);
+                d.noGravity = true;
+                d.fadeIn = 1.2f;
+            }
+        }
 
         #region Attack methods
 
