@@ -26,10 +26,10 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
             // DisplayName.SetDefault("Carnage Rifle");
         }
 
-        public override Vector2? HoldoutOffset()
-        {
-            return new Vector2(-8, -1.5f);
-        }
+        //public override Vector2? HoldoutOffset()
+        //{
+        //    return new Vector2(-8, -1.5f);
+        //}
 
         public override void SetDefaults()
         {
