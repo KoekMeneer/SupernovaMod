@@ -104,11 +104,11 @@ Mods: {
 			}
 
 			CosmicCollective: {
-				DisplayName: Cosmic Collective
+				DisplayName: Sanguoth
 				BossChecklistIntegration.SpawnInfo: Use a [i:SupernovaMod/CosmicEgg]
 			}
 
-			CosmicCollectiveEye.DisplayName: Cosmic Collective Eye
+			CosmicCollectiveEye.DisplayName: Eye of Sanguoth
 			Cosmoling.DisplayName: Cosmoling
 
 			Fallen: {
