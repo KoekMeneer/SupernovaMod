@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Creative;
+using SupernovaMod.Core;
 
 namespace SupernovaMod.Content.Items.Weapons.Ranged
 {
@@ -11,9 +12,6 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Zirconium Bow");
-            // Tooltip.SetDefault("Wooden arrows turn into Zirconium Arrows.\nZirconium Arrows explode on impact.");
         }
         public override Vector2? HoldoutOffset()
         {
@@ -32,8 +30,7 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
             Item.useTime = 40;
             Item.useStyle = ItemUseStyleID.Shoot; // Bow Use Style
             Item.noMelee = true; // Doesn't deal damage if an enemy touches at melee range.
-            Item.value = Item.buyPrice(0, 3, 0, 0); // Another way to handle value of item.
-            Item.rare = ItemRarityID.Green;
+            Item.value = SellPrice.ZirconiumItem;
             Item.UseSound = SoundID.Item5; // Sound for Bows
             Item.useAmmo = AmmoID.Arrow; // The ammo used with this weapon
             Item.shoot = ProjectileID.WoodenArrowFriendly;

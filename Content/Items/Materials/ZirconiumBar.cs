@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SupernovaMod.Core;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -19,9 +20,8 @@ namespace SupernovaMod.Content.Items.Materials
 			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.ZirconiumBar>());
 			Item.width = 24;
             Item.height = 24;
-            Item.value = 10000;
+            Item.value = BuyPrice.RarityWhite;
             Item.maxStack = 9999;
-            Item.rare = ItemRarityID.Blue;
         }
 
         public override void AddRecipes()

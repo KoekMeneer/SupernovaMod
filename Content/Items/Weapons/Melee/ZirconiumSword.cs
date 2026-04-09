@@ -1,10 +1,11 @@
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
+using SupernovaMod.Core;
+using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace SupernovaMod.Content.Items.Weapons.Melee
 {
@@ -28,8 +29,7 @@ namespace SupernovaMod.Content.Items.Weapons.Melee
             Item.useAnimation = 23;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 7;
-            Item.value = Item.buyPrice(0, 3, 0, 0); // Another way to handle value of item.
-            Item.rare = ItemRarityID.Green;
+            Item.value = SellPrice.ZirconiumItem;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
 

@@ -1,7 +1,8 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+﻿using SupernovaMod.Core;
+using Terraria;
 using Terraria.GameContent.Creative;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace SupernovaMod.Content.Items.Tools
 {
@@ -10,8 +11,6 @@ namespace SupernovaMod.Content.Items.Tools
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Zirconium Axe");
         }
 
         public override void SetDefaults()
@@ -23,10 +22,9 @@ namespace SupernovaMod.Content.Items.Tools
 
             Item.useTime = 21; // Speed before reuse
             Item.useAnimation = 21; // Animation Speed
-            Item.useStyle = 1; // 1 = Broadsword 
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 1f; // Weapon Knockbase: Higher means greater "launch" distance
-            Item.value = 25500; // 10 | 00 | 00 | 00 : Platinum | Gold | Silver | Bronze
-            Item.rare = ItemRarityID.Green; // Item Tier
+            Item.value = SellPrice.ZirconiumItem;
             Item.UseSound = SoundID.Item1; // Sound effect of item on use 
             Item.autoReuse = true; // Do you want to torture people with clicking? Set to false
 			Item.useTurn = true;

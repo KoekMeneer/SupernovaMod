@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using SupernovaMod.Core;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
@@ -11,7 +12,6 @@ namespace SupernovaMod.Content.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Verglas Scepter");
             Item.staff[Item.type] = true;
         }
 
@@ -28,7 +28,7 @@ namespace SupernovaMod.Content.Items.Weapons.Magic
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 4;
-            Item.value = 1000;
+            Item.value = SellPrice.VerglasItem;
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item21;
             Item.autoReuse = true;

@@ -1,4 +1,5 @@
 using SupernovaMod.Common.Systems;
+using SupernovaMod.Core;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -11,8 +12,6 @@ namespace SupernovaMod.Content.Items.Weapons.Throwing
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Verglas Throwing Axe");
         }
 
         public override void SetDefaults()
@@ -26,9 +25,9 @@ namespace SupernovaMod.Content.Items.Weapons.Throwing
             Item.useTime = 17;
             Item.useAnimation = 17;
             Item.noUseGraphic = true;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 1;
-            Item.value = Item.buyPrice(0, 12, 47, 0); // Another way to handle value of item.
+            Item.value = SellPrice.VerglasItem;
             Item.rare = ItemRarityID.Orange;
             Item.shootSpeed = 12f;
             Item.shoot = ModContent.ProjectileType<Projectiles.Thrown.VerglasThrowingAxe>();

@@ -34,8 +34,8 @@ namespace SupernovaMod.Content.Items.Weapons.Melee
 			Item.shoot = ModContent.ProjectileType<Projectiles.Melee.VerglasSlash>();
 			Item.DamageType = DamageClass.MeleeNoSpeed;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.value = BuyPrice.RarityOrange;
-		}
+            Item.value = SellPrice.VerglasItem;
+        }
 
 		/*public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{

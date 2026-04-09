@@ -12,15 +12,12 @@ namespace SupernovaMod.Content.Items.Armor.Zirconium
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Zirconium Casque");
-            // Tooltip.SetDefault("5% increased ranged damage");
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.defense = 3; // The Defence value for this piece of armour.
+            Item.defense = 3;
         }
 
 		public override void UpdateEquip(Player player)

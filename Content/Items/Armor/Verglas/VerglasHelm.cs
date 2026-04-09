@@ -3,8 +3,6 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.GameContent.Creative;
 using SupernovaMod.Common.Players;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace SupernovaMod.Content.Items.Armor.Verglas
 {
@@ -14,18 +12,15 @@ namespace SupernovaMod.Content.Items.Armor.Verglas
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Verglas Helmet");
-            // Tooltip.SetDefault("10% increased melee damage and speed");
         }
 
         public override void SetDefaults()
         {
             Item.width = 18;
             Item.height = 18;
-            Item.value = Item.buyPrice(0, 14, 0, 0);
             Item.rare = ItemRarityID.Orange;
-            Item.defense = 10; // The Defence value for this piece of armour.
+            Item.value = Item.sellPrice(silver: 90);
+            Item.defense = 10;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs) => body.type == ModContent.ItemType<VerglasBreastplate>() && legs.type == ModContent.ItemType<VerglasBoots>();

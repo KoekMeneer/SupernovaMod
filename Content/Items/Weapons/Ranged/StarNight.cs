@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.Audio;
+using SupernovaMod.Core;
 
 namespace SupernovaMod.Content.Items.Weapons.Ranged
 {
@@ -34,7 +35,7 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
 
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true; // Doesn't deal damage if an enemy touches at melee range.
-            Item.value = Item.buyPrice(0, 2, 77, 0); // Another way to handle value of item.
+            Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Green;
             Item.UseSound = SoundID.Item5; // Sound for Bows
             Item.useAmmo = AmmoID.Arrow; // The ammo used with this weapon

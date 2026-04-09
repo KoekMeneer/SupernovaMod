@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using SupernovaMod.Core;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -27,8 +27,7 @@ namespace SupernovaMod.Content.Items.Weapons.Magic
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 2;
-            Item.value = Item.buyPrice(0, 3, 0, 0);
-            Item.rare = ItemRarityID.Green;
+            Item.value = SellPrice.ZirconiumItem;
             Item.mana = 7;
             Item.UseSound = SoundID.Item43;
             Item.autoReuse = true;

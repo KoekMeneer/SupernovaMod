@@ -12,18 +12,14 @@ namespace SupernovaMod.Content.Items.Armor.Zirconium
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Zirconium Helmet");
-            // Tooltip.SetDefault("5% increased melee damage");
         }
 
         public override void SetDefaults()
         {
             Item.width = 18;
             Item.height = 18;
-            Item.value = Item.buyPrice(0, 6, 0, 0);
-            Item.rare = ItemRarityID.Green;
-            Item.defense = 4; // The Defence value for this piece of armour.
+            Item.value = Item.value = Item.sellPrice(0, 0, 18, 0);
+            Item.defense = 4;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs) => body.type == ModContent.ItemType<ZirconiumBreastplate>() && legs.type == ModContent.ItemType<ZirconiumBoots>();

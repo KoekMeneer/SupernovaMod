@@ -1,9 +1,10 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using SupernovaMod.Core;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.GameContent.Creative;
-using Terraria.DataStructures;
 
 namespace SupernovaMod.Content.Items.Weapons.Ranged
 {
@@ -12,9 +13,6 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Verglas Bow");
-            // Tooltip.SetDefault("Shoots 2 Verglas Icicles that stick to the target and inflict the FrozenArmor and Frostburn debuff.\nThe FrozenArmor debuff decreases the targets defense by 1 per sticking Verglass Icicle, with a maximum of 6.");
         }
         public override Vector2? HoldoutOffset()
         {
@@ -31,11 +29,11 @@ namespace SupernovaMod.Content.Items.Weapons.Ranged
             Item.useTime = 46;
             Item.useAnimation = 46;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.noMelee = true; // Doesn't deal damage if an enemy touches at melee range.
-            Item.value = Item.buyPrice(0, 9, 47, 0); // Another way to handle value of item.
+            Item.noMelee = true;
+            Item.value = SellPrice.VerglasItem;
             Item.rare = ItemRarityID.Orange;
-            Item.UseSound = SoundID.Item5; // Sound for Bows
-            Item.useAmmo = AmmoID.Arrow; // The ammo used with this weapon
+            Item.UseSound = SoundID.Item5;
+            Item.useAmmo = AmmoID.Arrow;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.shootSpeed = 8;
             Item.DamageType = DamageClass.Ranged;
