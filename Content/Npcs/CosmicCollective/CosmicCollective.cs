@@ -86,7 +86,7 @@ namespace SupernovaMod.Content.Npcs.CosmicCollective
 				// Sets the description of this NPC that is listed in the bestiary.
 				new FlavorTextBestiaryInfoElement(
                     "A grotesque union of cosmic flesh, drifting between thought and form. " +
-                    "Sanguoth the Cosmic Collective, extends its will through writhing tendrils, spawning fragments of itself to overwhelm anything that dares approach."
+                    "Sanguoth extends its will through writhing tendrils, spawning fragments of itself to overwhelm anything that dares approach."
                 ),
             });
         }

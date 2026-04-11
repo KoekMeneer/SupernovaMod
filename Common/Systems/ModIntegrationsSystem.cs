@@ -77,7 +77,10 @@ namespace SupernovaMod.Common.Systems
             new BossChecklistItemBuilder()
 				.ForBoss<Content.Npcs.CosmicCollective.CosmicCollective>()
 				.SetWeight(VanillaWeights.TheTwins + .5f)
-				// TODO: .SetAdditionalEntryData;
+				.SetAdditionalEntryData(
+					new BossChecklistAdditionalEntryDataBuilder()
+					.AddSpawnItem<Content.Items.Consumables.SigilOfSanguoth>()
+				)
 				.SetDownedCallback(() => DownedSystem.downedCosmicCollective)
 				.AddBoss(Mod, Supernova.Instance.bossChecklist);
             // The Fallen

@@ -105,7 +105,7 @@ Mods: {
 
 			CosmicCollective: {
 				DisplayName: Sanguoth
-				BossChecklistIntegration.SpawnInfo: Use a [i:SupernovaMod/CosmicEgg]
+				BossChecklistIntegration.SpawnInfo: Use a [i:SupernovaMod/SigilOfSanguoth]
 			}
 
 			CosmicCollectiveEye.DisplayName: Eye of Sanguoth
@@ -1116,6 +1116,11 @@ Mods: {
 				DisplayName: Cosmorang
 				Tooltip: ""
 			}
+
+			SigilOfSanguoth: {
+				DisplayName: Sigil Of Sanguoth
+				Tooltip: Summons the Cosmic Collective
+			}
 		}
 
 		Projectiles: {
@@ -1193,11 +1198,6 @@ Mods: {
 			EarthProj.DisplayName: Terra Rock
 			BlackStar.DisplayName: Black Star
 
-			Boss: {
-				FallenBeamStart.DisplayName: Brimstone Beam
-				BrimstoneBeam.DisplayName: Brimstone Beam
-			}
-
 			RapierOfLightProjectile.DisplayName: Rapier Of Light
 			BoltOfLight.DisplayName: Bolt of Light
 			ShadowOrbMinion.DisplayName: Shadow Orb
@@ -1221,7 +1221,6 @@ Mods: {
 			ThornedRing.DisplayName: Thorned Ring
 			ThornedRingProj.DisplayName: Ring of Thorns
 			DynamicTrail.DisplayName: Dynamic Trail
-			CursedBoneSwordSlash.DisplayName: Cursed Bone Sword Slash
 			AlgizShieldProj.DisplayName: Algiz Shield
 		}
 	}
