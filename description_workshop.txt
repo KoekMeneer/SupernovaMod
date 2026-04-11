@@ -1,21 +1,42 @@
-﻿[h1]Supernova Mod for Terraria[/h1]
+﻿[h1]Supernova Mod[/h1]
 
 [url=https://discord.com/invite/T68d6t2bG6][b]Join our Discord[/b][/url] | [url=https://terrariamods.wiki.gg/wiki/Supernova_Mod][b]Visit our Wiki[/b][/url]
 
-Dive into the Supernova Mod, a content mod for Terraria that brings new bosses, over 100 unique items, and a groundbreaking Ring System to enhance your adventure!
-With new NPCs and more content on the way, Supernova Mod delivers a fresh and thrilling experience for Terraria players.
+Supernova Mod is a dynamic content expansion that introduces new bosses, abilities, items, and progression layers to your Terraria experience.
+It introduces the [b]Ring System[/b], which alters your combat strategies and allows for new, powerful builds.
 
-[h2]Key Features[/h2]
+[h2]Content Overview[/h2]
 
+[b]New Bosses[/b]
+Challenge 4 unique bosses with distinct mechanics and rewards.
+
+[b]140+ New Items[/b]
 [list]
-[*] [b]Epic Bosses[/b]: Challenge 4 unique bosses with distinct mechanics and rewards.
-[*] [b]Extensive Item Collection[/b]: Craft and discover 149+ items, including 40+ weapons ranging from swords to magical staves.
-[*] [b]Ring System[/b]: Equip powerful rings in a dedicated slot, activate their unique abilities (e.g., buffs, attacks, or mobility) with a hotkey, and manage cooldowns strategically.
-[*] [b]New NPCs[/b]: Interact with 16 new NPCs, each with unique dialogue and roles.
-[*] [b]Mod Compatibility[/b]: Seamlessly works with BossChecklist, Calamity, Thorium, MusicDisplay, and WikiThis.
-[*] [b]Customizable Gameplay[/b]: Adjust settings to tailor your experience ([url=https://terrariamods.wiki.gg/wiki/Supernova_Mod/Configurations]Configuration Docs[/url]).
-[*] [b]Mod API[/b]: Create your own content with our modding API ([url=https://terrariamods.wiki.gg/wiki/Supernova_Mod/Mod_Calls]API Docs[/url]).
+[*] Weapons, accessories, and materials to enhance your experience
+[*] Gear that ties directly into the Ring System for better build customization
 [/list]
+
+[b]16+ New NPCs[/b]
+
+[b]Mod Compatibility[/b]
+Seamlessly works with with other major mods like:
+[list]
+[*] Calamity
+[*] Thorium
+[*] BossChecklist
+[*] MusicDisplay
+[*] WikiThis
+[/list]
+making it a great addition to your modded Terraria experience.
+
+[h2]How to Get Started[/h2]
+1. [b]Install tModLoader[/b]: If not already installed, make sure you have tModLoader installed (free on Steam).
+2. [b]Subscribe[/b]: Simply click the [b]"Subscribe"[/b] button to add the Supernova Mod to your game.
+3. [b]Launch tModLoader[\b]: After installing, open tModLoader and go to the Mods menu, then enable the Supernova Mod.
+
+[h2]Help Support the Mod![/h2]
+If you enjoy the mod, make sure to favorite and rate it.
+Every interaction helps us grow and continue developing!
 
 [h2]Music Mod[/h2]
 
@@ -24,18 +45,7 @@ With new NPCs and more content on the way, Supernova Mod delivers a fresh and th
 [h2]Supported Languages[/h2]
 
 Currently in English, with multilingual support in development.
-Want to help translate? Join our [url=https://discord.com/invite/T68d6t2bG6]Discord[/url] and / or check [url=https://github.com/KoekMeneer/SupernovaMod]our GitHub[/url] for details!
-
-[h2]Content Overview[/h2]
-
-[olist]
-[*] 4 Bosses
-[*] 148+ items
-[*] 40+ weapons
-[*] 7 rings
-[*] 1 ore
-[*] 16 npcs
-[/olist]
+Want to help translate? Join our [url=https://discord.com/invite/T68d6t2bG6]Discord[/url] or check [url=https://github.com/KoekMeneer/SupernovaMod]our GitHub[/url] for details!
 
 [h2]Get Involved[/h2]
 
@@ -46,7 +56,3 @@ We’re actively developing Supernova Mod and welcome your feedback! Join our [u
 [*] Report bugs or suggest ideas.
 [*] Contribute to coding, sprites, translations, or testing ([url=https://github.com/KoekMeneer/SupernovaMod/blob/main/CONTRIBUTING.md]Contribution Guide[/url]).
 [/list]
-
-[hr]
-
-[b]Subscribe now to get started! Follow us on Discord for the latest updates and to join our growing community![/b]

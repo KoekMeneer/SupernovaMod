@@ -11,17 +11,14 @@ namespace SupernovaMod.Content.Items.Armor.Zirconium
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Zirconium Leggings");
         }
 
         public override void SetDefaults()
         {
             Item.width = 18;
             Item.height = 18;
-            Item.value = Item.buyPrice(0, 4, 0, 0);
-            Item.rare = ItemRarityID.Green;
-            Item.defense = 3; // The Defence value for this piece of armour.
+            Item.value = Item.value = Item.sellPrice(0, 0, 17, 0);
+            Item.defense = 3;
         }
 
         public override void AddRecipes()

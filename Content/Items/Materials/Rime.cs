@@ -20,8 +20,8 @@ namespace SupernovaMod.Content.Items.Materials
             Item.width = 16;
             Item.height = 16;
             Item.maxStack = 9999;
-            Item.value = 1200;
-            Item.rare = ItemRarityID.Orange;
+            Item.value = Item.sellPrice(copper: 80);
+            Item.rare = ItemRarityID.Green;
         }
 
         public override void PostUpdate()

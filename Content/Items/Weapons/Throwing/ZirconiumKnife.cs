@@ -11,8 +11,6 @@ namespace SupernovaMod.Content.Items.Weapons.Throwing
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
-
-            // DisplayName.SetDefault("Zirconium Trowing Knive");
         }
 
         public override void SetDefaults()
@@ -32,7 +30,6 @@ namespace SupernovaMod.Content.Items.Weapons.Throwing
             Item.noMelee = true;
             Item.autoReuse = false;
             Item.value = 64;
-            Item.rare = ItemRarityID.Green;
             Item.shootSpeed = 12f;
             Item.shoot = ModContent.ProjectileType<Projectiles.Thrown.ZirconiumKnifeProj>();
 

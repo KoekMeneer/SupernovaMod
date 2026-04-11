@@ -11,9 +11,7 @@ namespace SupernovaMod.Content.Npcs.FlyingTerror.Projectiles
 		public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.DesertDjinnCurse}";
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Terror Spirit");
 			Main.projFrames[Projectile.type] = 4;
-			//TextureAssets.Projectile[ProjectileID.DesertDjinnCurse].Value
 		}
 		public override void SetDefaults()
 		{

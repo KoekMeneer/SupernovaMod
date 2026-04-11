@@ -76,9 +76,10 @@ namespace SupernovaMod.Content.Projectiles.Summon
 			SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
 
 			int type = ModContent.ProjectileType<Hostile.BloodBoltHostile>();
-			Vector2 Velocity = Mathf.VelocityFPTP(Projectile.Center, targetCenter, 14);
-			int i = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Velocity.X, Velocity.Y, type, Projectile.damage, 1.75f, Projectile.owner);
-			Main.projectile[i].hostile = false;
+			Vector2 Velocity = Mathf.VelocityFPTP(Projectile.Center, targetCenter, 15);
+			int i = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Velocity.X, Velocity.Y, type, Projectile.damage, Projectile.knockBack, Projectile.owner);
+            Main.projectile[i].DamageType = DamageClass.Summon;
+            Main.projectile[i].hostile = false;
 			Main.projectile[i].friendly = true;
 			Main.projectile[i].tileCollide = true;
 		}

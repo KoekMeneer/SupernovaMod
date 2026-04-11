@@ -11,18 +11,15 @@ namespace SupernovaMod.Content.Items.Armor.Verglas
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Verglas Boots");
-            // Tooltip.SetDefault("7% increased critical strike chance");
         }
 
         public override void SetDefaults()
         {
             Item.width = 18;
             Item.height = 18;
-            Item.value = Item.buyPrice(0, 14, 0, 0);
             Item.rare = ItemRarityID.Orange;
-            Item.defense = 6; // The Defence value for this piece of armour.
+            Item.value = Item.sellPrice(silver: 60);
+            Item.defense = 6;
         }
 
 

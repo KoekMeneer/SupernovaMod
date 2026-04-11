@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SupernovaMod.Core;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,11 +14,8 @@ namespace SupernovaMod.Content.Items.Weapons.Summon
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-			ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller
+			ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
 			ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
-
-			// DisplayName.SetDefault("Verglas Staff");
-            // Tooltip.SetDefault("Summons a verglas flake to fight for you");
         }
 
         public override void SetDefaults()
@@ -32,7 +30,7 @@ namespace SupernovaMod.Content.Items.Weapons.Summon
             Item.useStyle = ItemUseStyleID.Swing;
             Item.noMelee = true;
             Item.knockBack = 0.5f;
-            Item.value = Item.buyPrice(0, 7, 80, 0);
+            Item.value = SellPrice.VerglasItem;
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item44;
             Item.shoot = ModContent.ProjectileType<Projectiles.Summon.VerglasFlakeMinion>();

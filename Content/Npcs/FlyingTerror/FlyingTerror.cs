@@ -668,7 +668,7 @@ namespace SupernovaMod.Content.Npcs.FlyingTerror
 
 					for (int i = 0; i < 3; i++)
 					{
-						ShootToPlayer(ModContent.ProjectileType<Content.Projectiles.Boss.TerrorBlast>(), DAMAGE_PROJECILE, Main.rand.NextFloat(.7f, .9f), Main.rand.NextFloat(.99f, 1.1f));
+						ShootToPlayer(ModContent.ProjectileType<Projectiles.TerrorBlast>(), DAMAGE_PROJECILE, Main.rand.NextFloat(.7f, .9f), Main.rand.NextFloat(.99f, 1.1f));
 					}
 				}
 			}
@@ -686,7 +686,7 @@ namespace SupernovaMod.Content.Npcs.FlyingTerror
 					{
 						SoundEngine.PlaySound(SoundID.DD2_DrakinShot);
 
-						ShootToPlayer(ModContent.ProjectileType<Content.Projectiles.Boss.TerrorBlast>(), DAMAGE_PROJECILE, .85f);
+						ShootToPlayer(ModContent.ProjectileType<Projectiles.TerrorBlast>(), DAMAGE_PROJECILE, .85f);
 					}
 					else if (timer % (timeBtwnShots / 2) == 0)
 					{
@@ -757,7 +757,7 @@ namespace SupernovaMod.Content.Npcs.FlyingTerror
 					rotation *= 1 + Main.rand.NextFloat(-.15f, .15f);
 
 					Vector2 velocity = new Vector2((float)-(Math.Cos(rotation) * 18) * .75f, (float)-(Math.Sin(rotation) * 18) * .75f) * 1.2f;
-					Projectile.NewProjectile(NPC.GetSource_FromAI(), position, velocity, ModContent.ProjectileType<Content.Projectiles.Boss.TerrorBlast>(), (int)(DAMAGE_PROJ_FIRE_BREATH * ProjectileExpertDamageMultiplier), 0f, 0, 1, target.whoAmI);
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), position, velocity, ModContent.ProjectileType<Projectiles.TerrorBlast>(), (int)(DAMAGE_PROJ_FIRE_BREATH * ProjectileExpertDamageMultiplier), 0f, 0, 1, target.whoAmI);
 				}
 			}
 		}
@@ -1060,7 +1060,7 @@ namespace SupernovaMod.Content.Npcs.FlyingTerror
 			NPC.damage = (int)((double)NPC.damage * ExpertDamageMultiplier);
 		}
 
-		public override void BossLoot(ref string name, ref int potionType)
+		public override void BossLoot(ref int potionType)
 		{
 			potionType = ItemID.HealingPotion;
 		}

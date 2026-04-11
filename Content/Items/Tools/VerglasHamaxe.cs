@@ -1,8 +1,9 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
+using SupernovaMod.Core;
+using Terraria;
 using Terraria.GameContent.Creative;
-using Microsoft.Xna.Framework;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace SupernovaMod.Content.Items.Tools
 {
@@ -11,8 +12,6 @@ namespace SupernovaMod.Content.Items.Tools
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Verglas Hamaxe");
         }
 
         public override void SetDefaults()
@@ -25,7 +24,7 @@ namespace SupernovaMod.Content.Items.Tools
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.value = Item.buyPrice(0, 3, 54);
+            Item.value = SellPrice.VerglasItem;
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;

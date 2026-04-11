@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
+using SupernovaMod.Core;
 
 namespace SupernovaMod.Content.Items.Tools
 {
@@ -11,8 +12,6 @@ namespace SupernovaMod.Content.Items.Tools
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            // DisplayName.SetDefault("Verglas Pick");
         }
 
         public override void SetDefaults()
@@ -26,7 +25,7 @@ namespace SupernovaMod.Content.Items.Tools
             Item.useTime = 18;
             Item.useAnimation = 18;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.value = Item.buyPrice(0, 3, 54);
+            Item.value = SellPrice.VerglasItem;
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;

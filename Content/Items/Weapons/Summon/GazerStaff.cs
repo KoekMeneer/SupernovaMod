@@ -22,7 +22,7 @@ namespace SupernovaMod.Content.Items.Weapons.Summon
 
         public override void SetDefaults()
         {
-            Item.damage = 18;
+            Item.damage = 19;
             Item.crit = 1;
             Item.mana = 10;
             Item.width = 20;
@@ -32,7 +32,7 @@ namespace SupernovaMod.Content.Items.Weapons.Summon
             Item.useAnimation = 36;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.noMelee = true;
-            Item.knockBack = 0.5f;
+            Item.knockBack = .75f;
             Item.value = BuyPrice.RarityBlue;
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item44;

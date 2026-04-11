@@ -1,16 +1,13 @@
-﻿using SupernovaMod.Api;
-using System;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent.Creative;
-using Terraria.ID;
+﻿using Terraria.Audio;
 using Terraria.ModLoader;
+using Terraria.ID;
+using Terraria;
+using Terraria.GameContent.Creative;
+using SupernovaMod.Api;
 
 namespace SupernovaMod.Content.Items.Consumables
 {
-    [Obsolete]
-    public class CosmicEgg : ModItem
+    public class SigilOfSanguoth : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -40,19 +37,13 @@ namespace SupernovaMod.Content.Items.Consumables
             return true;
         }
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            var tooltip = new TooltipLine(Mod, "Deprecated", "Deprecated: This item was changed to 'Sigil of Sanguoth' and will be removed in the next update.");
-            tooltip.OverrideColor = Colors.RarityYellow;
-
-            tooltips.Add(tooltip);
-        }
-
         public override void AddRecipes()
         {
-            // Allow users to convert the deprecated item to the new item
-            Recipe recipe = Recipe.Create(ModContent.ItemType<SigilOfSanguoth>(), 1);
-            recipe.AddIngredient(Type);
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ModContent.ItemType<Materials.BloodShards>(), 6);
+            recipe.AddIngredient(ItemID.SoulofNight, 6);
+            recipe.AddIngredient(ItemID.Obsidian, 5);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }
     }

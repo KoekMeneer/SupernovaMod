@@ -26,7 +26,7 @@ namespace SupernovaMod.Content.Items.Rings
 			base.SetDefaults();
 			Item.width = 16;
             Item.height = 16;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(0, 6, 0, 0);
 		}
 
